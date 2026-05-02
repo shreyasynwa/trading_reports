@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Closing Bell Recap — Thursday, Apr 30, 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: radial-gradient(ellipse at top, #0e1118, #06070b 60%);
+    color: #dfe3ee;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  body { padding: 32px 18px 80px; font-size: 13.5px; min-height: 100vh; }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+  a { color: #7bc4ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  b { color: #f3f5fa; font-weight: 600; }
+  em, i { color: #e2e7f2; font-style: italic; }
+
+  .pos { color: #52e08f; } .neg { color: #ff5574; } .neutral { color: #8892a8; }
+  .flag-red { color: #ff5574; font-weight: 600; }
+  .flag-yel { color: #ffb347; font-weight: 600; }
+  .flag-grn { color: #52e08f; font-weight: 600; }
+  .flag-blue { color: #7bc4ff; font-weight: 600; }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at top right, rgba(88,184,255,0.12), transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(187,119,255,0.10), transparent 55%),
+      linear-gradient(180deg, #0d1220 0%, #080a12 100%);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(88,184,255,0.06) 50%, transparent);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 16px;
+    font-size: 10.5px; letter-spacing: 2.8px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 14px; position: relative;
+  }
+  /* Smaller box-shadow + larger eyebrow gap so the glow doesn't bleed into
+     the start of the text (was 10px shadow + 8px gap → encroached on "P"). */
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #52e08f; box-shadow: 0 0 6px rgba(82,224,143,0.8);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .hero h1 {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.18; color: #ffffff; margin-bottom: 14px;
+  }
+  /* Lede uses full hero width — matches headline width on the right edge.
+     (Was capped at 78ch which left the right side unused on wide screens.) */
+  .hero .lede { font-size: 14px; color: #c5cbdb; line-height: 1.6; }
+  .hero .meta {
+    display: flex; gap: 22px; flex-wrap: wrap; margin-top: 20px;
+    font-size: 11px; color: #8892a8;
+    letter-spacing: 1.3px; text-transform: uppercase;
+  }
+  .hero .meta b { color: #dfe3ee; font-weight: 500; letter-spacing: 0.3px; text-transform: none; }
+  /* Regime pill flows in normal layout (block) so long multi-clause labels
+     wrap cleanly above the headline without overlapping. The next sibling
+     (.eyebrow) is block-level, so the pill sits alone on its row. */
+  .hero .regime-pill {
+    display: inline-block;
+    margin-bottom: 14px;
+    max-width: 100%;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase;
+    font-weight: 600; backdrop-filter: blur(10px);
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .regime-pill.risk-on  { background: rgba(82,224,143,0.12); color: #52e08f; border: 1px solid rgba(82,224,143,0.3); }
+  .regime-pill.risk-off { background: rgba(255,85,116,0.12); color: #ff5574; border: 1px solid rgba(255,85,116,0.3); }
+  .regime-pill.mixed    { background: rgba(255,179,71,0.12); color: #ffb347; border: 1px solid rgba(255,179,71,0.3); }
+
+  /* ── NAV ──────────────────────────────────── */
+  .nav {
+    display: flex; flex-wrap: wrap; gap: 6px 4px;
+    padding: 10px 14px; margin-bottom: 20px;
+    background: rgba(255,255,255,0.02); border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 11px;
+  }
+  .nav a {
+    padding: 3px 8px; border-radius: 4px;
+    color: #8892a8; transition: all 0.15s;
+  }
+  .nav a:hover { background: rgba(88,184,255,0.12); color: #7bc4ff; text-decoration: none; }
+
+  /* ── SESSION BAR ──────────────────────────── */
+  .sess {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 22px;
+    background: linear-gradient(90deg, rgba(255,179,71,0.06), rgba(255,179,71,0.02));
+    border: 1px solid rgba(255,179,71,0.2);
+  }
+  .sess .item { font-size: 12px; }
+  .sess .k { font-size: 9.5px; color: #8892a8; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 2px; }
+  .sess .v { color: #f3f5fa; }
+  .sess .v b { color: #ffb347; }
+
+  /* ── KEY METRICS ──────────────────────────── */
+  .km {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(175px,1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .km-cell {
+    position: relative; padding: 14px 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden; transition: all 0.2s;
+  }
+  .km-cell::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px; background: var(--acc, #8892a8);
+    opacity: 0.9;
+  }
+  .km-cell.pos { --acc: #52e08f; }
+  .km-cell.neg { --acc: #ff5574; }
+  .km-cell.warn { --acc: #ffb347; }
+  .km-cell.blue { --acc: #58b8ff; }
+  .km-cell .k { font-size: 10px; letter-spacing: 1.6px; color: #8892a8; text-transform: uppercase; }
+  .km-cell .v { font-size: 22px; font-weight: 700; margin-top: 6px; color: #f3f5fa; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .km-cell .d { font-size: 11px; color: #9aa3b8; margin-top: 3px; }
+
+  /* ── SECTIONS ─────────────────────────────── */
+  h2 {
+    font-size: 17px; font-weight: 700; color: #fff;
+    margin: 34px 0 14px 0; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px;
+  }
+  h2 .marker {
+    width: 8px; height: 18px; border-radius: 2px;
+    background: var(--sec-acc, #6b7ba8);
+  }
+  h2.sec-red    { --sec-acc: #ff5574; }
+  h2.sec-yellow { --sec-acc: #ffb347; }
+  h2.sec-green  { --sec-acc: #52e08f; }
+  h2.sec-blue   { --sec-acc: #58b8ff; }
+  h2.sec-purple { --sec-acc: #bb77ff; }
+  h2.sec-orange { --sec-acc: #ffb347; }
+
+  h3 {
+    font-size: 12.5px; font-weight: 600; color: #b8bfd0;
+    margin: 20px 0 10px 0; letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  p { margin-bottom: 11px; color: #cdd2de; }
+  ul, ol { margin: 10px 0 14px 22px; color: #cdd2de; }
+  ul li, ol li { margin-bottom: 6px; }
+
+  /* ── TABLES ───────────────────────────────── */
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 12px; margin: 10px 0 16px 0;
+    font-variant-numeric: tabular-nums;
+    background: rgba(255,255,255,0.012);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px; overflow: hidden;
+  }
+  th {
+    text-align: left; padding: 10px 12px;
+    font-size: 10px; letter-spacing: 1.3px; color: #8892a8;
+    text-transform: uppercase; font-weight: 600;
+    background: rgba(255,255,255,0.025);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  td {
+    padding: 9px 12px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    color: #cdd2de;
+  }
+  tbody tr:hover { background: rgba(88,184,255,0.04); }
+  td.lbl { color: #e4e7ef; font-weight: 500; }
+  td.tk { font-weight: 600; color: #fff; }
+  td.nm { color: #9aa3b8; font-size: 11px; }
+  td.num { text-align: right; }
+
+  /* ── BAR (sector rotation) ────────────────── */
+  .bars { display: flex; flex-direction: column; gap: 6px; padding: 6px 0; }
+  .bar-row {
+    display: grid; grid-template-columns: 110px 32px 1fr 70px;
+    align-items: center; gap: 10px; font-size: 11.5px;
+  }
+  .bar-row .bname { color: #dfe3ee; font-weight: 500; }
+  .bar-row .betf { color: #7f8699; font-size: 10px; letter-spacing: 0.5px; }
+  .bar-track {
+    position: relative; height: 20px;
+    border-radius: 4px; background: rgba(255,255,255,0.03);
+    overflow: hidden;
+  }
+  .bar-track .midline {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .bar-fill {
+    position: absolute; top: 2px; bottom: 2px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(82,224,143,0.4), rgba(82,224,143,0.85));
+  }
+  .bar-fill.neg { background: linear-gradient(270deg, rgba(255,85,116,0.85), rgba(255,85,116,0.4)); }
+  .bar-row .bpct {
+    text-align: right; font-weight: 600;
+    font-variant-numeric: tabular-nums; font-size: 12px;
+  }
+
+  /* ── RING (breadth / F&G) ─────────────────── */
+  .rings {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px; padding: 4px 0 10px 0;
+  }
+  .ring-cell {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 14px 12px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .ring { position: relative; width: 100px; height: 100px; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .rlabel {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .ring .rlabel .v { font-size: 20px; font-weight: 700; color: #f3f5fa; }
+  .ring .rlabel .sub { font-size: 9.5px; color: #8892a8; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
+  .ring-cell .caption {
+    margin-top: 10px; font-size: 11px; color: #8892a8;
+    letter-spacing: 1.1px; text-transform: uppercase; text-align: center;
+  }
+
+  /* ── F&G Gauge ─────────────────────────────── */
+  .fg-block {
+    display: grid; grid-template-columns: 260px 1fr; gap: 20px;
+    padding: 14px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .fg-gauge { display: flex; flex-direction: column; align-items: center; }
+  .fg-comp-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 8px;
+  }
+  .fg-comp {
+    padding: 8px 10px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.01);
+    font-size: 11px;
+  }
+  .fg-comp .l { color: #9aa3b8; font-size: 10px; letter-spacing: 0.8px; text-transform: uppercase; }
+  .fg-comp .v { color: #f3f5fa; font-weight: 600; margin-top: 3px; }
+
+  /* ── VIX curve ────────────────────────────── */
+  .vix-panel {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .vix-panel .vlabel {
+    display: flex; justify-content: space-around; font-size: 10.5px;
+    color: #8892a8; letter-spacing: 1.2px; text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .vix-panel .vlabel span b { color: #dfe3ee; font-weight: 600; }
+
+  /* ── RSI heat cell ─────────────────────────── */
+  .rsi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 8px;
+    padding: 4px 0;
+  }
+  .rsi-cell {
+    padding: 11px 13px; border-radius: 9px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .rsi-cell .tk { font-weight: 700; color: #fff; font-size: 11px; letter-spacing: 1.4px; }
+  .rsi-cell .sig { font-size: 11px; font-weight: 600; margin-top: 3px; }
+  .rsi-cell .bar {
+    height: 6px; border-radius: 3px; margin-top: 8px;
+    background: rgba(255,255,255,0.05); overflow: hidden;
+  }
+  .rsi-cell .bar > div { height: 100%; border-radius: 3px; }
+  .rsi-cell .sub { font-size: 10px; color: #8892a8; margin-top: 5px; display: flex; justify-content: space-between; }
+  .sig-STRONG-BUY { color: #52e08f; }
+  .sig-BUY { color: #9dd98a; }
+  .sig-NEUTRAL { color: #8892a8; }
+  .sig-SELL { color: #ff9f8a; }
+  .sig-STRONG-SELL { color: #ff5574; }
+
+  /* ── Risk Matrix ──────────────────────────── */
+  .risk {
+    position: relative;
+    padding: 14px 16px 14px 20px; border-radius: 10px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .risk::before {
+    content: ""; position: absolute; left: 0; top: 10px; bottom: 10px;
+    width: 4px; border-radius: 2px; background: var(--risk-acc, #8892a8);
+  }
+  .risk.r-hi { --risk-acc: #ff5574; }
+  .risk.r-med { --risk-acc: #ffb347; }
+  .risk.r-low { --risk-acc: #58b8ff; }
+  .risk .head {
+    display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .risk .t { font-weight: 700; color: #f3f5fa; font-size: 13.5px; }
+  .risk .p {
+    font-size: 9.5px; letter-spacing: 1.3px;
+    padding: 3px 8px; border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    color: var(--risk-acc, #8892a8);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── Scenarios ────────────────────────────── */
+  .scenarios {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 14px;
+    margin: 14px 0 18px 0;
+  }
+  .scn {
+    padding: 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+  }
+  .scn::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--scn-acc, #8892a8);
+  }
+  .scn.bull { --scn-acc: #52e08f; }
+  .scn.base { --scn-acc: #8892a8; }
+  .scn.bear { --scn-acc: #ff5574; }
+  .scn .tag {
+    display: inline-block; padding: 3px 8px; border-radius: 10px;
+    font-size: 9.5px; letter-spacing: 1.3px; text-transform: uppercase;
+    font-weight: 600; color: var(--scn-acc); background: rgba(255,255,255,0.04);
+    margin-bottom: 8px;
+  }
+  .scn .t { font-weight: 700; color: #f3f5fa; font-size: 14px; margin-bottom: 6px; }
+  .scn p { font-size: 12.5px; color: #cdd2de; }
+
+  /* ── Caveat ───────────────────────────────── */
+  .caveat {
+    font-size: 11.5px; color: #c9cfde; font-style: italic;
+    padding: 10px 14px; border-radius: 8px;
+    border-left: 3px solid #8892a8;
+    background: rgba(136,146,168,0.05);
+    margin: 10px 0 14px 0;
+  }
+
+  /* ── Glossary ─────────────────────────────── */
+  .gloss { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 12px; }
+  .gloss dt { font-weight: 600; color: #f3f5fa; font-size: 12.5px; margin-bottom: 3px; }
+  .gloss dd { color: #9aa3b8; font-size: 11.5px; margin-bottom: 0; margin-left: 0; }
+
+  /* ── Footer ───────────────────────────────── */
+  footer { margin-top: 46px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; font-size: 11px; color: #8892a8; letter-spacing: 0.5px; }
+
+  /* ── COMMODITIES section ─────────────────────── */
+  .commodities {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px; margin-bottom: 18px;
+  }
+  .commodity-group {
+    padding: 14px 16px; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  }
+  .commodity-group .grp-title {
+    font-size: 10px; letter-spacing: 2.2px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 10px; font-weight: 600;
+  }
+  .commodity-group .grp-title.energy   { color: #ffb347; }
+  .commodity-group .grp-title.precious { color: #ffd35c; }
+  .commodity-group .grp-title.industrial { color: #58b8ff; }
+  .commodity-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.05);
+    font-size: 12.5px;
+  }
+  .commodity-row:last-child { border-bottom: none; }
+  .commodity-row .nm { color: #c8cfdd; }
+  .commodity-row .px { color: #e5e7eb; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .commodity-row .ch { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 70px; text-align: right; }
+  .commodity-narrative {
+    padding: 16px 20px; border-radius: 12px; margin-bottom: 22px;
+    border-left: 3px solid #ffb347;
+    background: linear-gradient(180deg, rgba(255,179,71,0.06), rgba(255,179,71,0.01));
+    font-size: 13px; line-height: 1.65; color: #c8cfdd;
+  }
+  .commodity-narrative b { color: #f3f5fa; }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .hero, .km-cell, table, .risk, .scn, .caveat, .fg-block, .rsi-cell, .ring-cell, .vix-panel { background: #fafafa; border-color: #ddd; }
+    p, td { color: #222; }
+    b, h1, h2, h3 { color: #000; }
+  }
+</style>
+</head><body><div class="wrap">
+
+
+<div class="hero">
+  <span class="regime-pill bullish">Close · Risk-On Hold · Berkshire Q1 net $10.1B / cash record $397.4B / Q1 buyback $234M (first since May 2024) / Buffett endorses Abel · AAPL anchor intact (no aggressive Q1-trim signal) · SPY 720.65 / VIX 16.88 carry · Long-gamma damping in 718-723 band · Mon JOLTS + PLTR; Fri NFP</span>
+  <div class="eyebrow"><span class="dot"></span> Closing Bell Recap · Thursday, Apr 30, 2026 · 7 PM Evening Wrap</div>
+  <h1>Berkshire $397B cash record + Q1 buyback resumed ($234M); Abel debut endorsed by Buffett — AAPL anchor holds Mon</h1>
+  <div class="lede"><b>Berkshire Q1 net earnings doubled to $10.1B; cash pile hit record $397.4B and Q1 saw $234M repurchases — first buyback since May 2024.</b> Buffett's 'Greg is doing everything I did and then some' + the Cook 'take a bow' moment ratified Abel's debut <b>without an aggressive AAPL-trim signal</b>. SPY 720.65 / VIX 16.88 carry intact into Mon JOLTS + PLTR; long-gamma damping operative in 718-723 band.</div>
+  <div class="meta">
+    <span>Published · <b>Thursday, April 30, 2026 01:33 AM</b></span>
+    <span>Build · <b>37.7s</b></span>
+    <span>Sources · <b>yfinance · TradingView · web</b></span>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#tldr">TL;DR</a> · <a href="#gloss">Glossary</a> · <a href="#metrics">Key metrics</a>
+  · <a href="#changed">What changed</a> · <a href="#ah">After-hours</a> · <a href="#recap">Session recap</a>
+  · <a href="#headlines">Headlines</a> · <a href="#strikes">Strike map</a> · <a href="#blocks">Block tape</a>
+  · <a href="#sectors">Sector rotation</a> · <a href="#vix">Vol &amp; Greeks</a> · <a href="#commodities">Commodities</a>
+  · <a href="#rsi">TA ratings</a> · <a href="#tomorrow">Tomorrow's setup</a> · <a href="#cat">Catalysts</a>
+  · <a href="#bl">Bottom line</a>
+</div>
+
+<div class="sess">
+  <div class="item"><div class="k">Session</div><div class="v">Cash closed · evening wrap · <b>~14h to next open</b></div></div>
+  <div class="item"><div class="k">Regime</div><div class="v"><b>Pin Close · Low-Vol Session</b></div></div>
+  <div class="item"><div class="k">Overnight focus</div><div class="v">After-hours earnings drift, Globex futures, overnight macro headlines</div></div>
+</div>
+
+<div id="metrics" class="km">
+  <div class="km-cell neg"><div class="k">SPY / SPX close</div><div class="v">$711.58</div><div class="d">-0.02% · SPX ≈ 7,116</div></div>
+  <div class="km-cell warn"><div class="k">VIX / VIX9D</div><div class="v">18.81 / 17.61</div><div class="d">VIX +5.50% · VIX9D +5.51%</div></div>
+  <div class="km-cell blue"><div class="k">Net GEX (qualitative)</div><div class="v">Positive (stable)</div><div class="d">Term slope +2.38 · Contango</div></div>
+  <div class="km-cell neg"><div class="k">Block tape (top mover)</div><div class="v">TER</div><div class="d">-19.41%</div></div>
+</div>
+
+<h2 id="tldr" class="sec-red"><span class="marker"></span>TL;DR — What You Need To Know</h2>
+<div style="background:linear-gradient(135deg, rgba(255,85,116,0.06), rgba(255,85,116,0.02)); border-left:3px solid #ff5574; border-radius:8px; padding:6px 18px; margin-bottom:18px;"><div style="display:flex; gap:12px; align-items:baseline; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);">  <span style="flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(255,85,116,0.12); color:#ff5574; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center;">1</span>  <div style="flex:1; font-size:14px; line-height:1.55; color:#dfe3ee;"><b>Berkshire Q1 cleared the weekend constructively</b>: net earnings <b>doubled to $10.1B</b> ($7,027/A share); operating earnings <b>$11.3B</b> +18% YoY; cash pile <b>record $397.4B</b> (+$72B above morning estimate); <b>Q1 buyback $234.2M — first since May 2024</b> ending a 7-quarter pause; net seller of <b>$8.1B equities</b> in Q1.</div></div><div style="display:flex; gap:12px; align-items:baseline; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);">  <span style="flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(255,85,116,0.12); color:#ff5574; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center;">2</span>  <div style="flex:1; font-size:14px; line-height:1.55; color:#dfe3ee;"><b>Abel debut institutionally ratified</b>: Buffett — present as Chairman Emeritus — said <b>'Greg is doing everything I did and then some'</b>; the Buffett-Cook 'take a bow' moment (BRK's $35B AAPL investment → $185B today) signaled <b>no aggressive Q1 AAPL-trim posture</b> at the meeting; arena attendance down (~half full) = brand-transition signal but no negative read for AAPL stake.</div></div><div style="display:flex; gap:12px; align-items:baseline; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);">  <span style="flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(255,85,116,0.12); color:#ff5574; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center;">3</span>  <div style="flex:1; font-size:14px; line-height:1.55; color:#dfe3ee;"><b>Friday close textbook bull-path resolution carries</b>: SPX <b>7,230.12 record</b>; Nasdaq <b>25,114.44 first close >25K ever</b>; Dow 49,499.27 (-0.31% on CVX drag); SPY ~720.65 (intraday high <b>724.77 rejected at 723-725 magnet</b>); VIX <b>16.88</b>. April books +10.4% / +15.3% / +7.1% as best-month-since-Nov-2020 cohort.</div></div><div style="display:flex; gap:12px; align-items:baseline; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);">  <span style="flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(255,85,116,0.12); color:#ff5574; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center;">4</span>  <div style="flex:1; font-size:14px; line-height:1.55; color:#dfe3ee;"><b>AI-software cohort breakout sustains</b>: AAPL +3.24% to $280.14 (Q2 anchor); <b>TEAM +29.10% to $88.49</b> (Q3 FY26 EPS $1.75 vs $1.32 / Cloud +29% YoY); <b>TWLO +18.72% to $175.78</b>; EL +12%. <b>NVDA -0.5% on WSJ-OpenAI-internal-target news</b> = silicon-side wrinkle for May 21 print watch.</div></div><div style="display:flex; gap:12px; align-items:baseline; padding:10px 0; ">  <span style="flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(255,85,116,0.12); color:#ff5574; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center;">5</span>  <div style="flex:1; font-size:14px; line-height:1.55; color:#dfe3ee;"><b>Mon open setup is base-case-mixed-positive</b>: AAPL $278-282 expected range; SPY 718-723 long-gamma damping band carries. <b>Week ahead</b>: Mon May 4 PLTR AMC; Tue May 5 ISM Services + JOLTS + AMD AMC; Wed DIS/UBER/COIN/DKNG; <b>Fri May 8 April NFP</b>; Tue May 12 April CPI; ~Wed May 21 NVDA Q1 FY27.</div></div></div>
+
+<h2 id="gloss" class="sec-yellow"><span class="marker"></span>Quick Reference — Key Terms</h2>
+<dl class="gloss">
+<div><dt>GEX (Gamma Exposure)</dt><dd>Net dealer gamma position. Positive = stabilizing (sell rallies, buy dips); negative = amplifying. Approximated here qualitatively from VIX term structure since paid GEX feeds are not available.</dd></div>
+<div><dt>VIX9D</dt><dd>9-day implied vol on SPX. Captures event windows tighter than spot VIX (30-day). VIX9D &gt; spot VIX = front-end event premium.</dd></div>
+<div><dt>Vanna</dt><dd>Sensitivity of option delta to IV. IV crush on benign news forces mechanical dealer buying.</dd></div>
+<div><dt>Charm</dt><dd>Delta decay over time. Bleeds a call-heavy book even in a flat tape; runs 24/7 and accelerates into expiration.</dd></div>
+<div><dt>Magnet / Accelerator / Trapdoor</dt><dd>Strike vocabulary. Magnet = positive-gamma strike attracting price. Accelerator = negative-gamma strike amplifying. Trapdoor = cluster that cascades.</dd></div>
+<div><dt>Block tape</dt><dd>Institutional flow read. Approximated here via top movers since paid block-flow data is not available.</dd></div>
+</dl>
+
+<h2 id="changed" class="sec-blue"><span class="marker"></span>What Changed Since the Mid-Day Report</h2>
+<p>Mid-day check-in fired at noon; the back half of the session is the part that matters for next-day setup. <b>SPY printed -0.02% on the day</b>, with breadth closing at <b>35.2% advancing</b> and the average name at <b>-0.51%</b>. Vol rebid into the close — VIX +5.50%, VIX9D +5.51%. Term structure resolved to <b>contango (normal)</b>.</p>
+
+<p><b>Sector rotation crystallized:</b> Energy (+2.29%) led the close, with Technology (+0.80%) and Financials (+0.14%) confirming. Utilities (-1.23%) and Materials (-0.86%) finished as drags. This is a rotation that hardened through the afternoon — the leaders kept building, the laggards kept bleeding. Late-session leadership is more reliable than morning leadership for next-day continuation.</p>
+
+<p><b>Cross-asset:</b> 10Y yield +1.47% to 4.42, DXY +0.28% to 98.89, Gold -0.25% to $4,580.00. Cross-asset largely confirming the equity tape — no independent signal layered on top.</p>
+
+<h2 id="ahmovers" class="sec-red"><span class="marker"></span>Post-Market Movers — Winners &amp; Losers (AH Earnings Reactions)</h2>
+<p style="color:#8892a8; font-size:13px; margin-bottom:14px;">Single-name moves &gt;3% in after-hours, sourced from the post-close research step. Winners are bid (revenue beat / segment accel / clean guide); losers are hit (capex shock / guide cut / segment miss). Treat the split as the cleanest real-time read on whichever sector thesis was on the line tonight.</p>
+<div style="display:flex; gap:14px; flex-wrap:wrap;"><div style="flex:1;"><div style="font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#52e08f; margin-bottom:8px;">▲ Winners (5)</div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">BRK.B</b>    <b style="font-size:14px; color:rgb(82,224,143);">+1.5%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Berkshire Q1 release Saturday May 2 ~7 AM CT: net earnings DOUBLED to $10.1B / $7,027 per A share (vs $4.6B / $3,200 prior); operating earnings $11.3B / $7,889.44/A (+18% YoY); cash pile RECORD $397.4B (+$72B vs $325B-area estimate); $234.2M Q1 buyback — first since May 2024 ending 7-quarter zero-buyback pause; net seller $8.1B equities Q1. Annual Meeting: Buffett (Chairman Emeritus) endorsed Abel ('Greg is doing everything I did and then some'); Cook attended, Buffett told Cook to 'take a bow' framing $35B AAPL → $185B today.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Constructive weekend resolution. Cash pile bigger than expected = continued institutional caution; buyback resumption symbolic-but-small = Abel willing-to-deploy-at-margin signal. Q1 13F (45 days out) is next discrete AAPL-trim quantum read. BRK.B expected gap +1-2% Mon open on operating earnings beat + buyback resumption.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">AAPL</b>    <b style="font-size:14px; color:rgb(82,224,143);">+3.2%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Closed +3.24% / +$8.79 to $280.14 Friday — Q2 FY26 gap held intact through cash session. Q2 FY26 rev $111.18B vs $109.66B est (+1.46%) / EPS $2.01 vs $1.95 (+3.54%) / iPhone $57B +22% YoY / Services $30.98B +16% record / China $20.5B +28% / GM 49.3%. Q3 guide +14-17% rev vs +9.5% expected. $100B buyback + dividend +4% to $0.27. Cook flagged 'significantly higher memory costs' ahead. Ternus to CEO Sept 1, 2026.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Sealed bull-path resolution through Friday close + Saturday BRK no-aggressive-trim ratification. Capex-defender cleavage validated in raw P&L. Structural anchor for Mon open + next 60 days into May 12 April CPI + ~May 21 NVDA + Sept 1 CEO transition. AAPL holds $278-282 range Mon open.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">TEAM</b>    <b style="font-size:14px; color:rgb(82,224,143);">+29.1%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Atlassian closed +29.10% / +$19.90 to $88.49 Friday (from $68.59 prior). Q3 FY26 EPS $1.75 vs $1.32 expected (+33% beat); revenue $1.79B vs $1.69B (+5.9% beat); Cloud revenue +29% YoY; FY guide raised. Wall Street response: flood of price-target hikes into $100-115 range. Day's biggest single-name surprise.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> AI-software cohort breakout signal; the second leg of cohort-bifurcation thesis after Apr 30's CAT halo / capex-defender resolution. The structural rerate confirms AI revenue is showing up cohort-wide. Selective add on consolidation $85-90 post-PT-hike-flood; trim 25-50% of single-name longs.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">TWLO</b>    <b style="font-size:14px; color:rgb(82,224,143);">+18.7%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Twilio closed +18.72% / +$27.72 to $175.78 Friday (from $148.06). Q1 print: adj EPS $1.50 vs $1.27 / rev $1.41B vs $1.34B / raised FY26 guide on AI-driven communications-layer demand. 6+ firms raised PTs into $192-225 bull range.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> AI-comms thesis structural rerate. Confluence with TEAM +29% / EL +12% creates sector-cascading read for AI-software cohort breakout. Trim 25-50% on extension to $185+; bull-PT range $192-225 for structural longs.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">EL</b>    <b style="font-size:14px; color:rgb(82,224,143);">+12.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Estee Lauder closed +12% Friday to record close. Q3 EPS $0.91 vs $0.65 cons / rev $3.71B vs $3.69B; raised FY guide. Consumer-staples-with-AI-personalization cohort tell.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Consumer-staples cohort revenue-acceleration validation. Confirms AI-software cohort breakout extends beyond pure-software into consumer-staples-with-AI-exposure. Sector-relative-strength tell on consumer-staples + cosmetics revenue acceleration.</div></div></div><div style="flex:1;"><div style="font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#ff5574; margin-bottom:8px;">▼ Losers (4)</div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">RBLX</b>    <b style="font-size:14px; color:rgb(255,85,116);">-17.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Roblox closed -17% Friday (recovered from -24% premarket). Q1 + bookings-guide cut to $7.33-7.60B (from $8.28-8.55B prior) — 'largely safety-related' from age-gating implementation that resulted in DAU miss + engagement loss + negative App Store reviews.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Platform-specific safety-gating wrinkle, not sector-wide tell. Recovery from -24% premarket to -17% close = retail-bid stabilization. XLC contagion watch flipped via TWLO/EL/TEAM cohort lift; cohort-vulnerability concentrated in META + NVDA-tactical only.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">NVDA</b>    <b style="font-size:14px; color:rgb(255,85,116);">-0.5%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Closed -0.5% to ~$198.61 Friday on WSJ report citing OpenAI internal projections showing missing revenue and user-growth targets. Specific magnitude not disclosed; report cited internal documents + employee sourcing. NVDA Q1 FY27 print targeted ~May 21, 2026.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Silicon-side wrinkle for May 21 print watch. Cohort-spread thesis (memory producers winning, memory consumers margin-compressed) extends to silicon if NVDA's data-center guidance softens or silicon GMs compress. Tactical short NVDA call spreads sized small ahead of May 21 captures asymmetric breakdown.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">SNDK</b>    <b style="font-size:14px; color:rgb(255,85,116);">-5.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Closed -5% Friday on guide-beat already priced (+360% YTD into the print). Q3 FY26 rev $5.95B (+97% sequential, +251% YoY) vs guidance $4.4-4.8B; EPS $23.41 vs $14.36; GM 78.4% vs 65-67% guide; $6B buyback; Q4 guide rev $7.75-8.25B / EPS $30-33 / GM 79-81%.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Memory-pricing-power cohort confirmed in Q4 guide. Aligns with Cook's AAPL 'significantly higher memory costs' commentary. Structural long despite priced-in positioning; cohort spread for next print cycle: long SNDK/WDC/Micron / short memory-cost-compressed mega-caps without revenue acceleration offset.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">CVX</b>    <b style="font-size:14px; color:rgb(255,85,116);">-1.4%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Chevron closed -1.4% Friday on Q1 print + Iran-shipping-delay accounting charges. Q1 reportedly beat consensus despite delays. Crude reset (Brent -2% / WTI -3%) + accounting-charge headline drove the miss-the-headline-drag mechanic.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Energy-cohort relative laggard. Dow drag mechanic that capped Dow at -0.31% close while SPX/Nasdaq made fresh records. Energy-hedge cohort sized to Brent $105-108 floor on de-escalation framing; restore $112 floor sizing on any Iran ceasefire-break headline.</div></div></div></div>
+
+<h2 id="ah" class="sec-red"><span class="marker"></span>After-Hours Developments — 4 PM to Now</h2>
+<p>Three hours of after-hours flow have printed since the cash close. <b>Post-market data not yet populated; refresh after Globex settles at 6 PM.</b>.</p>
+<p><b>Saturday May 2 weekend developments — Berkshire Q1 release + Annual Meeting:</b> <b>BRK Q1 net earnings $10.1B / $7,027 per Class A share — DOUBLED from $4.6B / $3,200 prior year</b>; <b>operating earnings $11.3B / $7,889.44/A share, +18% YoY from $9.6B / $6,703.41</b>; <b>cash pile RECORD $397.4B</b> (vs $325B-area Friday-close estimate = +$72B upside surprise); <b>$234.2M Q1 share repurchases — first buyback since May 2024 ending 7-quarter zero-buyback pause</b>; <b>net seller of $8.1B in equities in Q1</b> (Q1 13F filing 45 days post-quarter will detail security-level changes; meeting Q&A did NOT signal step-change AAPL-trim acceleration). <b>Annual Meeting (first ever without Buffett at CEO podium)</b>: Greg Abel chaired alongside Ajit Jain (first Q&A) and Adam Johnson + Katie Farmer (second). <b>Buffett — present as Chairman Emeritus — endorsed Abel</b>: 'Greg is doing everything I did and then some — so my decision to step down has worked out great so far.' <b>Tim Cook attended in Omaha</b>; Buffett told Cook to 'take a bow,' framing BRK's initial $35B Apple investment as having grown to $185B today (down from prior $175B-peak framing — implies BRK has trimmed materially through 2024-2025 but the Saturday meeting did NOT signal aggressive Q1 trim). <b>Crowd attendance was down materially</b> — arena 'a little over half full' as the meeting started; signals brand-transition without Buffett but no negative AAPL read. <b>Net read for Mon open</b>: BRK.B expected gap +1-2%; AAPL holds $278-282 range (no $275 break); SPY 718-723 long-gamma damping band carries with bias toward upper-bound test; cohort cleavage operates without BRK-trim-signal headwind. <b>Friday May 1 cash session standouts (carry forward)</b>: <b>AAPL +3.24% to $280.14</b> (Q2 FY26 anchor); <b>TEAM +29.10% to $88.49</b> (Q3 FY26 EPS $1.75 vs $1.32 / Cloud +29% YoY); <b>TWLO +18.72% to $175.78</b> (Q1 + raised AI-guide); <b>EL +12%</b> (Q3 + raised FY); <b>RBLX -17%</b> (recovered from -24% premarket on bookings-guide cut); <b>SNDK -5%</b> (guide-beat already priced); <b>AMGN -2%</b> (biosimilar overhang); <b>CVX -1.4%</b> (Iran-shipping-delay accounting charges); <b>NVDA -0.5% to ~$198.61</b> (WSJ-OpenAI-internal-target news). Mag-7 cash splits: AMZN +1.2% / MSFT +1.6% / TSLA +2.4% bid; META -0.5%; GOOGL flat. Cross-asset: Brent $108.17 / WTI $101.94 / 10Y 4.39% / 2Y 3.88% / DXY 98.22.</p>
+
+<h3>Earnings released this afternoon (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td colspan="5" style="color:#8892a8;">No major reports scheduled in this window.</td></tr></tbody>
+</table>
+
+<h2 id="recap" class="sec-green"><span class="marker"></span>Full Session Recap — Open to Close</h2>
+<p><b>The headline:</b> SPY closed at <b>$711.58</b> for a -0.02% session, with QQQ +0.61% and IWM -0.67%. Tech outperformed broad market — mega-cap leadership carrying the tape. The Dow closed -0.56%, lagging the growth indexes — old-economy drag.</p>
+
+<p><b>Breadth confirmation:</b> 35.2% of the bench-eligible universe advanced, with <b>64.8%</b> closing above their 20-day MA and <b>67.0%</b> above their 50-day. Mixed internals — leadership is narrow even where price moved. The average name finished -0.51%, biased to the offer and confirming weakness.</p>
+
+<p><b>Vol behavior:</b> VIX settled 18.81 (+5.50%), VIX9D at 17.61 (+5.51%). The 3M−spot slope of <b>+2.38</b> places the curve in contango (normal). Event premium normalized — the front of the curve is back below the back of the curve, dealer hedges coming off. Cross-asset vol: OVX +7.74%, MOVE +8.22%, VXN +2.24%. Cross-asset bidding signals broad caution — not just an equity story.</p>
+
+<h2 id="headlines" class="sec-yellow"><span class="marker"></span>Day's Headlines &amp; Implications — Carry Into Tomorrow</h2>
+<p style="color:#94a3b8; font-size:13px; margin-top:-6px;">Named catalysts from today, followed by the four structural session tells and what each means for how tomorrow opens.</p>
+
+<div class="risk r-high">  <div class="head"><div class="t">1. Berkshire Q1 release: net earnings DOUBLED to $10.1B / op earnings $11.3B +18% YoY / cash pile RECORD $397.4B / first buyback since May 2024 ($234.2M) — Abel-era capital-allocation signal launched constructively</div><div class="p">High</div></div>  <div><b>What:</b> <b>Berkshire Hathaway Q1 2026 release at ~7 AM CT Saturday delivered a strong report</b>. <b>Net earnings $10.1B / $7,027 per Class A share</b> — more than doubled from $4.6B / $3,200/A in Q1 2025 (driven by equity-portfolio mark-to-market on Friday's record close + improving operating businesses). <b>Operating earnings $11.3B / $7,889.44/A share</b>, +18% YoY from $9.6B / $6,703.41 prior — insurance underwriting recovered sequentially from Q4's -54% trough; GEICO + BHRG + BHPG segments stabilized; railroad / energy / manufacturing-services-retail businesses in-zone. <b>Cash pile hit a fresh all-time record $397.4B</b> at quarter-end — vs the $325B-area estimate that informed Friday's morning narrative (a $72B upside surprise vs expectation). <b>$234.2M Q1 share repurchases</b> — the first buyback since May 2024, breaking 7 consecutive quarters of zero-buyback. <b>Net seller of $8.1B in equities in Q1</b> (the Q1 13F filing — 45 days post-quarter — will detail security-level changes; meeting Q&A did NOT signal step-change AAPL-trim acceleration). The print + the meeting commentary together set the tone for Abel's first capital-allocation message: cautious-deployment with willingness-to-act-at-margin.  <br><br><b>Implication:</b> <b>Three structural reads carry into Mon open</b>: (1) <b>The $397.4B record cash pile is the dominant post-meeting variable</b> — bigger than expected, signals Abel inheriting a balance sheet positioned for opportunistic deployment; the FOMC-dissent-caucus-volatility-window in May-June (NFP / CPI / NVDA / Warsh's first FOMC June 16-17) is where the cash gets deployed if cohort-cleavage breakdown opens forced-seller bid. (2) <b>The $234.2M Q1 buyback is symbolic-but-small but signals Abel's willingness to deploy capital</b>: ending the 7-quarter zero-buyback pause is a meaningful signal even at small size; it removes the risk of 'no buyback ever' framing and re-prices BRK from the UBS-cited 8% intrinsic-value discount toward fair value. (3) <b>The $8.1B Q1 net selling continues the de-risking posture</b> through the wartime-oil-shock + FOMC-dissent + Mag-7-bifurcation regime, but at a measured pace consistent with mark-to-market valuation discipline rather than panic-selling. <b>For Mon open</b>: BRK.B/A expected to gap higher 1-2% on the operating earnings beat + buyback resumption; AAPL holds $278-282 range (no aggressive trim signal); SPY 718-723 long-gamma damping band carries with bias toward upper-bound test. <b>Position adjustment</b>: long BRK.B small lottery for the Mon-open repricing; structural longs in AAPL/GOOGL/AMZN cohort maintained; the cash-pile-deployment narrative becomes a structural tailwind for the energy hedge cohort if Iran ceasefire-break re-engages (BRK has historically deployed into oil-shocks).</div></div>
+<div class="risk r-high">  <div class="head"><div class="t">2. Buffett endorses Abel ('doing everything I did and then some') + Cook 'take a bow' moment — institutional warmth ratifies AAPL anchor without aggressive Q1-trim signal</div><div class="p">High</div></div>  <div><b>What:</b> <b>The 2026 Annual Meeting was the first ever without Buffett at the CEO podium</b> — Greg Abel chaired alongside Ajit Jain (first Q&A session) and Adam Johnson + Katie Farmer (second session). <b>Buffett — present as Chairman Emeritus in the audience — gave Abel a strong public endorsement</b>: 'Greg is doing everything I did and then some — so my decision to step down has worked out great so far.' <b>Tim Cook attended in Omaha and was a focal point of Buffett's initial address</b>: Buffett told Cook to 'take a bow,' framing Cook's tenure (as Apple navigated the post-Steve Jobs founder transition — a parallel to Berkshire's own Buffett-to-Abel transition) and noting that BRK's initial $35B Apple investment grew to $185B today. <b>The framing matters specifically for the AAPL stake outlook</b>: BRK had trimmed AAPL ~4.3% in Q4 2025 and ~75% cumulative since 2023 peak; the meeting Q&A did NOT signal step-change AAPL-trim acceleration in Q1 (Q1 13F filing 45 days out will detail security-level changes); Buffett's Cook moment + the $35B-to-$185B framing reaffirmed AAPL as the cohort-defining position growth story rather than positioning it as 'continuing trim target.' <b>Crowd attendance was down materially</b> — arena 'a little over half full' as the meeting started, vs prior years' near-capacity levels — signals brand-transition: Buffett-era curiosity premium is fading without him at the podium, but Abel's Q1 capital-allocation signal + the institutional ratification moment compensates.  <br><br><b>Implication:</b> <b>The single most-watched outcome from Saturday's meeting was the AAPL-stake-language</b>; the Buffett-Cook public moment + the Buffett-Abel endorsement = the soft-positive read. <b>Three reads for AAPL Mon open specifically</b>: (1) <b>No new AAPL-trim catalyst</b> — the Q1 13F filing 45 days out is the next discrete trim quantum read, not Saturday's meeting; AAPL holds $278-282 range Mon morning. (2) <b>Buffett's $35B-to-$185B framing of AAPL is structural ratification</b> of the position rather than a pre-trim setup — the 'forever holder' framing was effectively reaffirmed even if not explicitly stated. (3) <b>The cohort-defender cleavage spread (long AAPL / short META) operates Mon open without BRK-trim-signal headwind</b>; size structural longs at full sizing into Tue ISM Services + AMD AMC + Wed mixed-cohort splits. <b>For broader Mag-7 read-through</b>: the Buffett-Cook moment + the Buffett-Abel endorsement signal continued institutional comfort with the capex-defender cohort (AAPL/GOOGL/AMZN); the AI-capex-skepticism path that re-emerged via the WSJ-OpenAI-internal-target news Friday remains a tactical/silicon-side concern (NVDA into May 21) rather than a cohort-wide structural threat. <b>Position adjustment</b>: long AAPL outright sized to structural anchor + $100B buyback + Q3 +14-17% guide-beat; pair short META as cohort-vulnerability anchor; long QQQ May expiry call spreads sized to AAPL anchor + week-ahead binary stack.</div></div>
+<div class="risk r-high">  <div class="head"><div class="t">3. Friday close carries: SPX 7,230.12 record / Nasdaq 25,114.44 first >25K / SPY 720.65 / VIX 16.88 / AAPL +3.24% to $280.14 — long-gamma damping in 718-723 SPY band operative for next week</div><div class="p">High</div></div>  <div><b>What:</b> Friday May 1 closed the bull-path resolution textbook and the structure carries unchanged through Saturday Berkshire weekend into Mon open. <b>SPX +0.29% to 7,230.12 fresh ATH; Nasdaq Composite +0.89% to 25,114.44 fresh record (first close above 25,000 ever); Dow -0.31% / -152.87 to 49,499.27 (CVX drag + Nasdaq software-cohort rotation); Russell 2000 +0.46% to 2,812.82; SPY ~720.65 (+0.28%) with intraday high $724.77 rejected at 723-725 upper magnet; VIX -0.88% to 16.88</b>. <b>April books</b>: SPX +10.4% best month since Nov 2020, NDX +15.3% best since April 2020, Dow +7.1% best since Nov 2024. <b>10:00 AM ISM Manufacturing PMI 52.7 vs 53.1 cons (slight miss / in-zone)</b> — 18th consecutive month of expansion; New Orders 54.1 (+0.6 ppt); Production 53.4 (-1.7 ppt); Manufacturing Employment sub-50 confirmed canary into May 8 NFP. <b>Cash session standouts</b>: AAPL +3.24% to $280.14 (Q2 FY26 anchor); TEAM (Atlassian) +29.10% to $88.49 (Q3 FY26 EPS $1.75 vs $1.32 / Cloud +29% YoY); TWLO +18.72% to $175.78 (Q1 + raised AI-guide); EL +12% (Q3 + raised FY); NVDA -0.5% on WSJ-OpenAI internal-target news. <b>Mag-7 cash splits</b>: AMZN +1.2% / MSFT +1.6% / TSLA +2.4% bid; META -0.5%; GOOGL flat. <b>Cross-asset</b>: Brent $108.17 (-2%); WTI $101.94 (-3%) on Iran 60-day War Powers 'terminated' framing + Pakistan-mediated peace proposal; 10Y 4.39%, 2Y 3.88% (-2 bps post-ISM); DXY 98.22.  <br><br><b>Implication:</b> <b>The Friday-close structure carries unchanged into Mon open</b>: the long-gamma damping mechanic in the 718-723 SPY band remains active; reactions in the band are mechanically damped, reactions outside amplify. <b>For next week's positioning</b>: the band has shifted upward modestly to 718-723 (the 720 prior pivot has become the rough midpoint; the 723-725 magnet remains the upper boundary; the 715-718 zone is the gamma flip / damping pivot). <b>SPY 723-725 watch each session</b>: a sustained break above with first-hour close above 725 = bull-melt momentum into Fri NFP, 728 magnet pulls; rejection at 723-725 with first-hour close below = base-case chop with the AAPL-anchor / long-gamma-damping mechanic operating. <b>SPY 715 watch throughout next week</b>: hold of 715 = damping mechanic active and base-case chop; break below 715 on volume = damping loses leverage and short-gamma transition begins, SPY tests 712 then 708 trapdoor. <b>The wedge into Fri NFP / Tue May 12 CPI / ~Wed May 21 NVDA is the dominant macro/micro variable stack</b>; the Saturday BRK weekend has resolved constructively but the binary-stack discharge from Tue-Wed-Thu last week means we now operate against a wedge climbing toward May labor-market + CPI + NVDA layers.</div></div>
+<div class="risk r-high">  <div class="head"><div class="t">4. AI-software cohort breakout sustained: TEAM +29.10% / TWLO +18.72% / EL +12% Friday — cohort-bifurcation thesis graduated to stable three-way structure for next 60 days</div><div class="p">High</div></div>  <div><b>What:</b> <b>The Friday cash session was a software-cohort breakout day on Mag-7 mixed tape</b>. <b>TEAM (Atlassian) +29.10% to $88.49 (from $68.59) — day's biggest single-name surprise</b>: Q3 FY26 EPS $1.75 vs $1.32 (+33% beat) / revenue $1.79B vs $1.69B (+5.9% beat) / Cloud rev +29% YoY / FY guide raised; Wall Street response: flood of price-target hikes into $100-115 range. <b>TWLO +18.72% to $175.78 (from $148.06)</b>: Q1 adj EPS $1.50 vs $1.27 / rev $1.41B vs $1.34B / raised FY26 guide on AI-driven communications-layer demand; 6+ firms raised PTs into $192-225 bull range. <b>EL +12%</b>: Q3 EPS $0.91 vs $0.65 cons / rev $3.71B vs $3.69B / raised FY guide. <b>The three-name confluence creates a sector-cascading read</b>: software-cohort revenue acceleration is real and broadening; the cohort isn't just AAPL/GOOGL/AMZN-large-cap; mid-cap software (TEAM/TWLO) and consumer-staples-with-AI-exposure (EL via personalization tech) are getting bid. <b>The cohort-bifurcation thesis from Apr 30 has now graduated to a stable three-way structure</b>: capex-defenders (AAPL/GOOGL/AMZN with revenue-acceleration absorption) on the long side; AI-software cohort breakout (TEAM/TWLO/EL post-rerate) as the second leg confirmed Friday; CAT halo cohort (XLI / PWR / TER / VRT / GE Vernova) as the AI-capex-real-economy validation cohort. <b>The cohort-vulnerability cluster</b>: META isolated -9% scar (held without extension Friday); NVDA tactical into May 21 print after WSJ-OpenAI news.  <br><br><b>Implication:</b> <b>The three-way cohort structure operates through the next 60 days into May 12 April CPI + ~May 21 NVDA + June 16-17 Warsh's first FOMC</b>. <b>Position the three cleavages, not the directional SPX</b>: long AAPL outright (capex-defender anchor); long GOOGL/AMZN call spreads (capex-defender complements); long TEAM/TWLO/EL post-rerate selective (AI-software cohort breakout — trim 25-50% on extension); long XLI / GE Vernova / VRT (CAT halo cohort); long SNDK / WDC (memory producers — Cook's memory-cost commentary + SNDK Q4 79-81% GM guide); short META outright (cohort-vulnerability anchor); tactical short NVDA call spreads sized small ahead of May 21 print (silicon-margin compression test). <b>The XLC sector-relative-weakness watch from RBLX Friday bleed has flipped via TWLO/EL/TEAM cohort lift</b> — XLC contagion thesis no longer applies; cohort-vulnerability is concentrated in META + NVDA-tactical only. <b>Reduce single-name overconcentration</b>: TEAM/TWLO over-extended +29% / +19% — trim 25-50% of single-name longs; rotate gains into AAPL anchor + selective adds on AMZN / GOOGL on any pullback.</div></div>
+<div class="risk r-high">  <div class="head"><div class="t">5. Week ahead binary stack: Mon JOLTS + PLTR / Tue ISM Services + AMD / Wed DIS-UBER-COIN-DKNG / Fri May 8 April NFP — the labor-market layer is the gating event</div><div class="p">High</div></div>  <div><b>What:</b> <b>The week ahead has a dense binary stack</b>. <b>Mon May 4</b>: 10:00 AM Durable Goods final (Mar) + Factory Orders (Mar); 8:30 AM JOLTS Job Openings (Mar) — consensus 7.0-7.5M range; <b>PLTR Q1 earnings AMC</b> — consensus EPS $0.28 (+115% YoY) / revenue $1.54B (+74.1% YoY); options market braces for 10.55% post-print swing. <b>Tue May 5</b>: 9:45 AM S&P Global PMI Services final (Apr); 10:00 AM ISM Services PMI (April) — consensus 53.0 vs prior 53.5 / Prices Paid services subcomponent is the FOMC-dissent-ammo line; <b>AMD Q1 earnings AMC</b> — data-center / Instinct AI revenue read-through to ~May 21 NVDA print. <b>Wed May 6</b>: Disney (DIS), Uber (UBER), Coinbase (COIN), DraftKings (DKNG) — consumer-discretionary, gig-economy, fintech, gaming-sentiment cross-cohort tell. <b>Thu May 7</b>: weekly initial jobless claims; Continuing Claims update; productivity/unit labor costs Q1 prelim. <b>Fri May 8 8:30 AM</b>: <b>April Nonfarm Payrolls + AHE + Unemployment</b> — consensus FactSet ~135K vs March 178K-228K revised; ADP NER pulse decelerating to 39,250/wk through Apr 11 = soft baseline; Manufacturing Employment subcomponent confirmed sub-50 Friday = canary read. <b>Following week Tue May 12</b>: April CPI — first inflation print of post-Brent-$108-114 / WTI-$101-105 regime. <b>~Wed May 21</b>: NVDA Q1 FY27 — silicon-margin / memory-margin compression test for cohort-spread thesis; WSJ-OpenAI-internal-target news Friday is the lead-in.  <br><br><b>Implication:</b> <b>The labor-market layer (April NFP May 8) is the dominant macro gating event</b>; the Saturday BRK weekend has resolved constructively but the wedge climbs into Fri. <b>Structural read for next week's positioning</b>: long-gamma damping mechanic in 718-723 SPY band reduces magnitude of mid-week data reactions (JOLTS / ISM Services / PLTR / AMD / Wed cluster); reactions amplify outside that band on Fri NFP. <b>For Mon May 4 specifically</b>: BRK weekend resolved benign + AAPL holds $278+ range = JOLTS in-zone (7.0-7.5M) = SPY chops 718-723 with bias toward upper test; PLTR AMC: 10.55% expected move + AI-cohort-revenue-acceleration validation tell — sized into the print. <b>For Tue May 5</b>: ISM Services 53+ confirmed = AI-capex-real-economy validation extends; AMD AMC: data-center / Instinct revenue read-through to NVDA — soft AMD = NVDA tactical short structure adds; in-line AMD = cohort-spread thesis carries. <b>For Fri May 8 NFP</b>: in-zone (115-160K) = labor-market layer holds modestly soft + 2Y rallies modestly + SPY consolidates 720-725; soft (<115K) = vol crush extends + bull-melt momentum carries; hot (>180K) = re-arms three regional FOMC dissenters + 10Y +5-7 bps + SPY tests 712-708 trapdoor. <b>Position structure into the week</b>: long QQQ May expiry call spreads sized to AAPL anchor + AI-software cohort + Fri NFP hedge via paired May expiry put spreads at 50% of upside structures; long XLU/XLP/XLV outright as portfolio insurance into NFP / CPI / NVDA stack.</div></div>
+<div class="risk r-med">  <div class="head"><div class="t">6. NVDA -0.5% on WSJ OpenAI-missing-internal-targets — silicon-side wrinkle confirms memory-spread cohort thesis going into May 21 NVDA print</div><div class="p">Med</div></div>  <div><b>What:</b> <b>WSJ published a report Friday</b> citing OpenAI internal projections showing the company missing its own revenue and user-growth targets (specific magnitude of miss not disclosed; report cited internal documents and former/current employee sourcing). <b>NVDA traded -0.5% to ~$198.61</b> on the read-through (NVDA is a primary OpenAI compute partner via Microsoft Azure / direct training infrastructure deployment). <b>The silicon-cohort framing</b>: NVDA's data-center revenue depends on hyperscaler capex deployment, which is partially driven by OpenAI / Anthropic / xAI / Cohere / Google's own internal AI revenue trajectories; if customer revenue growth decelerates, Q1+ FY27 capex guidance softens. <b>NVDA Q1 FY27 print is targeted around May 21</b>. <b>Cook's AAPL memory-cost commentary aligns</b>: 'significantly higher memory costs for the current quarter and beyond' suggests memory-spread cohort thesis is intact. <b>SNDK Q4 FY26 guide</b> (rev $7.75-8.25B / EPS $30-33 / GM 79-81%) confirmed memory pricing power. <b>The cohort spread for next 60 days</b>: long memory producers (SNDK / WDC / Micron) / short memory-cost-compressed mega-caps without revenue-acceleration offset (NVDA tactical into May 21 print; META isolated as the cleanest cohort-vulnerability short).  <br><br><b>Implication:</b> <b>The asymmetric breakdown setup remains operative</b>: if NVDA's May 21 Q1 print confirms hyperscaler capex compression (data-center rev guidance softer-than-expected) + memory-cost compression on silicon GMs, the cohort-spread thesis extends to silicon — NVDA gets isolated like META did Apr 30 (-9% scar). <b>If NVDA holds its data-center guidance + silicon GMs hold above 70%</b>, the cohort-spread thesis stays at the application/Mag-7 layer and NVDA is positioned for a relief rally toward $215-225. <b>Position structure for May 21</b>: tactical short NVDA call spreads sized small ahead of print captures the asymmetric breakdown; pair with structural long AAPL anchor + long memory-producer cohort (SNDK / WDC). <b>Watch NVDA price action 9:30-10:30 each session next week</b> on any incremental WSJ / FT / Bloomberg / Reuters AI-revenue-tracking story; sustained breakdown below $190 = silicon-side cohort breakdown begins; reclamation of $200 = WSJ news priced as one-off. <b>AMD AMC Tue May 5 is the critical lead-in tell</b>: soft AMD data-center guidance = NVDA tactical short structure adds; in-line AMD = cohort-spread thesis carries with NVDA holding $195-205 range into print.</div></div>
+<div class="risk r-med">  <div class="head"><div class="t">7. Vol structure: VIX 16.88 carry through Saturday — long-gamma damping in 718-723 SPY band remains active; gamma flip rolled to ~715-718 for next week's expiry stack</div><div class="p">Med</div></div>  <div><b>What:</b> Friday's vol structure consolidated through Saturday weekend with no fresh catalyst. <b>VIX -0.88% / -0.15 to 16.88 close</b> — a small additional decline on top of Apr 30's -10.21% / -1.92 crush; <b>30-day VIX return -38.5%</b> capturing the post-FOMC vanna-driven mechanic + the binary-stack discharge. <b>Term structure</b>: VIX3M − VIX contango re-steepened materially from the flat-read going into Wednesday's print, then held through Friday. <b>Dealer book stayed in long-gamma above SPY 715-718 through Friday close</b>; the symmetric long-gamma damping mechanic remained active in the 715-720 SPY band. <b>Gamma flip mechanically rolled to ~715-718 SPY</b> for next week's options stack. <b>The intraday range Friday was narrow</b>: SPY high $724.77, low ~$717.50, close $720.65 = ~$7 range; the rejection at 724.77 confirmed the 723-725 upper magnet boundary; the bid at 717.50 confirmed the lower-boundary support. <b>Mag-7 vol structure</b>: AAPL realized vol compressed into Friday close; NVDA implied vol re-elevated slightly post-WSJ-OpenAI news; META vol stayed elevated on cohort-vulnerability scar. <b>Saturday weekend gamma-decay / theta-burn mechanic continues</b>; Mon open dealer book starts from a long-gamma stance with damping pivot at SPY 718.  <br><br><b>Implication:</b> <b>The long-gamma damping mechanic in the 718-723 SPY band proved durable Friday + Saturday</b>. <b>For next week's positioning</b>: the band is 718-723; reactions in the 718-723 SPY band are mechanically damped, reactions outside that band amplify. <b>For the 8:30 AM May 5 JOLTS print + 10 AM May 5 ISM Services + AMD AMC stack Tuesday</b>: the long-gamma damping mechanic reduces the magnitude of any data-driven reaction in the 718-723 band; outside that band the book transitions back to lighter gamma and reactions amplify. <b>Watch SPY 715 throughout next week</b>: hold of 715 = damping mechanic active and base-case chop; break below 715 on volume = damping loses leverage and short-gamma transition begins, SPY tests 712 then 708 trapdoor. <b>Watch SPY 723-725 each session</b>: a sustained break above with confirmed first-hour close above 725 = bull-melt momentum into May 8 NFP, 728 magnet pulls; rejection at 723-725 with hour close below = base-case chop with the AAPL-anchor / long-gamma-damping mechanic operating. <b>Position structure for next week</b>: long QQQ May expiry call spreads sized to AAPL anchor + ECB Jun 4-5 / 5/12 April CPI / 5/21 NVDA stack; long AAPL outright; short META; tactical NVDA put-spread structure ahead of May 21 print sized small.</div></div>
+
+<div class="risk r-low">
+  <div class="head"><div class="t">1. Session character — did the tape trend or churn?</div><div class="p">Pin / low-vol</div></div>
+  <div><b>What:</b> SPY -0.02%, QQQ +0.61%, IWM -0.67%, DIA -0.56%. Breadth <b>35% advancing</b>, average name -0.51%.
+  <br><br><b>Implication:</b> Pin close means tomorrow is catalyst-driven, not positioning-driven. Overnight headlines or earnings prints set the tone.</div>
+</div>
+
+<div class="risk r-low">
+  <div class="head"><div class="t">2. Sector leadership — does it confirm the close or warn against it?</div><div class="p">Mixed</div></div>
+  <div><b>What:</b> Top three: <b>Energy</b> (+2.29%), <b>Technology</b> (+0.80%), <b>Financials</b> (+0.14%). Drag from <b>Utilities</b> (-1.23%).
+  <br><br><b>Implication:</b> Leadership spread across cyclical + defensive buckets means no clean next-day bias. Stock-specific catalysts will matter more than index direction.</div>
+</div>
+
+<div class="risk r-low">
+  <div class="head"><div class="t">3. Volatility regime — are dealers adding or removing hedges?</div><div class="p">Positioning tell</div></div>
+  <div><b>What:</b> VIX <b>18.81</b> (+5.50%), VIX9D <b>17.61</b> (+5.51%), term slope +2.38 (contango (normal)). Cross-asset: OVX +7.74%, MOVE +8.22%, VXN +2.24%.
+  <br><br><b>Implication:</b> Vol bidding alongside weakness is normal hedging — no independent signal beyond what price says. Standard overnight risk management applies.</div>
+</div>
+
+<div class="risk r-low">
+  <div class="head"><div class="t">4. Cross-asset picture — rates, dollar, commodities</div><div class="p">Context</div></div>
+  <div><b>What:</b> 10Y yield <b>4.42</b> (+1.47%), DXY <b>98.89</b> (+0.28%), Gold <b>$4,580.00</b> (-0.25%), WTI <b>$107.39</b> (+7.47%).
+  <br><br><b>Implication:</b> Cross-asset quiet — no independent signal layered on top of equities. Focus on tomorrows catalyst calendar.</div>
+</div>
+
+<h2 id="strikes" class="sec-blue"><span class="marker"></span>Strike Map (SPY) — Apr 22 Setup</h2>
+<table>
+<thead><tr><th>Strike</th><th>Role</th><th>Context</th></tr></thead>
+<tbody>
+<tr><td class="tk">$722</td><td>Far magnet (+~1.4%)</td><td>Reach target on a 2-day continuation; positive-gamma resistance band.</td></tr>
+<tr><td class="tk">$717</td><td>Near magnet (+~0.7%)</td><td>Call wall region; first upside target tomorrow if open holds.</td></tr>
+<tr><td class="tk">$712</td><td>Pivot / spot anchor</td><td>Today's close; pin candidate. Monday-type sessions hold this level.</td></tr>
+<tr><td class="tk">$709</td><td>First accelerator</td><td>Loss with volume = short-gamma leg lower starts; dealer rehedge selling.</td></tr>
+<tr><td class="tk">$707</td><td>Cluster / second accelerator</td><td>Likely overnight stop zone; below opens fast moves toward the trapdoor.</td></tr>
+<tr><td class="tk">$702</td><td>Trapdoor (-~1.4%)</td><td>Negative-gamma cascade level; if hit, expect 0.5-1% follow-through within minutes.</td></tr>
+</tbody>
+</table>
+<p><b>Read:</b> qualitative levels approximated from round-number anchors and standard ±0.5%/1%/2% bands around the close (paid GEX feeds are not in this pipeline). The structural read: above <b>$717</b> activates the +1% magnet ladder; below <b>$707</b> opens accelerator chain into the trapdoor at <b>$702</b>. The pivot is today's close — it is the level dealers will defend overnight unless a headline resets the entire structure.</p>
+
+<h2 id="blocks" class="sec-purple"><span class="marker"></span>Block Tape — Top Movers (Session)</h2>
+<h3>Leaders</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Close</th><th>Change</th><th>Read</th></tr></thead>
+<tbody><tr><td class="tk">KALV</td><td class="nm">KalVista Pharmaceuticals, …</td><td class="num">$26.67</td><td class="num pos">+38.62%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">MXL</td><td class="nm">MaxLinear, Inc.</td><td class="num">$67.52</td><td class="num pos">+29.82%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">COCO</td><td class="nm">Vita Coco Company, Inc.</td><td class="num">$66.95</td><td class="num pos">+29.67%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">EXTR</td><td class="nm">Extreme Networks, Inc.</td><td class="num">$21.85</td><td class="num pos">+28.15%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">BE</td><td class="nm">Bloom Energy Corporation C…</td><td class="num">$287.97</td><td class="num pos">+27.21%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">NXPI</td><td class="nm">NXP Semiconductors NV</td><td class="num">$289.25</td><td class="num pos">+25.55%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">PRG</td><td class="nm">PROG Holdings, Inc.</td><td class="num">$35.84</td><td class="num pos">+24.10%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">PRCH</td><td class="nm">Porch Group, Inc.</td><td class="num">$10.13</td><td class="num pos">+17.93%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr></tbody>
+</table>
+
+<h3>Laggards</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Close</th><th>Change</th><th>Read</th></tr></thead>
+<tbody><tr><td class="tk">TER</td><td class="nm">Teradyne, Inc.</td><td class="num">$306.33</td><td class="num neg">-19.41%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">POET</td><td class="nm">POET Technologies Inc.</td><td class="num">$6.60</td><td class="num neg">-17.81%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">JBIO</td><td class="nm">Jade Biosciences, Inc.</td><td class="num">$22.32</td><td class="num neg">-15.61%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">OI</td><td class="nm">O-I Glass Inc</td><td class="num">$8.65</td><td class="num neg">-15.53%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">SOFI</td><td class="nm">SoFi Technologies Inc</td><td class="num">$15.53</td><td class="num neg">-15.44%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">SITE</td><td class="nm">SiteOne Landscape Supply, …</td><td class="num">$120.97</td><td class="num neg">-15.37%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">LMND</td><td class="nm">Lemonade Inc</td><td class="num">$56.00</td><td class="num neg">-14.85%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">ASH</td><td class="nm">Ashland Inc.</td><td class="num">$49.15</td><td class="num neg">-13.77%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr></tbody>
+</table>
+<p style="color:#8892a8; font-size:12px;"><em>Block-flow narrative is approximated here from end-of-day price action, not paid institutional flow data.</em></p>
+
+<h2 id="sectors" class="sec-green"><span class="marker"></span>Sector Rotation — Final Result + Reads</h2>
+<div class="bars"><div class="bar-row"><div><span class="bname">Energy</span></div><div class="betf">XLE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:48.0%;"></div></div><div class="bpct pos">+2.29%</div></div>
+<div class="bar-row"><div><span class="bname">Technology</span></div><div class="betf">XLK</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:16.751068813413127%;"></div></div><div class="bpct pos">+0.80%</div></div>
+<div class="bar-row"><div><span class="bname">Financials</span></div><div class="betf">XLF</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:2.8331258890515096%;"></div></div><div class="bpct pos">+0.14%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Disc.</span></div><div class="betf">XLY</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:46.95098738859012%; width:3.049012611409879%;"></div></div><div class="bpct neg">-0.15%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Staples</span></div><div class="betf">XLP</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:45.958413303657295%; width:4.041586696342702%;"></div></div><div class="bpct neg">-0.19%</div></div>
+<div class="bar-row"><div><span class="bname">Communications</span></div><div class="betf">XLC</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:41.66022293149881%; width:8.339777068501196%;"></div></div><div class="bpct neg">-0.40%</div></div>
+<div class="bar-row"><div><span class="bname">Industrials</span></div><div class="betf">XLI</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:37.11264673610893%; width:12.887353263891075%;"></div></div><div class="bpct neg">-0.61%</div></div>
+<div class="bar-row"><div><span class="bname">Real Estate</span></div><div class="betf">XLRE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:37.09614308035485%; width:12.903856919645152%;"></div></div><div class="bpct neg">-0.61%</div></div>
+<div class="bar-row"><div><span class="bname">Health Care</span></div><div class="betf">XLV</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:35.41055367177103%; width:14.589446328228972%;"></div></div><div class="bpct neg">-0.70%</div></div>
+<div class="bar-row"><div><span class="bname">Materials</span></div><div class="betf">XLB</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:32.035694653337856%; width:17.96430534666214%;"></div></div><div class="bpct neg">-0.86%</div></div>
+<div class="bar-row"><div><span class="bname">Utilities</span></div><div class="betf">XLU</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:24.136853486779138%; width:25.863146513220862%;"></div></div><div class="bpct neg">-1.23%</div></div></div>
+<table style="margin-top:18px;">
+<thead><tr><th>Ticker</th><th>Sector</th><th>Day</th><th>Read</th></tr></thead>
+<tbody>
+<tr><td class="tk">XLE</td><td>Energy</td><td class="num pos">+2.29%</td><td>Strong leadership — energy (commodity-linked) bid confirms positioning.</td></tr>
+<tr><td class="tk">XLK</td><td>Technology</td><td class="num pos">+0.80%</td><td>Constructive — cyclical / risk-on participating.</td></tr>
+<tr><td class="tk">XLF</td><td>Financials</td><td class="num pos">+0.14%</td><td>Quiet — cyclical / risk-on flat to the tape.</td></tr>
+<tr><td class="tk">XLY</td><td>Consumer Disc.</td><td class="num neg">-0.15%</td><td>Quiet — cyclical / risk-on flat to the tape.</td></tr>
+<tr><td class="tk">XLP</td><td>Consumer Staples</td><td class="num neg">-0.19%</td><td>Quiet — defensive / risk-off flat to the tape.</td></tr>
+<tr><td class="tk">XLC</td><td>Communications</td><td class="num neg">-0.40%</td><td>Soft — cyclical / risk-on drag.</td></tr>
+<tr><td class="tk">XLI</td><td>Industrials</td><td class="num neg">-0.61%</td><td>Soft — cyclical / risk-on drag.</td></tr>
+<tr><td class="tk">XLRE</td><td>Real Estate</td><td class="num neg">-0.61%</td><td>Soft — cyclical / risk-on drag.</td></tr>
+<tr><td class="tk">XLV</td><td>Health Care</td><td class="num neg">-0.70%</td><td>Soft — defensive / risk-off drag.</td></tr>
+<tr><td class="tk">XLB</td><td>Materials</td><td class="num neg">-0.86%</td><td>Soft — cyclical / risk-on drag.</td></tr>
+<tr><td class="tk">XLU</td><td>Utilities</td><td class="num neg">-1.23%</td><td>Heavy distribution — defensive / risk-off weak.</td></tr>
+</tbody>
+</table>
+
+<h2 id="vix" class="sec-blue"><span class="marker"></span>Volatility Structure &amp; Greek Forces (Qualitative)</h2>
+<div style="display:grid; grid-template-columns: 1.3fr 1fr; gap: 14px;">
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">VIX Term Curve</h3>
+    <svg width="100%" height="160" viewBox="0 0 420 160" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="vx-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#58b8ff" stop-opacity="0.35"/><stop offset="100%" stop-color="#58b8ff" stop-opacity="0"/></linearGradient></defs><polygon points="32.0,98.1 150.7,86.1 269.3,62.4 388.0,41.9 388.0,128 32.0,128" fill="url(#vx-grad)"/><polyline points="32.0,98.1 150.7,86.1 269.3,62.4 388.0,41.9" stroke="#58b8ff" stroke-width="2.5" fill="none" stroke-linejoin="round"/><circle cx="32.0" cy="98.1" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="150.7" cy="86.1" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="269.3" cy="62.4" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="388.0" cy="41.9" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><text x="32.0" y="86.1" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">17.61</text><text x="32.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX9D</text><text x="150.7" y="74.1" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">18.81</text><text x="150.7" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX</text><text x="269.3" y="50.4" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">21.19</text><text x="269.3" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX3M</text><text x="388.0" y="29.9" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">23.25</text><text x="388.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX6M</text></svg>
+    <div class="vlabel">
+      <span>Slope (3M−spot): <b>+2.38</b></span>
+      <span>State: <b>contango (normal)</b></span>
+    </div>
+  </div>
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">Cross-Asset Vol Close</h3>
+    <table style="margin: 0; border: none; background: transparent;">
+      <tr><td class="lbl">VIX (30d SPX)</td><td class="num">18.81</td><td class="num pos">+5.50%</td></tr>
+      <tr><td class="lbl">VIX9D (9d SPX)</td><td class="num">17.61</td><td class="num pos">+5.51%</td></tr>
+      <tr><td class="lbl">VXN (NDX IV)</td><td class="num">23.76</td><td class="num pos">+2.24%</td></tr>
+      <tr><td class="lbl">OVX (Oil IV)</td><td class="num">75.96</td><td class="num pos">+7.74%</td></tr>
+      <tr><td class="lbl">MOVE (Bond vol)</td><td class="num">74.33</td><td class="num pos">+8.22%</td></tr>
+    </table>
+  </div>
+</div>
+
+<h3>Greek Forces — Qualitative Read</h3>
+<table>
+<thead><tr><th>Force</th><th>Read</th><th>Mechanical implication</th></tr></thead>
+<tbody>
+<tr><td class="lbl">Net GEX</td><td><b>Positive (stable)</b></td><td>Contango intact = dealers long gamma, stabilization regime. Mean-reversion mechanics active; vol selling supportive.</td></tr>
+<tr><td class="lbl">Vanna (IV → delta)</td><td>Largely discharged</td><td>Event premium already paid out — vanna unwind not a meaningful tomorrow tailwind.</td></tr>
+<tr><td class="lbl">Charm (time decay)</td><td>Bleeds the put book overnight</td><td>Net negative book delta erodes overnight — short positions can lose grip even without positive news.</td></tr>
+<tr><td class="lbl">Cross-asset hedging</td><td>Bid</td><td>OVX or MOVE bidding signals real-money desks adding hedges across asset classes — overnight equity strength is more fragile.</td></tr>
+</tbody>
+</table>
+<p style="color:#8892a8; font-size:12px;"><em>Greek values are qualitative — derived from public vol-structure and price data, not from paid dealer-positioning feeds.</em></p>
+
+<h2 id="commodities" class="sec-orange"><span class="marker"></span>Commodity Complex — Closing Read</h2>
+<div class="commodities"><div class="commodity-group"><div class="grp-title energy">ENERGY</div><div class="commodity-row"><span class="nm">Crude Oil (WTI)</span><span class="px">$107.39</span><span class="ch pos">+7.47%</span></div>
+<div class="commodity-row"><span class="nm">Brent Crude</span><span class="px">$111.15</span><span class="ch neg">-0.10%</span></div>
+<div class="commodity-row"><span class="nm">Natural Gas</span><span class="px">$2.631</span><span class="ch pos">+2.81%</span></div></div> <div class="commodity-group"><div class="grp-title precious">PRECIOUS METALS</div><div class="commodity-row"><span class="nm">Gold</span><span class="px">$4,580.00</span><span class="ch neg">-0.25%</span></div>
+<div class="commodity-row"><span class="nm">Silver</span><span class="px">$72.90</span><span class="ch neg">-0.42%</span></div>
+<div class="commodity-row"><span class="nm">Platinum</span><span class="px">$1,916.10</span><span class="ch neg">-1.35%</span></div></div> <div class="commodity-group"><div class="grp-title industrial">INDUSTRIAL</div><div class="commodity-row"><span class="nm">Copper</span><span class="px">$5.953</span><span class="ch pos">+0.66%</span></div></div></div><div class="commodity-narrative"><p><b>Crude</b> is rising (WTI +7.47%, Brent -0.10%) — bid on supply risk; supports <b>XLE</b>. WTI/Brent spread widened — regional supply dislocation, watch refiner margins. <b>OVX</b> +7.7% — oil vol expanding, expect sharper XLE moves. <b>Natural gas</b> spiking (+2.81%) — watch utilities (<b>XLU</b>) and LNG names.</p></div>
+
+<h2 id="rsi" class="sec-purple"><span class="marker"></span>TradingView Ratings — Close</h2>
+<h3>Index ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">SPY</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:67%; background:#ffb347;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 67.0</span></div></div>
+<div class="rsi-cell"><div class="tk">QQQ</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:71%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 70.7</span></div></div>
+<div class="rsi-cell"><div class="tk">IWM</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:60%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 59.8</span></div></div>
+<div class="rsi-cell"><div class="tk">DIA</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:58%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 57.6</span></div></div></div>
+<h3>Sector ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">Financials</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:58%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 57.5</span></div></div>
+<div class="rsi-cell"><div class="tk">Energy</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:60%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 59.5</span></div></div>
+<div class="rsi-cell"><div class="tk">Technology</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:70%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 70.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Health Care</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:36%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 35.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Disc.</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:55%; background:#9dd98a;"></div></div><div class="sub"><span>MA BUY</span><span>RSI 54.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Staples</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:51%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 51.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Materials</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:48%; background:#8892a8;"></div></div><div class="sub"><span>MA NEUTRAL</span><span>RSI 47.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Industrials</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:50%; background:#8892a8;"></div></div><div class="sub"><span>MA BUY</span><span>RSI 49.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Real Estate</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:57%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 56.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Communications</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:49%; background:#8892a8;"></div></div><div class="sub"><span>MA BUY</span><span>RSI 49.5</span></div></div>
+<div class="rsi-cell"><div class="tk">Utilities</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:46%; background:#8892a8;"></div></div><div class="sub"><span>MA SELL</span><span>RSI 46.3</span></div></div></div>
+<p>Ratings are an MA-weighted aggregate. The most actionable shift is when a sector flips between BUY and SELL bands at the close — that often telegraphs the next session's leadership rotation before price confirms it.</p>
+
+<h2 id="tomorrow" class="sec-blue"><span class="marker"></span>Tomorrow's Setup — Three Paths Into the Open</h2>
+
+<p><b>Levels that matter:</b> today's close at <b>$711.58</b> is the pivot. Above <b>$717</b> = continuation regime; below <b>$707</b> = reversal regime; chop in between = pin mode.</p>
+
+<div class="scenarios">  <div class="scn bull"><span class="tag">Bull path</span>    <div class="t">Benign Saturday BRK confirmed + soft-landing JOLTS / ISM Services / NFP → SPY breaks 723-725 to 728-732 magnet zone, VIX 14-15, Mag-7 cohort breadth extends</div>    <p><b>Saturday May 2 BRK constructive (already done)</b>: net earnings doubled $10.1B; cash pile record $397.4B; first buyback since May 2024 ($234.2M); Buffett-Cook-Abel public ratification; no aggressive AAPL-trim signal. <b>Mon May 4 cash open</b>: SPY gaps ~720-722 area on BRK constructive weekend; AAPL holds $280 with relief bid into $282-284; BRK.B gaps +1-2%; Mag-7 cohort breadth extends with TEAM / TWLO consolidation but no breakdown. <b>JOLTS prints in-zone</b> (~7.0-7.5M openings): dovish-on-growth confirmation supports Miran dissent framing; 2Y bid -2-3 bps; SPX through 7,250 toward 7,275. <b>PLTR AMC delivers EPS beat + rev acceleration</b>: AI-cohort-revenue-acceleration validation; +10-12% AH on revenue beat. <b>Tue May 5 ISM Services prints 53+</b>: services-side activity validates soft-landing path; 2Y bid further; AMD AMC delivers in-line / above-consensus print on data-center / Instinct AI revenue lift; cohort-spread extends. <b>Wed May 6 DIS / UBER / COIN / DKNG</b>: digestion mixed but no major cohort-tell. <b>Fri May 8 8:30 AM April NFP prints in-zone (130-180K)</b>: the labor-market layer holds dovish-on-growth without compounding sub-50 ISM Manufacturing Employment into a hot-NFP wedge; vol crush extends; SPY through 723-725 toward 728. <b>Vol structure</b>: VIX → 14-15 range; gamma flip rolls deeper to ~720-722 SPY. <b>Sector breadth uniformly green</b>: cyclicals + defensives + small-caps all bid; Russell extends to 2,850-2,880; Industrials/Utilities lead via CAT halo cohort. <b>Brent stable $105-110</b>; WTI $98-102. <b>Close week</b>: SPY 728-732 magnet zone, SPX through 7,275 toward 7,300; momentum into May 12 April CPI. <b>Structural read</b>: the bifurcation thesis has resolved with capex-defenders + AI-software cohort + CAT halo cyclicals winning; AI-capex-real-economy validation is the operating mechanic; vol regime risk-on with long-gamma damping. The defensive bid via XLU / XLP / XLV remains as portfolio insurance against May 21 NVDA / Warsh-first-FOMC June 16-17, but does not require active hedge-deployment week-1 of May.</p></div>  <div class="scn base"><span class="tag">Base case</span>    <div class="t">Mixed JOLTS / ISM Services / NFP signals → SPY chops 718-725 with AAPL anchor holding, VIX 16-18, cohort cleavage maintained without break</div>    <p><b>Saturday May 2 BRK done — base-case-mixed-positive</b>: cash pile $397B record; buyback resumed but small ($234M); Buffett-Cook-Abel ratification; no aggressive AAPL-trim signal. <b>Mon May 4 cash open</b>: SPY chops 720-722 area; AAPL drifts $278-282 on the BRK-AAPL-position-still-monitored framing; PLTR AMC reports in-line; cohort cleavage maintained. <b>JOLTS in-zone</b> (~7.2M openings): no major surprise; 2Y unchanged; SPY chops 720-722 into close. <b>Tue ISM Services in-zone</b> (52.5-53.5): services-side activity holds; AMD post-close moderate beat; cohort-spread extends modestly. <b>Wed mixed digest</b>: DIS / UBER / COIN / DKNG splits across consumer-discretionary, gig-economy, fintech, and gaming-sentiment without cohort-wide tell. <b>Fri May 8 8:30 AM April NFP in-zone</b> (115-160K): labor-market layer holds modestly soft-of-March (228K revised); 2Y rallies modestly on dovish-on-growth confirmation; SPY chops 718-723 into Friday close. <b>Vol structure</b>: VIX 16-18 range; gamma flip ~715-718 SPY remains operative; long-gamma damping mechanic active. <b>Sector breadth</b>: defensives bid as portfolio insurance into next earnings cycle (XLU/XLP/XLV); small-caps modestly green; cyclicals chop. <b>Brent $108-112</b> on headline noise; WTI $101-104. <b>Close week</b>: SPY 720-723 chop with weekly close at 720-722; SPX 7,225-7,250; April books +10.4% as best-month-since-Nov-2020 stays as the structural counter-data-point; constructive tape into May 12 April CPI. <b>Structural read</b>: the bifurcation thesis remains operative but discharging slowly; the binary stack from this week has resolved without a clear bull-melt or bear-cascade; the wedge has compressed but a new wedge is climbing into May 12 April CPI + ~May 21 NVDA. <b>Position adjustment</b>: long AAPL outright held; long QQQ defined-risk structures (May expiry call spreads sized small); short META as cohort-vulnerability remaining; long XLE structural energy hedge maintained at reduced sizing (Brent $105 floor watch); defensive rotation begins to bid into ~May 21 NVDA.</p></div>  <div class="scn bear"><span class="tag">Bear path</span>    <div class="t">Hot JOLTS / weak AMD / hot NFP / NVDA-OpenAI continuation → SPY tests 715 then 712, defensive rotation accelerates, AI-capex skepticism re-engages</div>    <p><b>Saturday May 2 BRK done</b> (constructive but not a forcing function for bear case). <b>Mon May 4 cash open</b>: SPY opens 720; PLTR AMC underwhelms on commercial-customer growth flatlining; cohort-spread breakdown begins. <b>JOLTS hot</b> (>7.5M openings): re-engages FOMC-dissent-ammo path; 2Y bid +5-8 bps; SPY tests 718 first then 715. <b>Tue ISM Services hot</b> (54+): services-side activity hot reframes 'rate cuts further away'; AMD AMC disappoints on data-center guidance softer-than-expected (read-through to NVDA May 21); semis crack -2 to -3%. <b>Wed mixed-to-soft digest</b>: DIS / UBER / COIN / DKNG splits favor cohort-vulnerability extension; META extends -10% scar; XLC sector-relative-weakness re-emerges. <b>Thu fresh WSJ / FT continuation</b> on OpenAI / Anthropic / hyperscaler-customer-revenue-deceleration framing = NVDA cracks -3% to ~$192. <b>Fri May 8 8:30 AM April NFP hot</b> (>180K): labor-market layer re-arms three regional FOMC dissenters (Hammack / Kashkari / Logan); 10Y bid +5-7 bps to 4.46%; 2Y +8-10 bps to 3.96%; SPY tests 712-708 trapdoor zone. <b>Vol structure</b>: VIX bids back through 19-20 on the cascade; gamma flip rolls back to ~715-720 SPY zone, dealer book flips toward short-gamma in 715-720 zone; the damping mechanic loses leverage. <b>Sector breadth</b>: defensives (XLU/XLP/XLV) bid as flight-to-quality + dovish-on-growth re-read, cyclicals sold (XLI gives back yesterday's CAT halo), small-caps -2 to -3% reversing yesterday's gain. <b>Brent re-elevates $112-115</b> on Iran / Israel / CENTCOM headlines re-emerging if ceasefire breakdown escalates; WTI $105-108. <b>Close week</b>: SPY tests 712 then 708 trapdoor; SPX 7,150-7,200; weekly close red from peak; April still books +9-10% but momentum cracks. <b>Structural read</b>: the bifurcation thesis re-opens with hot-NFP + AMD-data-center-guide-soft + WSJ-OpenAI-continuation as 'cohort breakdown extending' signal; AI-capex skepticism cohort cascade gets fresh fuel; the rate-cut path that re-emerged on Apr 30's clean data resumes hard. <b>The asymmetric breakdown setup</b>: this is the path where Tue cascade-tell + Wed FOMC dissent + AAPL Q3 guide-beat get reframed as 'priced in pre-NFP' and the next leg lower opens into May 12 CPI / ~May 21 NVDA. <b>Hedge structure if scenario triggers</b>: long QQQ May expiry 720/715 put spreads (sized to 50% of upside structures); long XLU / XLP / XLV outright; long XLE for the persistent Iran-conflict tail risk (sized smaller given today's de-escalation framing); short semis (NVDA/AVGO) tactically; long AAPL May expiry 280/275 put spreads as gap-fade hedge (small).</p></div></div>
+
+<h2 id="cat" class="sec-blue"><span class="marker"></span>Catalyst Watch — Next 36 Hours</h2>
+<table>
+<thead><tr><th>When (ET)</th><th>Event</th><th>Read &amp; Implication</th></tr></thead>
+<tbody>
+<tr><td class="flag-red">Sat May 2 (done)</td><td class="flag-red">Berkshire Hathaway Q1 release: net earnings $10.1B (doubled YoY) / op earnings $11.3B (+18%) / cash pile RECORD $397.4B / first buyback since May 2024 ($234.2M) / net seller $8.1B equities Q1</td><td class="flag-red">Cash pile bigger than expected ($397B vs $325B est = +$72B upside surprise); buyback resumption symbolic-but-small; institutional caution-with-marginal-deployment posture. BRK.B expected gap +1-2% Mon open.</td></tr>
+<tr><td class="flag-red">Sat May 2 (done)</td><td class="flag-red">Berkshire Annual Meeting (first ever without Buffett at CEO podium): Buffett ('Greg is doing everything I did and then some') + Cook 'take a bow' moment ($35B AAPL → $185B framing)</td><td class="flag-red">Institutional warmth ratifies Abel's debut without aggressive AAPL-trim signal. AAPL holds $278-282 range Mon open. Crowd attendance ~half full = brand-transition signal but no negative AAPL read.</td></tr>
+<tr><td class="flag-yel">Mon May 4 8:30 AM ET</td><td class="flag-yel">JOLTS Job Openings (March) — consensus 7.0-7.5M range</td><td class="flag-yel">Sub-7.0M = dovish-on-growth confirmation, supports Miran dissent framing. >7.5M = re-engages FOMC-dissent-ammo path; 2Y +5-8 bps; SPY tests 715.</td></tr>
+<tr><td class="flag-yel">Mon May 4 AMC</td><td class="flag-yel">Palantir (PLTR) Q1 earnings — consensus EPS $0.28 (+115% YoY) / revenue $1.54B (+74.1% YoY); options market braces for 10.55% post-print swing</td><td class="flag-yel">AI-cohort revenue-acceleration validation tell. Bullish framing: commercial customer growth + AIP adoption + government contract momentum. Bearish framing: any commercial-customer-flatlining or guidance softness.</td></tr>
+<tr><td class="flag-yel">Tue May 5 10:00 AM ET</td><td class="flag-yel">ISM Services PMI (April) — consensus 53.0 vs prior 53.5 / Prices Paid services subcomponent is FOMC-dissent-ammo line</td><td class="flag-yel">53+ confirmed = services-side activity validates soft-landing path; Prices Paid subcomponent the FOMC's central inflation question post-dissent.</td></tr>
+<tr><td class="flag-yel">Tue May 5 AMC</td><td class="flag-yel">Advanced Micro Devices (AMD) Q1 earnings</td><td class="flag-yel">Data-center / Instinct AI revenue read-through to ~May 21 NVDA print. Soft AMD = NVDA tactical short structure adds; in-line AMD = cohort-spread thesis carries.</td></tr>
+<tr><td class="flag-yel">Wed May 6</td><td class="flag-yel">Disney (DIS), Uber (UBER), Coinbase (COIN), DraftKings (DKNG) earnings</td><td class="flag-yel">Consumer-discretionary, gig-economy, fintech, gaming-sentiment cross-cohort tell. COIN tied to crypto regime (BTC ~$95K range last week).</td></tr>
+<tr><td class="flag-red">Fri May 8 8:30 AM ET</td><td class="flag-red">April Nonfarm Payrolls + AHE + Unemployment (consensus FactSet ~135K vs March 178K-228K revised)</td><td class="flag-red">The labor-market layer one week out. ADP NER decelerating to 39,250/wk through Apr 11 = soft baseline; Manufacturing Employment sub-50 confirmed Friday. Soft NFP = vol crush extends; hot NFP = three regional FOMC dissenters get fresh ammo.</td></tr>
+<tr><td class="flag-red">Tue May 12</td><td class="flag-red">April CPI</td><td class="flag-red">First inflation print of post-Brent-$108-114 / WTI-$101-105 regime. Energy contribution to headline likely re-elevates (~+5-8% MoM); core services is the line. Pre-Warsh's first FOMC June 16-17.</td></tr>
+<tr><td>Wed May 13</td><td>April PPI</td><td>Producer-side inflation pulse following CPI. Memory-cost compression theme + oil pass-through tracking.</td></tr>
+<tr><td class="flag-red">~Wed May 21 (estimated)</td><td class="flag-red">NVDA Q1 FY27 earnings</td><td class="flag-red">Next AH cohort wave. Silicon-margin / memory-margin compression test for cohort-spread thesis. WSJ-OpenAI-internal-target news Friday is the lead-in. Hyperscaler capex guidance is the line.</td></tr>
+<tr><td class="flag-yel">Thu Jun 4-5</td><td class="flag-yel">ECB rate decision</td><td class="flag-yel">87% probability of 25 bp hike to 2.25% per current pricing post-Apr-30 hawkish-hold disclosure. Cross-asset rate-vol catalyst.</td></tr>
+<tr><td class="flag-red">Tue-Wed Jun 16-17</td><td class="flag-red">FOMC (Warsh's first)</td><td class="flag-red">8-4 dissent baseline carries; Friday's in-zone ISM = less-hawkish setup than Wednesday's tape suggested. Market reads forward guidance + Warsh framing of dissent caucus.</td></tr>
+<tr><td>Tonight 7-11 PM</td><td>Earnings post-print drift settles</td><td>Initial after-hours reactions usually overshoot in first 30 minutes — by 9 PM, the read has matured. If a mega-cap reaction reverses by 9 PM, the original move is not sticking.</td></tr>
+<tr><td>Overnight</td><td>Asia + commodities session</td><td>WTI, Brent, Gold, Copper drift telegraphs US futures. Gold +1% overnight = DXY softening = US tape opens risk-on. Crude spike + gold bid = geopolitical pair, equity futures take it hard.</td></tr>
+<tr><td>06:00 AM-08:30 AM</td><td>US pre-market + macro data</td><td>Jobless claims, PMIs, Fed speak — the window where levels reprice. Data inside today's range usually gets absorbed; data outside the range produces the biggest gap moves.</td></tr>
+<tr><td>09:30 AM</td><td>Cash open</td><td>Opening drive (first 30 min) establishes day-type. Above today's high w/ volume = trend continuation. Below today's low w/ volume = reversal in effect. Inside = default pin.</td></tr>
+<tr><td>03:50 PM tomorrow</td><td>MOC imbalance print</td><td>The single cleanest tell for next-session opening flow. &gt;$1B net imbalance same-side as session = real positioning into close.</td></tr>
+</tbody>
+</table>
+
+<h3>Earnings next 36 hours (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>Session</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td colspan="6" style="color:#8892a8;">No major reports scheduled in this window.</td></tr></tbody>
+</table>
+
+<h2 id="bl" class="sec-red"><span class="marker"></span>Bottom Line — Two Stories in One Session</h2>
+
+<p><b>The headline story:</b> <b>Saturday May 2 closed the post-Friday weekend in the constructive base-case lane</b>. <b>Berkshire Q1 release at ~7 AM CT delivered a strong report</b>: net earnings <b>doubled to $10.1B</b> ($7,027/A share); operating earnings <b>$11.3B</b> +18% YoY; cash pile <b>RECORD $397.4B</b> (+$72B above Friday morning's $325B-area estimate); <b>$234.2M Q1 share repurchases — first buyback since May 2024 ending 7-quarter zero-buyback pause</b>; net seller of $8.1B in equities Q1 (continued de-risking posture). <b>The Annual Meeting was the first ever without Buffett at the CEO podium</b>; Greg Abel chaired alongside Ajit Jain and Adam Johnson + Katie Farmer. <b>Buffett — present as Chairman Emeritus — endorsed Abel</b>: 'Greg is doing everything I did and then some.' <b>Tim Cook attended; Buffett told Cook to 'take a bow,' framing the $35B AAPL investment → $185B today as the cohort-defining position growth story</b> — meeting Q&A did NOT signal step-change AAPL-trim acceleration. Crowd attendance ~half full = brand-transition signal without Buffett at podium but no negative AAPL read. <b>Friday's close context carries</b>: SPX +0.29% to 7,230.12 fresh ATH; Nasdaq +0.89% to 25,114.44 first close >25K; Dow -0.31% to 49,499.27 (CVX drag); SPY ~720.65 with intraday high $724.77 rejected at 723-725 magnet; VIX -0.88% to 16.88. <b>April books</b>: SPX +10.4% best month since Nov 2020, NDX +15.3%, Dow +7.1%. <b>10:00 AM ISM Manufacturing PMI 52.7 vs 53.1 cons (in-zone)</b>; long-gamma damping in 715-720 SPY band activated exactly per Friday morning structure. <b>Cash session standouts</b>: AAPL +3.24% to $280.14; TEAM +29.10% to $88.49 (Q3 FY26 EPS $1.75 vs $1.32, Cloud +29% YoY); TWLO +18.72% to $175.78 (Q1 + raised AI-guide); EL +12%; NVDA -0.5% on WSJ-OpenAI-internal-target news. <b>Cross-asset</b>: Brent $108.17 (-2%); WTI $101.94 (-3%) on Iran 'terminated' framing + Pakistan peace proposal; 10Y 4.39%, 2Y 3.88%; DXY 98.22. <b>Mon open setup</b>: BRK.B expected gap +1-2%; AAPL holds $278-282 (no $275 break); SPY 718-723 long-gamma damping band carries with bias toward upper-bound test; cohort cleavage operates without BRK-trim-signal headwind. <b>Week ahead binary stack</b>: Mon JOLTS + PLTR AMC; Tue ISM Services + AMD AMC; Wed DIS / UBER / COIN / DKNG; Fri May 8 April NFP; Tue May 12 April CPI; ~Wed May 21 NVDA Q1 FY27.</p>
+
+<p><b>The under-the-hood story:</b> Three under-the-hood reads define the structure into Mon open + the next 60 days. <b>First, the Saturday Berkshire weekend resolved constructively without aggressive AAPL-trim signal</b>: the $397B cash pile is bigger than expected (+$72B above estimate) signaling continued institutional caution; the $234M Q1 buyback resumption is symbolic-but-small but ends the 7-quarter zero-buyback pause; the Buffett-Cook 'take a bow' moment + Buffett-Abel public endorsement = institutional warmth that materially reduces the tail risk of the morning narrative's Risk #1 ('hostile Berkshire weekend'). For Mon open: the AAPL-stake-trim posture was NOT framed as accelerated trim — Q1 13F 45 days out is the next discrete trim quantum read. <b>Second, the cohort cleavage from Apr 30 has graduated to a stable three-way structure</b>: capex-defenders (AAPL/GOOGL/AMZN) on long-side anchor; AI-software cohort breakout (TEAM/TWLO/EL) as the second-leg cohort thesis from Friday's tape; CAT halo cohort (XLI / PWR / TER / VRT / GE Vernova) consolidated gains without giving back. The cohort-spread for the next 60 days operates across all three: long capex-defenders / long AI-software cohort / long CAT halo cohort vs short META + tactical short NVDA into May 21 print. <b>Third, the FOMC 8-4 dissent caucus did NOT get fresh ammo from Friday's data</b>: in-zone ISM + steady Manufacturing Employment + benign Production vs New Orders read = Warsh inherits a less-hawkish setup for his first FOMC June 16-17 than Wednesday's FOMC tape suggested. The labor-market layer (April NFP May 8) is the next major gating event. <b>For Mon open specifically</b>: BRK weekend constructive + AAPL holds $278-282 + JOLTS in-zone = SPY 718-723 chop with bias toward upper test; PLTR AMC = AI-cohort-revenue-acceleration validation tell. <b>The wedge into next Friday's NFP is the dominant macro-rate variable</b>; the BRK-meeting resolution is now behind us and resolved constructively.</p>
+
+<p><b>Mechanically honest read:</b> <b>SPY 720.65 close, 723-725 the rejected upper magnet, 715-718 the gamma flip / damping pivot, 712 the trapdoor</b>. The dealer book stayed in long-gamma above SPY 715-718 through Friday close + Saturday weekend; gamma flip mechanically rolled to ~715-718 SPY for next week's expiry stack. <b>The symmetric long-gamma damping mechanic remained active in the 715-720 band Friday</b>; reactions in the band were dampened, reactions outside (the rejection at 724.77) amplified. <b>For next week's positioning</b>: the band has shifted upward modestly to 718-723; reactions in the band are mechanically damped, reactions outside amplify. <b>Position structures into Mon open</b>: long AAPL outright (Q3 +14-17% guide / $100B buyback structural anchor + Saturday BRK no-aggressive-trim ratification); long QQQ May expiry call spreads sized to AAPL anchor + ECB Jun 4-5 / 5/12 April CPI / 5/21 NVDA stack; long BRK.B small lottery for Mon-open repricing on Q1 + buyback resumption; <b>tactical short NVDA call spreads sized small ahead of May 21 print</b> (WSJ-OpenAI-internal-target news + Cook memory-cost commentary = silicon-margin compression test); short META outright as cohort-vulnerability anchor. <b>Reduce single-name overconcentration</b>: TEAM/TWLO over-extended +29% / +19% — trim 25-50% of single-name longs; rotate gains into AAPL anchor + selective adds on AMZN / GOOGL on any pullback. <b>Long XLE / OXY / SLB at reduced sizing</b> (Brent $105-108 floor watch on Friday's de-escalation framing; restore $112 floor sizing on any Iran ceasefire-break headline). <b>Long XLU / XLP / XLV outright as portfolio insurance</b> against tail risks (May 21 NVDA, Warsh-first-FOMC June 16-17). <b>Watch SPY 715 Mon open</b>: hold of 715 = damping mechanic active and base-case chop into JOLTS / PLTR; break below 715 = damping loses leverage, SPY tests 712 then 708. <b>Watch AAPL price action Mon 9:30-10:30</b>: holds $278+ = BRK weekend benign + anchor maintained, JOLTS in-zone path opens; cracks below $275 (low-prob given Saturday's no-aggressive-trim signal) = cohort-spread breakdown begins, NVDA / META pressure compounds. <b>The wrong trade for next week</b>: a clean directional SPX bet that doesn't define risk on JOLTS + ISM Services + AMD AMC + Wed mixed-cohort splits + Fri NFP. <b>The right trade</b>: long the three cohort cleavages + reactive sizing on each gating event + long-gamma damping carry through 718-723 band.</p>
+
+<p class="flag-red"><b><b>Three sequential lines into next week's open</b>. (1) <b>Mon May 4 8:30 AM JOLTS</b>: in-zone (~7.0-7.5M) = dovish-on-growth confirmation + supports Miran dissent framing + SPY chops 720-723; hot (>7.5M) = re-engages FOMC-dissent-ammo path + 2Y +5-8 bps + SPY tests 715. (2) <b>Mon AMC PLTR + Tue AMC AMD</b>: AI-cohort revenue-acceleration validation tell — beat-and-raise = cohort-spread thesis extends; soft = NVDA tactical short structure adds, cohort-vulnerability cluster expands. (3) <b>Fri May 8 8:30 AM April NFP</b>: in-zone (115-160K) = labor-market layer holds modestly soft + 2Y rallies modestly + SPY consolidates 720-725; soft (<115K) = vol crush extends Friday-pin behavior + bull-melt momentum carries; hot (>180K) = re-arms three regional FOMC dissenters + 10Y +5-7 bps + SPY tests 712-708 trapdoor. <b>The hardest red line into the week is hot April CPI on May 12 conjunction with hot May 8 NFP</b> — the rate-cut path that re-emerged on Apr 30's clean data gets walked back hard, AI-capex skepticism re-engages, and the wedge re-climbs toward Warsh's first FOMC June 16-17. <b>The single asymmetric breakdown setup remaining</b>: hot Apr CPI + soft May 8 NFP + NVDA May 21 disappointment on memory-margin compression = mixed-signal stagflation-adjacent re-read that re-opens the cohort-bifurcation thesis with silicon-side extension.</b></p>
+
+<footer>
+  <p style="font-size:11px; color:#6b7280; margin-bottom:8px;"><em>Disclaimer:</em> This report is for informational and educational purposes only and is not investment advice. Data sourced from public feeds (yfinance, TradingView). Greek and GEX values are qualitative approximations; paid institutional positioning data is not available in this pipeline. Trading and options carry substantial risk. Past patterns do not predict future outcomes.</p>
+  Sources · <a href="https://ca.finance.yahoo.com/news/berkshire-hathaways-profits-double-shareholders-124601344.html">Yahoo Finance · Berkshire Hathaway's profits double as shareholders gather for the annual meeting (May 2, 2026)</a> · <a href="https://www.marketscreener.com/news/berkshire-hathaway-says-net-earnings-per-average-equivalent-class-a-share-is-7-027-ce7f58ded889f725">MarketScreener · Berkshire Hathaway says net earnings per average equivalent class A share is $7,027</a> · <a href="https://seekingalpha.com/news/4584445-berkshire-earnings-rise-q1-thanks-insurance">Seeking Alpha · Berkshire earnings rise in Q1 thanks to insurance</a> · <a href="https://www.cnbc.com/2026/05/02/warren-buffett-berkshire-hathaway-annual-meeting-2026-live-updates.html">CNBC · Berkshire annual meeting live: Warren Buffett's 'jersey' raised to the rafters in Omaha (May 2, 2026)</a> · <a href="https://www.washingtonpost.com/business/2026/05/02/berkshire-hathaway-warren-buffett-meeting-greg-abel/d19f883a-4624-11f1-b19d-32431046b5b4_story.html">WashingtonPost · Crowd shrinks as Berkshire Hathaway's new CEO leads the annual meeting for the first time</a> · <a href="https://money.usnews.com/investing/news/articles/2026-05-02/berkshire-shareholders-head-to-greg-abels-first-annual-meeting-with-buffett-in-audience">US News (Reuters) · Berkshire Shareholders Head to Greg Abel's First Annual Meeting, With Buffett in Audience</a> · <a href="https://www.thestreet.com/latest-news/stock-market-today-may-1-2026-updates">TheStreet · Stock Market Today (May 1, 2026): Nasdaq, S&P 500 add to banner rally with another record close</a> · <a href="https://www.cnbc.com/2026/04/30/stock-market-today-live-updates.html">CNBC · S&P 500 closes at a new record to usher in May as oil prices cool and Apple rises (May 1, 2026)</a> · <a href="https://www.fool.com/coverage/stock-market-today/2026/05/01/stock-market-today-may-1-s-and-p-500-and-nasdaq-power-to-new-highs/">Motley Fool · Stock Market Today, May 1: S&P 500 and Nasdaq Power to New Highs</a> · <a href="https://finance.yahoo.com/markets/stocks/live/stock-market-today-friday-may-1-records-apple-iran-231056146.html">Yahoo Finance · S&P 500, Nasdaq jump to fresh records as AI trade fuels tech rally, Apple stock jumps</a> · <a href="https://www.cnbc.com/2026/05/01/stocks-making-the-biggest-moves-midday-team-aapl-rddt-rblx-twlo.html">CNBC · Stocks making the biggest moves midday: Atlassian, Apple, Roblox, Reddit, Twilio (May 1, 2026)</a> · <a href="https://www.cnbc.com/2026/05/01/atlassian-team-q3-stock-2026-earnings.html">CNBC · Atlassian (TEAM) Q3 stock 2026 earnings (+29% on Cloud +29% YoY)</a> · <a href="https://247wallst.com/investing/2026/05/01/wall-street-floods-twilio-with-price-target-hikes-is-this-truly-the-ai-communications-layer/">24/7 Wall St · Wall Street Floods Twilio With Price Target Hikes: Is This Truly the AI Communications Layer?</a> · <a href="https://www.cnbc.com/2026/05/01/oil-prices-today-brent-wti-us-iran-war-trump-war-powers-deadline.html">CNBC · Oil prices fall after Iran sends updated peace proposal to mediators in Pakistan (May 1, 2026)</a> · <a href="https://www.cnbc.com/2026/05/01/stock-market-next-week-outlook-for-may-4-8-2026.html">CNBC · Stock market next week: Outlook for May 4-8, 2026</a> · <a href="https://www.tipranks.com/news/palantir-pltr-q1-earnings-on-may-4-options-market-braces-for-a-10-55-swing">TipRanks · Palantir (PLTR) Q1 Earnings on May 4. Options Market Braces for a 10.55% Swing</a> · <a href="https://www.prnewswire.com/news-releases/manufacturing-pmi-at-52-7-april-2026-ism-manufacturing-pmi-report-302759226.html">PR Newswire · Manufacturing PMI® at 52.7%; April 2026 ISM® Manufacturing PMI® Report</a> · <a href="https://www.bls.gov/schedule/news_release/empsit.htm">BLS · Schedule of Releases for the Employment Situation (April 2026 release Friday May 8)</a>
+</footer>
+
+</div></body></html>
