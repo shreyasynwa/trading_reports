@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MORNING BRIEFING — Tue May 05, 09:02 AM</title>
+<style>
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: #0a0d14;
+  color: #e5e7eb;
+  font-family: "SF Mono", "JetBrains Mono", "Menlo", "Monaco", "Consolas", monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.wrap { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+h1 {
+  font-size: 14px; font-weight: 600; letter-spacing: 0.04em;
+  color: #9ca3af; margin: 0 0 6px 0;
+}
+.asof { color: #6b7280; font-size: 11px; margin-bottom: 4px; }
+.breadth { color: #9ca3af; font-size: 11px; margin-bottom: 22px; }
+.breadth .num { color: #e5e7eb; font-weight: 600; }
+
+section.seg { margin-bottom: 28px; }
+.seg-header {
+  display: flex; align-items: center;
+  padding: 6px 0;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
+  border-bottom: 1px solid #1f2937;
+  margin-bottom: 4px;
+}
+.accent-bar {
+  display: inline-block; width: 4px; height: 20px; margin-right: 10px;
+  background: currentColor; border-radius: 1px;
+}
+.seg-title { font-weight: 700; letter-spacing: 0.08em; }
+.seg-dash { margin: 0 10px; color: #4b5563; }
+.seg-subtitle { color: inherit; font-weight: 500; letter-spacing: 0.02em; }
+
+.heating       { color: #f59e0b; }
+.heating .seg-title { color: #f59e0b; }
+.active        { color: #10b981; }
+.active .seg-title { color: #10b981; }
+.unusual       { color: #3b82f6; }
+.unusual .seg-title { color: #3b82f6; }
+.pm-movers     { color: #eab308; }
+.pm-movers .seg-title { color: #eab308; }
+.pm-moving     { color: #22d3ee; }
+.pm-moving .seg-title { color: #22d3ee; }
+.pm-quiet      { color: #a78bfa; }
+.pm-quiet .seg-title { color: #a78bfa; }
+.calls         { color: #10b981; }
+.calls .seg-title { color: #10b981; }
+.puts          { color: #ef4444; }
+.puts .seg-title { color: #ef4444; }
+.watchlist     { color: #60a5fa; }
+.watchlist .seg-title { color: #60a5fa; }
+.watchlist-missing td { color: #6b7280; font-style: italic; }
+
+.premarket-table .type-cell { color: #9ca3af; text-align: right; letter-spacing: 0.02em; }
+.premarket-movers-table .rel-vol { color: #6b7280; }
+.premarket-movers-table .dim, .premarket-bench-table .dim { color: #6b7280; font-weight: 500; }
+.premarket-bench-table .type-cell { color: #9ca3af; text-align: right; letter-spacing: 0.02em; }
+.premarket-bench-table .type-cell.heating-tag { color: #f59e0b; font-weight: 600; }
+.daytrade-table thead th { font-size: 10.5px; }
+
+.criteria {
+  color: #9ca3af; font-size: 11px;
+  margin-left: 12px; padding-left: 12px;
+  border-left: 1px solid #1f2937;
+  font-weight: 400; letter-spacing: 0;
+}
+
+table.seg-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.seg-table thead th {
+  text-align: right; padding: 4px 10px; color: #6b7280;
+  font-weight: 500; font-size: 11px; letter-spacing: 0.06em;
+  border-bottom: 1px solid #1f2937;
+}
+.seg-table thead th:first-child { text-align: left; }
+.seg-table tbody td { padding: 7px 10px; font-size: 13px; text-align: right; }
+.seg-table tbody td.tkr { text-align: left; font-weight: 600; color: #e5e7eb; }
+.ticker-row { border-bottom: 1px solid #0d1220; }
+.ticker-row:hover { background: #0f1623; }
+
+.price { color: #d1d5db; }
+.pos { color: #10b981; }
+.neg { color: #ef4444; }
+.zero { color: #9ca3af; }
+.rvol { color: #d1d5db; }
+.h52  { color: #9ca3af; }
+.rs   { color: #e5e7eb; font-weight: 600; }
+.rs.st       { color: #10b981; }
+.rs.intraday { color: #22d3ee; }
+.rs.weekly   { color: #a78bfa; }
+.gap  { font-weight: 600; }
+
+.liq { display: inline-flex; gap: 3px; }
+.liq .bar { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+.liq .bar.on  { background: #f59e0b; }
+.liq .bar.off { background: #1f2937; }
+
+.new-cell { text-align: right; padding-left: 18px; }
+.new { color: #f59e0b; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; }
+
+/* LEVELS column: stacked R (red, above) / S (green, below) with % distance */
+.sr-cell { font-size: 11.5px; line-height: 1.35;
+           font-variant-numeric: tabular-nums; white-space: nowrap;
+           min-width: 150px; }
+.sr-row { display: block; }
+.sr-row.r { color: #f87171; }
+.sr-row.s { color: #34d399; }
+.sr-lbl { font-weight: 700; letter-spacing: 0.04em;
+          display: inline-block; width: 12px; opacity: 0.85; }
+.sr-price { color: #e5e7eb; font-weight: 500; }
+.sr-pct   { color: #9ca3af; }
+
+/* COMMENT column: regime word coloured by direction, stats dim, catalyst amber */
+.cmt { color: #cbd5e1; font-size: 12px; line-height: 1.45;
+       max-width: 420px; white-space: normal; }
+.cmt.dim { color: #6b7280; font-style: italic; }
+.cmt .cmt-regime { font-weight: 700; letter-spacing: 0.02em; margin-right: 2px; }
+.cmt .cmt-regime.pos { color: #34d399; }
+.cmt .cmt-regime.neg { color: #f87171; }
+.cmt .cmt-regime.dim { color: #94a3b8; }
+.cmt .cmt-stat { color: #9ca3af; font-variant-numeric: tabular-nums; }
+.cmt .cmt-cat { color: #f59e0b; font-weight: 600;
+                background: rgba(245,158,11,0.08);
+                padding: 0 5px; border-radius: 3px; }
+.cmt .cmt-line1 { }
+.cmt .cmt-detail { color: #94a3b8; font-size: 11.5px; margin-top: 2px;
+                   font-style: italic; letter-spacing: 0.01em; }
+
+.contracts-row td { padding: 2px 10px 12px 10px !important; text-align: left !important; }
+.contracts { color: #60a5fa; font-size: 12px; letter-spacing: 0.01em; padding-left: 24px; }
+.contracts .c-label { color: #60a5fa; font-weight: 600; margin-right: 8px; }
+.contracts .oi { color: #60a5fa; opacity: 0.9; }
+
+.unusual-table tbody td { padding: 8px 10px; }
+.unusual-table .tkr { min-width: 70px; }
+.unusual-table .vol { color: #d1d5db; min-width: 160px; }
+.unusual-table .ratio { color: #3b82f6; min-width: 120px; font-weight: 600; }
+.unusual-table .cp  { color: #9ca3af; min-width: 120px; }
+.unusual-table .flag { text-align: left; }
+
+.on-bench { color: #10b981; font-weight: 700; letter-spacing: 0.04em; }
+.on-heating { color: #f59e0b; font-weight: 700; letter-spacing: 0.04em; }
+.off-bench { color: #6b7280; letter-spacing: 0.02em; }
+
+.empty { color: #6b7280; text-align: center !important; font-style: italic; }
+
+.legend {
+  margin-top: 28px; padding: 14px 18px;
+  background: #0f141f; border: 1px solid #1f2937; border-radius: 4px;
+  color: #9ca3af; font-size: 11px; line-height: 1.8;
+}
+.legend .k { color: #d1d5db; font-weight: 600; }
+.legend .sep { color: #4b5563; margin: 0 12px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>MORNING BRIEFING</h1>
+    <div class="asof">Premarket Movers + Bench Preview &nbsp;•&nbsp; Tue May 05, 09:02 AM</div>
+    <div class="breadth">Universe: <span class="num">88</span> &nbsp;|&nbsp; Above 20DMA: <span class="num">65.9%</span> &nbsp;|&nbsp; Above 50DMA: <span class="num">68.2%</span></div>
+
+    
+<section class="seg pm-movers">
+  <div class="seg-header">
+    <span class="accent-bar"></span>
+    <span class="seg-title">PREMARKET MOVERS</span>
+    <span class="seg-dash">—</span>
+    <span class="seg-subtitle">Liquid Options &nbsp;|&nbsp; Price ≥ $10 &nbsp;|&nbsp; Move ≥ 2%</span>
+  </div>
+  <table class="seg-table premarket-movers-table">
+    <thead><tr><th>TICKER</th><th>PREMARKET%</th><th>PRICE</th><th>REL VOL</th><th>ST RS</th><th>LIQ</th><th>COMMENT</th></tr></thead>
+    <tbody>
+<tr class="ticker-row">
+  <td class="tkr">DOCN</td>
+  <td class="day pos">+18.2%</td>
+  <td class="price">$108.81</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 86/LT 95</span> • <span class="cmt-stat">RVol 1.1x</span> • <span class="cmt-cat">new 52wk high</span></div><div class="cmt-detail">At fresh 52wk high — breakout continuation candidate.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">PINS</td>
+  <td class="day pos">+17.1%</td>
+  <td class="price">$20.85</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Rebound</span> • <span class="cmt-stat">ST 76/LT 15</span> • <span class="cmt-stat">RVol 2.9x</span></div><div class="cmt-detail">Oversold bounce — fade into resistance if RVol fades.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">PYPL</td>
+  <td class="day neg">-9.6%</td>
+  <td class="price">$50.39</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Rebound</span> • <span class="cmt-stat">ST 71/LT 14</span> • <span class="cmt-stat">RVol 1.1x</span></div><div class="cmt-detail">Oversold bounce — fade into resistance if RVol fades.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">WOLF</td>
+  <td class="day pos">+9.1%</td>
+  <td class="price">$35.94</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Breaking out</span> • <span class="cmt-stat">ST 100/LT 79</span> • <span class="cmt-stat">RVol 1.0x</span></div><div class="cmt-detail">Breakout in progress — volume must confirm or fade.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ROK</td>
+  <td class="day pos">+8.7%</td>
+  <td class="price">$400.31</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 67/LT 77</span> • <span class="cmt-stat">RVol 1.5x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">AEIS</td>
+  <td class="day neg">-7.5%</td>
+  <td class="price">$387.03</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 79/LT 96</span> • <span class="cmt-stat">RVol 1.8x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SHOP</td>
+  <td class="day neg">-6.9%</td>
+  <td class="price">$127.55</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 63/LT 62</span> • <span class="cmt-stat">RVol 1.5x</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">FSLY</td>
+  <td class="day pos">+6.7%</td>
+  <td class="price">$27.49</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Topping</span> • <span class="cmt-stat">ST 4/LT 97</span> • <span class="cmt-stat">RVol 0.5x</span></div><div class="cmt-detail">ST weakening while LT elevated — distribution risk rising.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">TDG</td>
+  <td class="day pos">+6.1%</td>
+  <td class="price">$1,149.72</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 24/LT 16</span> • <span class="cmt-stat">RVol 1.2x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ON</td>
+  <td class="day neg">-5.7%</td>
+  <td class="price">$102.04</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 99/LT 91</span> • <span class="cmt-stat">RVol 1.6x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">BNTX</td>
+  <td class="day neg">-4.8%</td>
+  <td class="price">$99.35</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Waking up</span> • <span class="cmt-stat">ST 66/LT 32</span> • <span class="cmt-stat">RVol 1.2x</span></div><div class="cmt-detail">ST leading LT — early entry candidate, small size.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ETN</td>
+  <td class="day neg">-4.6%</td>
+  <td class="price">$422.44</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 78/LT 70</span> • <span class="cmt-stat">RVol 1.4x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CINF</td>
+  <td class="day neg">-4.6%</td>
+  <td class="price">$159.57</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 36/LT 45</span> • <span class="cmt-stat">RVol 0.6x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">MU</td>
+  <td class="day pos">+4.5%</td>
+  <td class="price">$576.45</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">98</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 98/LT 98</span> • <span class="cmt-stat">RVol 1.2x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Gap up — wait to see if fill holds or fades.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CIFR</td>
+  <td class="day pos">+4.1%</td>
+  <td class="price">$17.89</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 92/LT 98</span> • <span class="cmt-stat">RVol 1.0x</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">INTC</td>
+  <td class="day pos">+3.9%</td>
+  <td class="price">$95.78</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">100</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 100/LT 97</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CMI</td>
+  <td class="day pos">+3.5%</td>
+  <td class="price">$656.73</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 82/LT 89</span> • <span class="cmt-stat">RVol 1.6x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">DD</td>
+  <td class="day pos">+3.5%</td>
+  <td class="price">$45.41</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 36/LT 78</span> • <span class="cmt-stat">RVol 1.2x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">MSTR</td>
+  <td class="day pos">+3.4%</td>
+  <td class="price">$183.80</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">95</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Rebound</span> • <span class="cmt-stat">ST 95/LT 3</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">earnings today</span></div><div class="cmt-detail">Earnings today — size down or flat before print.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">IDXX</td>
+  <td class="day pos">+3.4%</td>
+  <td class="price">$563.12</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 29/LT 52</span> • <span class="cmt-stat">RVol 1.3x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">KNX</td>
+  <td class="day neg">-3.3%</td>
+  <td class="price">$62.14</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 53/LT 74</span> • <span class="cmt-stat">RVol 1.2x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">AKAM</td>
+  <td class="day pos">+3.2%</td>
+  <td class="price">$105.78</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 12/LT 61</span> • <span class="cmt-stat">RVol 0.6x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">COIN</td>
+  <td class="day pos">+3.2%</td>
+  <td class="price">$202.99</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">78</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Rebound</span> • <span class="cmt-stat">ST 78/LT 35</span> • <span class="cmt-stat">RVol 1.2x</span> • <span class="cmt-cat">earnings in 2d</span></div><div class="cmt-detail">Earnings in 2d — reduce exposure ahead of print.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">AMAT</td>
+  <td class="day pos">+3.0%</td>
+  <td class="price">$391.38</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">72</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 72/LT 92</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ASML</td>
+  <td class="day pos">+3.0%</td>
+  <td class="price">$1,386.21</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">60</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 60/LT 87</span> • <span class="cmt-stat">RVol 1.0x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">GWW</td>
+  <td class="day neg">-2.9%</td>
+  <td class="price">$1,142.14</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 45/LT 41</span> • <span class="cmt-stat">RVol 1.2x</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">LRCX</td>
+  <td class="day pos">+2.8%</td>
+  <td class="price">$258.57</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">80</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Leader fading</span> • <span class="cmt-stat">ST 80/LT 96</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">Momentum rolling over — trim longs, tighten stops.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">HOOD</td>
+  <td class="day pos">+2.7%</td>
+  <td class="price">$76.55</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">69</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 69/LT 76</span> • <span class="cmt-stat">RVol 0.8x</span> • <span class="cmt-cat">deep drawdown</span></div><div class="cmt-detail">Deep drawdown — needs base before it's a buy.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">APLD</td>
+  <td class="day pos">+2.6%</td>
+  <td class="price">$35.63</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 95/LT 98</span> • <span class="cmt-stat">RVol 0.9x</span> • <span class="cmt-cat">gap up</span></div><div class="cmt-detail">Gap up — wait to see if fill holds or fades.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ARM</td>
+  <td class="day pos">+2.6%</td>
+  <td class="price">$203.26</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">92</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 92/LT 80</span> • <span class="cmt-stat">RVol 0.8x</span> • <span class="cmt-cat">earnings in 1d</span></div><div class="cmt-detail">Earnings in 1d — reduce exposure ahead of print.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">MRVL</td>
+  <td class="day pos">+2.6%</td>
+  <td class="price">$163.66</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">97</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar on"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 97/LT 93</span> • <span class="cmt-stat">RVol 0.5x</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CLSK</td>
+  <td class="day pos">+2.6%</td>
+  <td class="price">$12.82</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Breaking out</span> • <span class="cmt-stat">ST 94/LT 73</span> • <span class="cmt-stat">RVol 1.1x</span> • <span class="cmt-cat">gap up</span></div><div class="cmt-detail">Gap up — wait to see if fill holds or fades.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SEDG</td>
+  <td class="day pos">+2.6%</td>
+  <td class="price">$41.52</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Topping</span> • <span class="cmt-stat">ST 11/LT 94</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">ST weakening while LT elevated — distribution risk rising.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">NET</td>
+  <td class="day pos">+2.5%</td>
+  <td class="price">$224.17</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 59/LT 84</span> • <span class="cmt-stat">RVol 0.6x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">AMBA</td>
+  <td class="day pos">+2.5%</td>
+  <td class="price">$70.72</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Breaking out</span> • <span class="cmt-stat">ST 94/LT 70</span> • <span class="cmt-stat">RVol 1.1x</span></div><div class="cmt-detail">Breakout in progress — volume must confirm or fade.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">RIOT</td>
+  <td class="day pos">+2.4%</td>
+  <td class="price">$18.68</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 93/LT 89</span> • <span class="cmt-stat">RVol 1.0x</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">AMD</td>
+  <td class="day pos">+2.4%</td>
+  <td class="price">$341.54</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">98</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 98/LT 95</span> • <span class="cmt-stat">RVol 1.1x</span> • <span class="cmt-cat">earnings today</span></div><div class="cmt-detail">Earnings today — size down or flat before print.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CHRW</td>
+  <td class="day pos">+2.3%</td>
+  <td class="price">$161.24</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Topping</span> • <span class="cmt-stat">ST 20/LT 83</span> • <span class="cmt-stat">RVol 2.7x</span> • <span class="cmt-cat">gap down</span></div><div class="cmt-detail">Gap down — needs reclaim of prior close first.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SSRM</td>
+  <td class="day pos">+2.3%</td>
+  <td class="price">$28.34</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Topping</span> • <span class="cmt-stat">ST 5/LT 94</span> • <span class="cmt-stat">RVol 1.0x</span></div><div class="cmt-detail">ST weakening while LT elevated — distribution risk rising.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">APP</td>
+  <td class="day pos">+2.3%</td>
+  <td class="price">$475.00</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">78</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 78/LT 75</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">earnings in 1d</span></div><div class="cmt-detail">Earnings in 1d — reduce exposure ahead of print.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">HIW</td>
+  <td class="day pos">+2.3%</td>
+  <td class="price">$24.46</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Rebound</span> • <span class="cmt-stat">ST 75/LT 21</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">Oversold bounce — fade into resistance if RVol fades.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SCCO</td>
+  <td class="day pos">+2.2%</td>
+  <td class="price">$166.30</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Topping</span> • <span class="cmt-stat">ST 15/LT 85</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">ST weakening while LT elevated — distribution risk rising.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">IONQ</td>
+  <td class="day pos">+2.1%</td>
+  <td class="price">$45.75</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">98</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Breaking out</span> • <span class="cmt-stat">ST 98/LT 73</span> • <span class="cmt-stat">RVol 0.8x</span> • <span class="cmt-cat">earnings in 1d</span></div><div class="cmt-detail">Earnings in 1d — reduce exposure ahead of print.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">QBTS</td>
+  <td class="day pos">+2.1%</td>
+  <td class="price">$20.92</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 96/LT 93</span> • <span class="cmt-stat">RVol 0.8x</span> • <span class="cmt-cat">deep drawdown</span></div><div class="cmt-detail">Deep drawdown — needs base before it's a buy.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SNDK</td>
+  <td class="day pos">+2.0%</td>
+  <td class="price">$1,255.86</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">100</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 100/LT 100</span> • <span class="cmt-stat">RVol 1.2x</span> • <span class="cmt-cat">earnings 5d ago</span></div><div class="cmt-detail">Gap up — wait to see if fill holds or fades.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ALGM</td>
+  <td class="day pos">+2.0%</td>
+  <td class="price">$49.48</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs dim">--</td>
+  <td class="liq-cell"><span class="liq"><span class="bar off"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 97/LT 92</span> • <span class="cmt-stat">RVol 1.2x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">WDC</td>
+  <td class="day pos">+2.0%</td>
+  <td class="price">$442.36</td>
+  <td class="rel-vol dim">n/a</td>
+  <td class="rs st">96</td>
+  <td class="liq-cell"><span class="liq"><span class="bar on"></span><span class="bar off"></span><span class="bar off"></span></span></td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 96/LT 100</span> • <span class="cmt-stat">RVol 1.4x</span> • <span class="cmt-cat">earnings 5d ago</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+</tr>
+</tbody>
+  </table>
+</section>
+
+<section class="seg pm-moving">
+  <div class="seg-header">
+    <span class="accent-bar"></span>
+    <span class="seg-title">MOVING IN PREMARKET</span>
+    <span class="seg-dash">—</span>
+    <span class="seg-subtitle">Bench Names Prioritize These Today</span>
+  </div>
+  <table class="seg-table premarket-bench-table">
+    <thead><tr><th>TICKER</th><th>PREMARKET</th><th>ST RS</th><th>COMMENT</th><th>TYPE</th><th></th></tr></thead>
+    <tbody>
+<tr class="ticker-row">
+  <td class="tkr">MU</td>
+  <td class="day pos">+4.5%</td>
+  <td class="rs st">98</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 98/LT 98</span> • <span class="cmt-stat">RVol 1.2x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Gap up — wait to see if fill holds or fades.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">INTC</td>
+  <td class="day pos">+3.9%</td>
+  <td class="rs st">100</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 100/LT 97</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">MSTR</td>
+  <td class="day pos">+3.4%</td>
+  <td class="rs st">95</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Rebound</span> • <span class="cmt-stat">ST 95/LT 3</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">earnings today</span></div><div class="cmt-detail">Earnings today — size down or flat before print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">COIN</td>
+  <td class="day pos">+3.2%</td>
+  <td class="rs st">78</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Rebound</span> • <span class="cmt-stat">ST 78/LT 35</span> • <span class="cmt-stat">RVol 1.2x</span> • <span class="cmt-cat">earnings in 2d</span></div><div class="cmt-detail">Earnings in 2d — reduce exposure ahead of print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">AMAT</td>
+  <td class="day pos">+3.0%</td>
+  <td class="rs st">72</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 72/LT 92</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ASML</td>
+  <td class="day pos">+3.0%</td>
+  <td class="rs st">60</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 60/LT 87</span> • <span class="cmt-stat">RVol 1.0x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">LRCX</td>
+  <td class="day pos">+2.8%</td>
+  <td class="rs st">80</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Leader fading</span> • <span class="cmt-stat">ST 80/LT 96</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">Momentum rolling over — trim longs, tighten stops.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">HOOD</td>
+  <td class="day pos">+2.7%</td>
+  <td class="rs st">69</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 69/LT 76</span> • <span class="cmt-stat">RVol 0.8x</span> • <span class="cmt-cat">deep drawdown</span></div><div class="cmt-detail">Deep drawdown — needs base before it's a buy.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ARM</td>
+  <td class="day pos">+2.6%</td>
+  <td class="rs st">92</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 92/LT 80</span> • <span class="cmt-stat">RVol 0.8x</span> • <span class="cmt-cat">earnings in 1d</span></div><div class="cmt-detail">Earnings in 1d — reduce exposure ahead of print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">MRVL</td>
+  <td class="day pos">+2.6%</td>
+  <td class="rs st">97</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 97/LT 93</span> • <span class="cmt-stat">RVol 0.5x</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">AMD</td>
+  <td class="day pos">+2.4%</td>
+  <td class="rs st">98</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 98/LT 95</span> • <span class="cmt-stat">RVol 1.1x</span> • <span class="cmt-cat">earnings today</span></div><div class="cmt-detail">Earnings today — size down or flat before print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">APP</td>
+  <td class="day pos">+2.3%</td>
+  <td class="rs st">78</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 78/LT 75</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">earnings in 1d</span></div><div class="cmt-detail">Earnings in 1d — reduce exposure ahead of print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">IONQ</td>
+  <td class="day pos">+2.1%</td>
+  <td class="rs st">98</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Breaking out</span> • <span class="cmt-stat">ST 98/LT 73</span> • <span class="cmt-stat">RVol 0.8x</span> • <span class="cmt-cat">earnings in 1d</span></div><div class="cmt-detail">Earnings in 1d — reduce exposure ahead of print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SNDK</td>
+  <td class="day pos">+2.0%</td>
+  <td class="rs st">100</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 100/LT 100</span> • <span class="cmt-stat">RVol 1.2x</span> • <span class="cmt-cat">earnings 5d ago</span></div><div class="cmt-detail">Gap up — wait to see if fill holds or fades.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">WDC</td>
+  <td class="day pos">+2.0%</td>
+  <td class="rs st">96</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 96/LT 100</span> • <span class="cmt-stat">RVol 1.4x</span> • <span class="cmt-cat">earnings 5d ago</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+</tbody>
+  </table>
+</section>
+
+<section class="seg pm-quiet">
+  <div class="seg-header">
+    <span class="accent-bar"></span>
+    <span class="seg-title">QUIET PREMARKET</span>
+    <span class="seg-dash">—</span>
+    <span class="seg-subtitle">On Radar for 2 PM</span>
+  </div>
+  <table class="seg-table premarket-bench-table">
+    <thead><tr><th>TICKER</th><th>PREMARKET</th><th>ST RS</th><th>COMMENT</th><th>TYPE</th><th></th></tr></thead>
+    <tbody>
+<tr class="ticker-row">
+  <td class="tkr">STX</td>
+  <td class="day pos">+1.5%</td>
+  <td class="rs st">99</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 99/LT 99</span> • <span class="cmt-stat">RVol 1.4x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">TXN</td>
+  <td class="day neg">-0.1%</td>
+  <td class="rs st">94</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 94/LT 82</span> • <span class="cmt-stat">RVol 0.7x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">IREN</td>
+  <td class="day pos">+1.9%</td>
+  <td class="rs st">94</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 94/LT 99</span> • <span class="cmt-stat">RVol 1.2x</span> • <span class="cmt-cat">earnings in 2d</span></div><div class="cmt-detail">Earnings in 2d — reduce exposure ahead of print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ANET</td>
+  <td class="day pos">+1.6%</td>
+  <td class="rs st">93</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 93/LT 86</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">earnings today</span></div><div class="cmt-detail">Earnings today — size down or flat before print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">QCOM</td>
+  <td class="day pos">+0.6%</td>
+  <td class="rs st">92</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Waking up</span> • <span class="cmt-stat">ST 92/LT 53</span> • <span class="cmt-stat">RVol 1.3x</span></div><div class="cmt-detail">ST leading LT — early entry candidate, small size.</div></td>
+  <td class="type-cell heating-tag">Heating Up</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">AVGO</td>
+  <td class="day pos">+0.9%</td>
+  <td class="rs st">91</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 91/LT 87</span> • <span class="cmt-stat">RVol 0.7x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">UNH</td>
+  <td class="day neg">-0.1%</td>
+  <td class="rs st">90</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Rebound</span> • <span class="cmt-stat">ST 90/LT 30</span> • <span class="cmt-stat">RVol 0.5x</span></div><div class="cmt-detail">Oversold bounce — fade into resistance if RVol fades.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">VRT</td>
+  <td class="day pos">+0.2%</td>
+  <td class="rs st">89</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 89/LT 96</span> • <span class="cmt-stat">RVol 0.9x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">COHR</td>
+  <td class="day neg">-1.6%</td>
+  <td class="rs st">89</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 89/LT 97</span> • <span class="cmt-stat">RVol 1.2x</span> • <span class="cmt-cat">earnings in 1d</span></div><div class="cmt-detail">Earnings in 1d — reduce exposure ahead of print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">AMZN</td>
+  <td class="day pos">+0.6%</td>
+  <td class="rs st">88</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Breaking out</span> • <span class="cmt-stat">ST 88/LT 71</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Breakout in progress — volume must confirm or fade.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">GOOGL</td>
+  <td class="day pos">+0.3%</td>
+  <td class="rs st">88</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 88/LT 91</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">GOOG</td>
+  <td class="day pos">+0.3%</td>
+  <td class="rs st">88</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 88/LT 90</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">LITE</td>
+  <td class="day pos">+0.9%</td>
+  <td class="rs st">87</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 87/LT 100</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">earnings today</span></div><div class="cmt-detail">Earnings today — size down or flat before print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ORCL</td>
+  <td class="day pos">+1.6%</td>
+  <td class="rs st">85</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Waking up</span> • <span class="cmt-stat">ST 85/LT 52</span> • <span class="cmt-stat">RVol 1.0x</span></div><div class="cmt-detail">ST leading LT — early entry candidate, small size.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CIEN</td>
+  <td class="day pos">+1.5%</td>
+  <td class="rs st">85</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 85/LT 99</span> • <span class="cmt-stat">RVol 0.5x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">DELL</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">84</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 84/LT 89</span> • <span class="cmt-stat">RVol 0.6x</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ADI</td>
+  <td class="day pos">+0.3%</td>
+  <td class="rs st">83</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 83/LT 87</span> • <span class="cmt-stat">RVol 0.6x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CAT</td>
+  <td class="day pos">+0.9%</td>
+  <td class="rs st">83</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 83/LT 94</span> • <span class="cmt-stat">RVol 1.2x</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CVNA</td>
+  <td class="day pos">+0.7%</td>
+  <td class="rs st">81</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 81/LT 73</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CRWD</td>
+  <td class="day pos">+1.0%</td>
+  <td class="rs st">80</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Waking up</span> • <span class="cmt-stat">ST 80/LT 41</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">ST leading LT — early entry candidate, small size.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">TSM</td>
+  <td class="day pos">+0.3%</td>
+  <td class="rs st">80</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Steady leader</span> • <span class="cmt-stat">ST 80/LT 90</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">Proven strength — continuation setups favored on dips.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CSCO</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">78</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 78/LT 76</span> • <span class="cmt-stat">RVol 0.7x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">PANW</td>
+  <td class="day pos">+1.0%</td>
+  <td class="rs st">76</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Rebound</span> • <span class="cmt-stat">ST 76/LT 34</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">Oversold bounce — fade into resistance if RVol fades.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">QQQ</td>
+  <td class="day pos">+0.7%</td>
+  <td class="rs st">76</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 76/LT 68</span> • <span class="cmt-stat">RVol 0.8x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">MS</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">75</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 75/LT 76</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">NVDA</td>
+  <td class="day pos">+0.3%</td>
+  <td class="rs st">73</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 73/LT 82</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"><span class="new">NEW</span></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">KLAC</td>
+  <td class="day pos">+1.6%</td>
+  <td class="rs st">73</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 73/LT 92</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">TSLA</td>
+  <td class="day pos">+0.8%</td>
+  <td class="rs st">72</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 72/LT 67</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">MSFT</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">71</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Rebound</span> • <span class="cmt-stat">ST 71/LT 33</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">Oversold bounce — fade into resistance if RVol fades.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">IWM</td>
+  <td class="day pos">+0.8%</td>
+  <td class="rs st">70</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 70/LT 68</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">BABA</td>
+  <td class="day pos">+1.2%</td>
+  <td class="rs st">67</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 67/LT 40</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SPY</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">67</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 67/LT 59</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">near 52wk high</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">V</td>
+  <td class="day pos">+0.0%</td>
+  <td class="rs st">63</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Waking up</span> • <span class="cmt-stat">ST 63/LT 31</span> • <span class="cmt-stat">RVol 1.0x</span></div><div class="cmt-detail">ST leading LT — early entry candidate, small size.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">AAPL</td>
+  <td class="day neg">-0.2%</td>
+  <td class="rs st">62</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 62/LT 66</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">earnings 5d ago</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">C</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">62</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 62/LT 83</span> • <span class="cmt-stat">RVol 1.3x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">META</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">61</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Waking up</span> • <span class="cmt-stat">ST 61/LT 37</span> • <span class="cmt-stat">RVol 1.0x</span></div><div class="cmt-detail">ST leading LT — early entry candidate, small size.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">BAC</td>
+  <td class="day pos">+0.1%</td>
+  <td class="rs st">54</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 54/LT 60</span> • <span class="cmt-stat">RVol 1.3x</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">GS</td>
+  <td class="day pos">+0.4%</td>
+  <td class="rs st">54</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 54/LT 77</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">LLY</td>
+  <td class="day neg">-0.2%</td>
+  <td class="rs st">54</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 54/LT 51</span> • <span class="cmt-stat">RVol 1.2x</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">JPM</td>
+  <td class="day pos">+0.3%</td>
+  <td class="rs st">53</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 53/LT 55</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">BA</td>
+  <td class="day pos">+0.8%</td>
+  <td class="rs st">53</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 53/LT 52</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ADBE</td>
+  <td class="day pos">+0.6%</td>
+  <td class="rs st">52</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Waking up</span> • <span class="cmt-stat">ST 52/LT 9</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">deep drawdown</span></div><div class="cmt-detail">Deep drawdown — needs base before it's a buy.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">WMT</td>
+  <td class="day neg">-0.0%</td>
+  <td class="rs st">47</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 47/LT 65</span> • <span class="cmt-stat">RVol 0.6x</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">UBER</td>
+  <td class="day pos">+0.7%</td>
+  <td class="rs st">46</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime pos">Waking up</span> • <span class="cmt-stat">ST 46/LT 25</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">earnings in 1d</span></div><div class="cmt-detail">Earnings in 1d — reduce exposure ahead of print.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">KO</td>
+  <td class="day neg">-0.1%</td>
+  <td class="rs st">42</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Basing</span> • <span class="cmt-stat">ST 42/LT 43</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Neutral range — wait for breakout direction to pick sides.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">MA</td>
+  <td class="day pos">+0.3%</td>
+  <td class="rs st">40</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 40/LT 27</span> • <span class="cmt-stat">RVol 1.3x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ABBV</td>
+  <td class="day neg">-0.2%</td>
+  <td class="rs st">40</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 40/LT 40</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CRM</td>
+  <td class="day pos">+0.9%</td>
+  <td class="rs st">39</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 39/LT 10</span> • <span class="cmt-stat">RVol 0.6x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">PG</td>
+  <td class="day neg">-0.2%</td>
+  <td class="rs st">39</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 39/LT 26</span> • <span class="cmt-stat">RVol 1.1x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ISRG</td>
+  <td class="day pos">+0.6%</td>
+  <td class="rs st">37</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 37/LT 22</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SOFI</td>
+  <td class="day pos">+0.9%</td>
+  <td class="rs st">36</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 36/LT 60</span> • <span class="cmt-stat">RVol 1.0x</span> • <span class="cmt-cat">deep drawdown</span></div><div class="cmt-detail">Deep drawdown — needs base before it's a buy.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">COST</td>
+  <td class="day pos">+0.0%</td>
+  <td class="rs st">35</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 35/LT 36</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">PLTR</td>
+  <td class="day neg">-1.2%</td>
+  <td class="rs st">33</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 33/LT 51</span> • <span class="cmt-stat">RVol 1.4x</span> • <span class="cmt-cat">earnings 1d ago</span></div><div class="cmt-detail">Just reported — watch post-earnings drift.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SCHW</td>
+  <td class="day pos">+0.1%</td>
+  <td class="rs st">32</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 32/LT 44</span> • <span class="cmt-stat">RVol 0.6x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">TMUS</td>
+  <td class="day pos">+0.3%</td>
+  <td class="rs st">31</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 31/LT 15</span> • <span class="cmt-stat">RVol 0.5x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">INTU</td>
+  <td class="day pos">+0.8%</td>
+  <td class="rs st">28</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 28/LT 9</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">GE</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">26</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 26/LT 66</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">WFC</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">25</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 25/LT 41</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">VZ</td>
+  <td class="day neg">-0.4%</td>
+  <td class="rs st">25</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime dim">Mixed</span> • <span class="cmt-stat">ST 25/LT 42</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">No clear read — stand aside until regime resolves.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">CVX</td>
+  <td class="day neg">-0.6%</td>
+  <td class="rs st">24</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 24/LT 68</span> • <span class="cmt-stat">RVol 0.8x</span> • <span class="cmt-cat">earnings 4d ago</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SNOW</td>
+  <td class="day pos">+1.7%</td>
+  <td class="rs st">23</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 23/LT 23</span> • <span class="cmt-stat">RVol 0.7x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">HD</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">21</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 21/LT 23</span> • <span class="cmt-stat">RVol 1.8x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">COP</td>
+  <td class="day neg">-0.3%</td>
+  <td class="rs st">18</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 18/LT 67</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">XOM</td>
+  <td class="day neg">-0.2%</td>
+  <td class="rs st">15</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 15/LT 72</span> • <span class="cmt-stat">RVol 0.8x</span> • <span class="cmt-cat">earnings 4d ago</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">MRK</td>
+  <td class="day pos">+0.1%</td>
+  <td class="rs st">14</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 14/LT 67</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">IBM</td>
+  <td class="day pos">+0.6%</td>
+  <td class="rs st">13</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 13/LT 31</span> • <span class="cmt-stat">RVol 0.6x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">JNJ</td>
+  <td class="day pos">+0.0%</td>
+  <td class="rs st">13</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 13/LT 71</span> • <span class="cmt-stat">RVol 1.1x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">NFLX</td>
+  <td class="day pos">+0.4%</td>
+  <td class="rs st">11</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 11/LT 16</span> • <span class="cmt-stat">RVol 0.6x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">FCX</td>
+  <td class="day pos">+1.9%</td>
+  <td class="rs st">9</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Cooling off</span> • <span class="cmt-stat">ST 9/LT 73</span> • <span class="cmt-stat">RVol 0.9x</span></div><div class="cmt-detail">Profit-taking phase — take partials, let winners breathe.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">BSX</td>
+  <td class="day pos">+0.4%</td>
+  <td class="rs st">8</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 8/LT 5</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">SPOT</td>
+  <td class="day pos">+0.5%</td>
+  <td class="rs st">7</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 7/LT 10</span> • <span class="cmt-stat">RVol 0.8x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">NOW</td>
+  <td class="day pos">+1.8%</td>
+  <td class="rs st">6</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 6/LT 3</span> • <span class="cmt-stat">RVol 0.7x</span> • <span class="cmt-cat">deep drawdown</span></div><div class="cmt-detail">Deep drawdown — needs base before it's a buy.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+
+<tr class="ticker-row">
+  <td class="tkr">ABT</td>
+  <td class="day pos">+0.2%</td>
+  <td class="rs st">2</td>
+  <td class="cmt"><div class="cmt-line1"><span class="cmt-regime neg">Weak</span> • <span class="cmt-stat">ST 2/LT 9</span> • <span class="cmt-stat">RVol 1.1x</span></div><div class="cmt-detail">Downtrend intact — short rallies or stay on the sidelines.</div></td>
+  <td class="type-cell">Bench</td>
+  <td class="new-cell"></td>
+</tr>
+</tbody>
+  </table>
+</section>
+
+
+    <div class="legend"><span class="k">Movers</span> = broad universe, |%| ≥ 2 premarket, price ≥ $10<span class="sep">|</span><span class="k">Moving</span> = bench ≥ 2%<span class="sep">|</span><span class="k">Quiet</span> = bench &lt; 2%</div>
+  </div>
+</body>
+</html>
