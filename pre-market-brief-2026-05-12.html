@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pre-Market Brief · Day-Trade Edition — Wednesday, May 06, 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: radial-gradient(ellipse at top, #0e1118, #06070b 60%);
+    color: #dfe3ee;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  body { padding: 32px 18px 80px; font-size: 13.5px; min-height: 100vh; }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+  a { color: #7bc4ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  b { color: #f3f5fa; font-weight: 600; }
+  em, i { color: #e2e7f2; font-style: italic; }
+
+  .pos { color: #52e08f; } .neg { color: #ff5574; } .neutral { color: #8892a8; }
+  .flag-red { color: #ff5574; font-weight: 600; }
+  .flag-yel { color: #ffb347; font-weight: 600; }
+  .flag-grn { color: #52e08f; font-weight: 600; }
+  .flag-blue { color: #7bc4ff; font-weight: 600; }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at top right, rgba(88,184,255,0.12), transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(187,119,255,0.10), transparent 55%),
+      linear-gradient(180deg, #0d1220 0%, #080a12 100%);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(88,184,255,0.06) 50%, transparent);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 16px;
+    font-size: 10.5px; letter-spacing: 2.8px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 14px; position: relative;
+  }
+  /* Smaller box-shadow + larger eyebrow gap so the glow doesn't bleed into
+     the start of the text (was 10px shadow + 8px gap → encroached on "P"). */
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #52e08f; box-shadow: 0 0 6px rgba(82,224,143,0.8);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .hero h1 {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.18; color: #ffffff; margin-bottom: 14px;
+  }
+  /* Lede uses full hero width — matches headline width on the right edge.
+     (Was capped at 78ch which left the right side unused on wide screens.) */
+  .hero .lede { font-size: 14px; color: #c5cbdb; line-height: 1.6; }
+  .hero .meta {
+    display: flex; gap: 22px; flex-wrap: wrap; margin-top: 20px;
+    font-size: 11px; color: #8892a8;
+    letter-spacing: 1.3px; text-transform: uppercase;
+  }
+  .hero .meta b { color: #dfe3ee; font-weight: 500; letter-spacing: 0.3px; text-transform: none; }
+  /* Regime pill flows in normal layout (block) so long multi-clause labels
+     wrap cleanly above the headline without overlapping. The next sibling
+     (.eyebrow) is block-level, so the pill sits alone on its row. */
+  .hero .regime-pill {
+    display: inline-block;
+    margin-bottom: 14px;
+    max-width: 100%;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase;
+    font-weight: 600; backdrop-filter: blur(10px);
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .regime-pill.risk-on  { background: rgba(82,224,143,0.12); color: #52e08f; border: 1px solid rgba(82,224,143,0.3); }
+  .regime-pill.risk-off { background: rgba(255,85,116,0.12); color: #ff5574; border: 1px solid rgba(255,85,116,0.3); }
+  .regime-pill.mixed    { background: rgba(255,179,71,0.12); color: #ffb347; border: 1px solid rgba(255,179,71,0.3); }
+
+  /* ── NAV ──────────────────────────────────── */
+  .nav {
+    display: flex; flex-wrap: wrap; gap: 6px 4px;
+    padding: 10px 14px; margin-bottom: 20px;
+    background: rgba(255,255,255,0.02); border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 11px;
+  }
+  .nav a {
+    padding: 3px 8px; border-radius: 4px;
+    color: #8892a8; transition: all 0.15s;
+  }
+  .nav a:hover { background: rgba(88,184,255,0.12); color: #7bc4ff; text-decoration: none; }
+
+  /* ── SESSION BAR ──────────────────────────── */
+  .sess {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 22px;
+    background: linear-gradient(90deg, rgba(255,179,71,0.06), rgba(255,179,71,0.02));
+    border: 1px solid rgba(255,179,71,0.2);
+  }
+  .sess .item { font-size: 12px; }
+  .sess .k { font-size: 9.5px; color: #8892a8; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 2px; }
+  .sess .v { color: #f3f5fa; }
+  .sess .v b { color: #ffb347; }
+
+  /* ── KEY METRICS ──────────────────────────── */
+  .km {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(175px,1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .km-cell {
+    position: relative; padding: 14px 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden; transition: all 0.2s;
+  }
+  .km-cell::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px; background: var(--acc, #8892a8);
+    opacity: 0.9;
+  }
+  .km-cell.pos { --acc: #52e08f; }
+  .km-cell.neg { --acc: #ff5574; }
+  .km-cell.warn { --acc: #ffb347; }
+  .km-cell.blue { --acc: #58b8ff; }
+  .km-cell .k { font-size: 10px; letter-spacing: 1.6px; color: #8892a8; text-transform: uppercase; }
+  .km-cell .v { font-size: 22px; font-weight: 700; margin-top: 6px; color: #f3f5fa; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .km-cell .d { font-size: 11px; color: #9aa3b8; margin-top: 3px; }
+
+  /* ── SECTIONS ─────────────────────────────── */
+  h2 {
+    font-size: 17px; font-weight: 700; color: #fff;
+    margin: 34px 0 14px 0; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px;
+  }
+  h2 .marker {
+    width: 8px; height: 18px; border-radius: 2px;
+    background: var(--sec-acc, #6b7ba8);
+  }
+  h2.sec-red    { --sec-acc: #ff5574; }
+  h2.sec-yellow { --sec-acc: #ffb347; }
+  h2.sec-green  { --sec-acc: #52e08f; }
+  h2.sec-blue   { --sec-acc: #58b8ff; }
+  h2.sec-purple { --sec-acc: #bb77ff; }
+  h2.sec-orange { --sec-acc: #ffb347; }
+
+  h3 {
+    font-size: 12.5px; font-weight: 600; color: #b8bfd0;
+    margin: 20px 0 10px 0; letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  p { margin-bottom: 11px; color: #cdd2de; }
+  ul, ol { margin: 10px 0 14px 22px; color: #cdd2de; }
+  ul li, ol li { margin-bottom: 6px; }
+
+  /* ── TABLES ───────────────────────────────── */
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 12px; margin: 10px 0 16px 0;
+    font-variant-numeric: tabular-nums;
+    background: rgba(255,255,255,0.012);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px; overflow: hidden;
+  }
+  th {
+    text-align: left; padding: 10px 12px;
+    font-size: 10px; letter-spacing: 1.3px; color: #8892a8;
+    text-transform: uppercase; font-weight: 600;
+    background: rgba(255,255,255,0.025);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  td {
+    padding: 9px 12px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    color: #cdd2de;
+  }
+  tbody tr:hover { background: rgba(88,184,255,0.04); }
+  td.lbl { color: #e4e7ef; font-weight: 500; }
+  td.tk { font-weight: 600; color: #fff; }
+  td.nm { color: #9aa3b8; font-size: 11px; }
+  td.num { text-align: right; }
+
+  /* ── BAR (sector rotation) ────────────────── */
+  .bars { display: flex; flex-direction: column; gap: 6px; padding: 6px 0; }
+  .bar-row {
+    display: grid; grid-template-columns: 110px 32px 1fr 70px;
+    align-items: center; gap: 10px; font-size: 11.5px;
+  }
+  .bar-row .bname { color: #dfe3ee; font-weight: 500; }
+  .bar-row .betf { color: #7f8699; font-size: 10px; letter-spacing: 0.5px; }
+  .bar-track {
+    position: relative; height: 20px;
+    border-radius: 4px; background: rgba(255,255,255,0.03);
+    overflow: hidden;
+  }
+  .bar-track .midline {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .bar-fill {
+    position: absolute; top: 2px; bottom: 2px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(82,224,143,0.4), rgba(82,224,143,0.85));
+  }
+  .bar-fill.neg { background: linear-gradient(270deg, rgba(255,85,116,0.85), rgba(255,85,116,0.4)); }
+  .bar-row .bpct {
+    text-align: right; font-weight: 600;
+    font-variant-numeric: tabular-nums; font-size: 12px;
+  }
+
+  /* ── RING (breadth / F&G) ─────────────────── */
+  .rings {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px; padding: 4px 0 10px 0;
+  }
+  .ring-cell {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 14px 12px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .ring { position: relative; width: 100px; height: 100px; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .rlabel {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .ring .rlabel .v { font-size: 20px; font-weight: 700; color: #f3f5fa; }
+  .ring .rlabel .sub { font-size: 9.5px; color: #8892a8; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
+  .ring-cell .caption {
+    margin-top: 10px; font-size: 11px; color: #8892a8;
+    letter-spacing: 1.1px; text-transform: uppercase; text-align: center;
+  }
+
+  /* ── F&G Gauge ─────────────────────────────── */
+  .fg-block {
+    display: grid; grid-template-columns: 260px 1fr; gap: 20px;
+    padding: 14px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .fg-gauge { display: flex; flex-direction: column; align-items: center; }
+  .fg-comp-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 8px;
+  }
+  .fg-comp {
+    padding: 8px 10px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.01);
+    font-size: 11px;
+  }
+  .fg-comp .l { color: #9aa3b8; font-size: 10px; letter-spacing: 0.8px; text-transform: uppercase; }
+  .fg-comp .v { color: #f3f5fa; font-weight: 600; margin-top: 3px; }
+
+  /* ── VIX curve ────────────────────────────── */
+  .vix-panel {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .vix-panel .vlabel {
+    display: flex; justify-content: space-around; font-size: 10.5px;
+    color: #8892a8; letter-spacing: 1.2px; text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .vix-panel .vlabel span b { color: #dfe3ee; font-weight: 600; }
+
+  /* ── RSI heat cell ─────────────────────────── */
+  .rsi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 8px;
+    padding: 4px 0;
+  }
+  .rsi-cell {
+    padding: 11px 13px; border-radius: 9px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .rsi-cell .tk { font-weight: 700; color: #fff; font-size: 11px; letter-spacing: 1.4px; }
+  .rsi-cell .sig { font-size: 11px; font-weight: 600; margin-top: 3px; }
+  .rsi-cell .bar {
+    height: 6px; border-radius: 3px; margin-top: 8px;
+    background: rgba(255,255,255,0.05); overflow: hidden;
+  }
+  .rsi-cell .bar > div { height: 100%; border-radius: 3px; }
+  .rsi-cell .sub { font-size: 10px; color: #8892a8; margin-top: 5px; display: flex; justify-content: space-between; }
+  .sig-STRONG-BUY { color: #52e08f; }
+  .sig-BUY { color: #9dd98a; }
+  .sig-NEUTRAL { color: #8892a8; }
+  .sig-SELL { color: #ff9f8a; }
+  .sig-STRONG-SELL { color: #ff5574; }
+
+  /* ── Risk Matrix ──────────────────────────── */
+  .risk {
+    position: relative;
+    padding: 14px 16px 14px 20px; border-radius: 10px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .risk::before {
+    content: ""; position: absolute; left: 0; top: 10px; bottom: 10px;
+    width: 4px; border-radius: 2px; background: var(--risk-acc, #8892a8);
+  }
+  .risk.r-hi { --risk-acc: #ff5574; }
+  .risk.r-med { --risk-acc: #ffb347; }
+  .risk.r-low { --risk-acc: #58b8ff; }
+  .risk .head {
+    display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .risk .t { font-weight: 700; color: #f3f5fa; font-size: 13.5px; }
+  .risk .p {
+    font-size: 9.5px; letter-spacing: 1.3px;
+    padding: 3px 8px; border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    color: var(--risk-acc, #8892a8);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── Scenarios ────────────────────────────── */
+  .scenarios {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 14px;
+    margin: 14px 0 18px 0;
+  }
+  .scn {
+    padding: 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+  }
+  .scn::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--scn-acc, #8892a8);
+  }
+  .scn.bull { --scn-acc: #52e08f; }
+  .scn.base { --scn-acc: #8892a8; }
+  .scn.bear { --scn-acc: #ff5574; }
+  .scn .tag {
+    display: inline-block; padding: 3px 8px; border-radius: 10px;
+    font-size: 9.5px; letter-spacing: 1.3px; text-transform: uppercase;
+    font-weight: 600; color: var(--scn-acc); background: rgba(255,255,255,0.04);
+    margin-bottom: 8px;
+  }
+  .scn .t { font-weight: 700; color: #f3f5fa; font-size: 14px; margin-bottom: 6px; }
+  .scn p { font-size: 12.5px; color: #cdd2de; }
+
+  /* ── Caveat ───────────────────────────────── */
+  .caveat {
+    font-size: 11.5px; color: #c9cfde; font-style: italic;
+    padding: 10px 14px; border-radius: 8px;
+    border-left: 3px solid #8892a8;
+    background: rgba(136,146,168,0.05);
+    margin: 10px 0 14px 0;
+  }
+
+  /* ── Glossary ─────────────────────────────── */
+  .gloss { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 12px; }
+  .gloss dt { font-weight: 600; color: #f3f5fa; font-size: 12.5px; margin-bottom: 3px; }
+  .gloss dd { color: #9aa3b8; font-size: 11.5px; margin-bottom: 0; margin-left: 0; }
+
+  /* ── Footer ───────────────────────────────── */
+  footer { margin-top: 46px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; font-size: 11px; color: #8892a8; letter-spacing: 0.5px; }
+
+  /* ── COMMODITIES section ─────────────────────── */
+  .commodities {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px; margin-bottom: 18px;
+  }
+  .commodity-group {
+    padding: 14px 16px; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  }
+  .commodity-group .grp-title {
+    font-size: 10px; letter-spacing: 2.2px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 10px; font-weight: 600;
+  }
+  .commodity-group .grp-title.energy   { color: #ffb347; }
+  .commodity-group .grp-title.precious { color: #ffd35c; }
+  .commodity-group .grp-title.industrial { color: #58b8ff; }
+  .commodity-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.05);
+    font-size: 12.5px;
+  }
+  .commodity-row:last-child { border-bottom: none; }
+  .commodity-row .nm { color: #c8cfdd; }
+  .commodity-row .px { color: #e5e7eb; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .commodity-row .ch { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 70px; text-align: right; }
+  .commodity-narrative {
+    padding: 16px 20px; border-radius: 12px; margin-bottom: 22px;
+    border-left: 3px solid #ffb347;
+    background: linear-gradient(180deg, rgba(255,179,71,0.06), rgba(255,179,71,0.01));
+    font-size: 13px; line-height: 1.65; color: #c8cfdd;
+  }
+  .commodity-narrative b { color: #f3f5fa; }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .hero, .km-cell, table, .risk, .scn, .caveat, .fg-block, .rsi-cell, .ring-cell, .vix-panel { background: #fafafa; border-color: #ddd; }
+    p, td { color: #222; }
+    b, h1, h2, h3 { color: #000; }
+  }
+</style>
+</head><body><div class="wrap">
+
+
+<div class="hero">
+  <span class="regime-pill mixed">CPI Day · 90 Min to Binary · Oil Extends Through Bear-Pivot · Kospi Decouple Cracks · QCOM Round-Trip Tells Bid Thinned</span>
+  <div class="eyebrow"><span class="dot"></span> Pre-Market Brief · Day-Trade Edition · Wednesday, May 06, 2026</div>
+  <h1>CPI day — 90 minutes to the 8:30 print with WTI $101.37 / Brent $107.58 extending through bear-pivot overnight, Kospi giving back ALL of Monday's record on Iran rhetoric, and QCOM's Mon round-trip from $247.90 ATH to $232.13 close telegraphing the bid was already thin into a 3.7% YoY consensus that hasn't been hit since Jan-2024</h1>
+  <div class="lede"><b>Three overnight signals matter into 8:30: oil extended (WTI $101.37 +3.3% / Brent $107.58 +3.2%) beyond Friday's framework bear-pivot ceiling on Iran 'massive life support' rhetoric + Saudi Aramco's '2027 to normalize' warning; Kospi -2.29% gave back ALL of Monday's record print (silicon-decouple proxy cracked overnight, the bull case's structural buffer is no longer load-bearing); and Monday's tape itself told the read with QCOM round-tripping from $247.90 intraday ATH to a $232.13 close (-2.27%) — investors took profit at the silicon highs even as SPX/SPY/RTY printed records.</b> ES -0.33% / NQ -0.68% sits in the chop band but with the cohort buffer weakened and oil through the bear-pivot, the 90 minutes to the print is dealer-positioning, not directional. Bull-cross asymmetric path is now narrow: Cleveland Fed Nowcast 3.56% YoY argues a sub-3.5% surprise is plausible but Wells Fargo's 3.8% hawkish call defines the tail.</div>
+  <div class="meta">
+    <span>Published · <b>Wednesday, May 06, 2026 09:05 AM</b></span>
+    <span>Build · <b>56.1s</b></span>
+    <span>Sources · <b>yfinance · TradingView · CNN F&amp;G · web</b></span>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#tldr">TL;DR</a> · <a href="#overnight">Overnight</a> · <a href="#tom">Top of Mind</a> · <a href="#idx">Index Playbook</a>
+  · <a href="#vix">Vol structure</a>
+  · <a href="#breadth">Breadth</a> · <a href="#sectors">Sectors</a> · <a href="#rsi">TA ratings</a>
+  · <a href="#fg">F&amp;G</a> · <a href="#risk">Risk matrix</a> · <a href="#cat">Catalysts</a>
+  · <a href="#movers">Movers</a> · <a href="#bl">Bottom line</a> · <a href="#gloss">Glossary</a>
+</div>
+
+<div class="sess">
+  <div class="item"><div class="k">Session</div><div class="v">Pre-open · cash bell in <b>~30 min</b></div></div>
+  <div class="item"><div class="k">Regime</div><div class="v"><b>Pre-open Tue 5/12 is the CPI binary — 90 minutes to the 8:30 AM print with the framework's overnight buffer materially weakened.</b> Monday's tape read like a confident-but-thin record-print: SPX closed 7,412.84 +0.19% / SPY ~$740 ATH / RTY also record / NDX +0.29% — but the cohort-leadership single-name (QCOM) telegraphed the bid was conditional. QCOM intraday hit $247.90 (fresh ATH +9.5%) on hyperscaler data-center confirmation, then round-tripped to $232.13 (-2.27%) — that's the textbook 'first-day-of-rip exhaustion' tape pattern: the buyers showed up early, the late session profit-take was structural. <b>Overnight made it worse on three vectors</b>: (1) Oil extended through Friday's framework bear-pivot ceiling — WTI June $101.37 +3.3% and Brent July $107.58 +3.2% with Saudi Aramco's Amin Nasser stating the market won't normalize until 2027 if Hormuz stays blocked beyond mid-June; that's a structural energy-shock anchor that compounds CPI hot risk through the gasoline pass-through channel. (2) Kospi -2.29% to 7,643.15 gave back ALL of Monday's +4.32% record print — the silicon-decouple overseas proxy that anchored the bull buffer just unwound overnight; Nikkei +0.52% / Topix +0.83% carried the Japan-machinery tailwind but Korea-HBM cohort failed to validate the US chip print. (3) 10Y nudged to 4.38% from 4.35% Friday, DXY back above 98, USD/JPY 157.5 — the cross-asset profile telegraphs the bond market quietly pre-positioning for the hot-print bear-base-case while equities are still pricing the 7,400 record-print euphoria. <b>The April CPI Tue 5/12 8:30 AM consensus is 0.6% MoM / 3.7% YoY headline (highest YoY since Jan-2024's 3.9%); core 0.3% / 2.7% YoY</b>. The asymmetric path-set: bull-cross requires a downside surprise materially below consensus — Cleveland Fed Nowcast 3.56% YoY argues this is plausible (gasoline mean-reversion despite Iran) but the bar is narrow; in-line-with-hot-consensus is the bear-base-case (NDX multiple compression activates softly); a hot upside surprise (Wells Fargo's 3.8% / 2.9% hawkish call OR 0.7%+ MoM) breaks SPY 740 fast and triggers the cohort-cut decision tree. <b>F&G 66 GREED is essentially flat vs Mon 67</b> — the pre-print de-risking hasn't accelerated even as the buffer cracked overnight, leaving asymmetric reversal risk fully elevated. <b>SPY anchor</b>: Mon close ~$740 ATH → futures imply $737-738 open inside the now-fragile 735-744 chop band. <b>The single most important Tue 8:30 mechanic</b>: the print clears in milliseconds, the SPY positioning trade fires inside 90 seconds, and whatever happens in the first 30 minutes of cash session is the regime read for the next 8 sessions through NVDA print 5/20.</div></div>
+  <div class="item"><div class="k">Key binary</div><div class="v"><b>Tue 5/12 binaries (in order of dealer-book impact)</b>: (1) <b>April CPI 8:30 AM ET — consensus 0.6% MoM / 3.7% YoY headline / 0.3% MoM / 2.7% YoY core</b>: hot upside surprise (0.7%+ MoM OR 3.8%+ YoY headline OR 0.4%+ MoM core — the Wells Fargo 3.8%/2.9% hawkish tail) → 10Y rips through 4.42 toward 4.50, FedWatch zero-cut pricing extends into 2027, NDX multiple compression accelerates, SPY breaks 740 then 735 fast, cohort halo cracks, defensive rotation activates. In-line-with-hot-consensus (the bear-base-case) → soft multiple compression, SPY chops 735-742, dispersion lane carries with mild de-rate. Downside surprise (sub-3.5% YoY OR sub-0.5% MoM — Cleveland Fed Nowcast 3.56% argues this is the narrow bull-cross path) → SPY rips through 744 toward 748, 10Y back through 4.30, dispersion lane completes through NVDA print. (2) <b>SPY 740 round-number hold vs 735 break post-print</b>: hold 740 with VIX rolling sub-17 on benign-print = upper-magnet 744 → 748 ride; break 740 to 735 mid-session = cohort-cut 30-40% triggers per framework; break 735 with Iran intraday escalation cross-confirm = trapdoor 730. (3) <b>Cohort halo single-name break</b>: QCOM Mon close $232.13 already telegraphed the cohort top-tick; first read is whether QCOM defends $230 base post-print. AMD holds $415+ / NVDA holds $200 / ARM holds recent base = dispersion lane validated. QCOM breaks $225 / AMD breaks $400 mid-session = cohort halo cracks despite any benign-print buffer, the Mon round-trip was the actual cohort-top-tick signal. (4) <b>Iran intraday tape during cash session</b>: any verified strike on US asset / US strikes on Iranian mainland / formal Iran walk-back of MOU framework intraday = WTI rips to $108+, OVX through 85, MOVE > 80, SPY trapdoor activates regardless of CPI print. (5) <b>10Y reaction speed inside 60 seconds of print</b>: if 10Y rips through 4.42 before equities trade, the bond market is calling the print hot before consensus does — front-run the cohort cut. <b>Bull combo</b>: CPI downside surprise + 10Y back through 4.30 + Iran chop = SPX through 7,440 toward 7,475, dispersion completes, F&G to 72-75. <b>Bear combo</b>: hot upside CPI + 10Y rips 4.45+ + Iran intraday = SPX gives back 7,350 to 7,300, VIX 20-22, MOVE > 80, cohort halo cracks broadly.</div></div>
+</div>
+
+<div id="metrics" class="km">
+  <div class="km-cell blue"><div class="k">SPY / SPX est</div><div class="v">$723.77</div><div class="d">SPX ≈ 7,238 · prior +0.80%</div></div>
+  <div class="km-cell pos"><div class="k">ES Futures</div><div class="v">+0.70%</div><div class="d">7,338.25 · NQ +1.11% · YM +0.86%</div></div>
+  <div class="km-cell warn"><div class="k">VIX / VIX9D</div><div class="v">16.72 / 14.64</div><div class="d">VIX -3.80% · VIX9D <b style="color:#ffb347;">-11.81%</b></div></div>
+  <div class="km-cell blue"><div class="k">VIX curve</div><div class="v">Contango</div><div class="d">3M − spot <b>+4.10</b> · normal</div></div>
+  <div class="km-cell pos"><div class="k">Breadth &gt; 20MA</div><div class="v">62.5%</div><div class="d">&gt; 50MA 70.5% · adv 67.0%</div></div>
+  <div class="km-cell warn"><div class="k">CNN F&amp;G</div><div class="v">66 GREED</div><div class="d">prev 67 · 1w 73 · 1m 30</div></div>
+</div>
+
+<h2 id="tldr" class="sec-red"><span class="marker"></span>TL;DR — What You Need To Know</h2>
+<div style="padding:6px 4px; margin-bottom:18px;"><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>The 90-minute clock to April CPI 8:30 AM ET is the only thing that matters today — consensus has hardened at 0.6% MoM / 3.7% YoY headline (highest YoY since Jan-2024 3.9%) and 0.3% / 2.7% YoY core, with Cleveland Fed Nowcast 3.56% defining the narrow bull-cross path and Wells Fargo's 3.8% / 2.9% hawkish print defining the asymmetric tail.</b> The print clears in milliseconds, SPY positioning fires inside 90 seconds, and whatever the first 30 minutes look like is the regime read through NVDA earnings 5/20 — there is no pre-print directional edge worth taking, only sized hedge.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Monday's tape printed records (SPX 7,412.84 / SPY ATH / RTY also record / NDX +0.29%) but the cohort leadership round-tripped: QCOM intraday hit $247.90 fresh ATH +9.5% on hyperscaler data-center confirm then closed $232.13 -2.27% as the late-session profit-take fired.</b> That's textbook first-day-of-rip exhaustion — the buyers showed up early, the bid was thin at the highs, and the record-print breadth disguised the cohort top-tick. The QCOM 200C Tue-AM read is whether $230 holds post-CPI; a break to $225 confirms the Mon round-trip was the cohort-top signal regardless of the print.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Overnight the framework's structural buffers cracked on two vectors: oil extended through the bear-pivot ceiling (WTI $101.37 +3.3% / Brent $107.58 +3.2%) on Iran 'massive life support' rhetoric and Saudi Aramco's '2027 normalization' warning if Hormuz stays blocked past mid-June, while Kospi -2.29% gave back ALL of Monday's +4.32% record print as the silicon-decouple overseas proxy unwound.</b> The Asia split tells the read: Nikkei +0.52% / Topix +0.83% carried Japan-machinery, but Korea-HBM failed to validate US chip momentum — the structural cohort-decouple buffer is no longer load-bearing on a hot-print bear path.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Cross-asset pre-positioning is bear-leaning: 10Y 4.38% (up from Fri 4.35%), DXY back above 98, USD/JPY 157.5 yen-weak despite Iran risk-off, gold $4,718 / silver $85.70 precious-bid, BTC pulled back to $80,496-$81,721 from Monday's $82K — the bond market is quietly front-running the hot-print bear-base-case while equity futures still hold the chop band (ES -0.33% / NQ -0.68% / YM -0.11% / RTY softer).</b> The 10Y at 4.38% pre-print with consensus this hot tells you a 0.7%+ MoM headline or 3.8%+ YoY surprise triggers a violent 10Y rip through 4.45 and a magnified NDX multiple-compression reaction inside 5 minutes of print.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Position playbook into the print: DO NOT ADD into the binary; the dispersion-alpha lane (long AI-silicon AMD/QCOM/ARM vs short AI-HPC APLD/IREN cohort) stays held at current size on the structural thesis but Mon's QCOM round-trip means the framework's 'lock 50% QCOM 200C trim above $245 on Tue open' trigger MISSED — open the trim at $232 base if pre-print holds $230, lock $20 of intrinsic on half the position before the print to convert house-money to half-house-money.</b> Keep the 8-12% portfolio tail-hedge (SPY 720P / VIX 22-25C) fully sized. Cohort-cut 30-40% trigger remains SPY < 735 intraday OR QCOM < $225 OR AMD < $400 — the post-print first-30-minute mechanics decide the next 8 sessions.</div></div></div>
+
+<h2 id="overnight" class="sec-orange"><span class="marker"></span>Overnight Developments</h2>
+<p style="color:#cdd2de; font-size:13.5px; line-height:1.65; margin:0 0 14px 0;">Six overnight moves to weigh inside the 90-minute clock — oil extended through bear-pivot, Kospi gave back the silicon-decouple, QCOM's Mon round-trip telegraphed the cohort top-tick, 10Y pre-positioned for hot-print, Iran rhetoric stayed hot but ceasefire holds kinetically, and the CPI consensus is now anchored with Cleveland Fed Nowcast 3.56% defining the bull tail and Wells Fargo 3.8% defining the bear tail.</p>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">1. April CPI 8:30 AM ET — consensus 0.6% MoM / 3.7% YoY headline (highest YoY since Jan-2024 3.9%), 0.3% / 2.7% YoY core — Cleveland Fed Nowcast 3.56% YoY = the narrow bull-cross, Wells Fargo 3.8% / 2.9% = the asymmetric tail</b> <b>The 90-minute clock is the only thing that matters today — and the asymmetric setup is now hardened.</b> Consensus per Kiplinger / Morningstar / FactSet reporting: headline CPI 0.6% MoM / 3.7% YoY (would be the largest YoY increase since January 2024's 3.9%); core 0.3% MoM / 2.7% YoY. <b>The structurally important read is what each forecaster's tail looks like</b>: the Cleveland Fed Nowcasting model — updated daily and historically the most accurate forecaster of the print — sits at 3.56% YoY, slightly below consensus on expected gasoline mean-reversion that the wider sell-side hasn't fully baked in despite Iran. Wells Fargo is the hawkish tail at 3.8% headline / 2.9% core, leaning into the Iran energy-pass-through fully. <b>The market positioning</b>: CME FedWatch prices zero Fed cuts in 2026; the 10Y at 4.38% pre-print (up from Fri 4.35%) is the bond market quietly pre-positioning for the hot-base-case but not front-running the Wells Fargo tail. <b>The 90-second post-print mechanics</b>: a 0.4-0.5% MoM headline OR sub-3.5% YoY = downside surprise → 10Y back through 4.30, SPY rips 740 → 744 fast, dispersion lane completes; in-line-with-hot-consensus (0.5-0.7% MoM / 3.6-3.8%) = soft NDX multiple compression, SPY chops 735-742; 0.7%+ MoM OR 3.8%+ YoY headline OR 0.4%+ MoM core = the Wells Fargo tail fires, 10Y rips through 4.45 toward 4.50, FedWatch zero-cut pricing extends into 2027, SPY breaks 740 → 735 fast, cohort halo cracks. <b>The honest framework caveat</b>: the bull-cross path narrowed materially because the 3.7% YoY consensus is already priced; even a 3.6% in-line-soft read may not trigger a clean bull-cross since the multiple-compression doesn't reverse on 'in-line-soft' — the bond market needs a sub-3.5% downside surprise to back-out terminal-stickier expectations cleanly.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">2. Oil extended through framework bear-pivot ceiling overnight: WTI June $101.37 +3.3% / Brent July $107.58 +3.2% on Iran 'massive life support' + Saudi Aramco's 2027-normalization warning</b> <b>The structural anchor change overnight is that the framework's $103+ Brent bear-pivot ceiling broke decisively — Brent printing $107.58 means the energy-shock leg is no longer a tail risk; it's now the base case for the CPI pass-through.</b> WTI June futures gained 3.3% to $101.37 by 7:57 AM ET; Brent July +3.2% to $107.58. <b>The catalyst is two-layer</b>: (1) Trump's Mon evening comment that the ceasefire with Iran is on 'massive life support' after the MOU counterproposal rejection, with Tehran's Esmaeil Baghaei describing Iran's proposals as 'generous' and 'legitimate' while Iran seeks an end to the war + sanctions lift + frozen-asset release + 'end to piracy' — that's a fundamental scope-mismatch that won't close inside a week. (2) Saudi Aramco CEO Amin Nasser's warning that the oil market won't normalize until 2027 if the Strait of Hormuz stays blocked beyond mid-June, even if the strait opens today, it takes months for the market to rebalance. <b>The Hormuz status</b>: conditional ceasefire holds but almost no shipping is using the strait — effectively closed; 1,550 vessels stranded, 22,500 mariners trapped; DHL forecasts 4-6 months to normalization. <b>The cross-asset implication</b>: the CPI gasoline pass-through is now a structural overhang, not a one-month-spike — that's the cleanest argument for the Wells Fargo 3.8% hawkish tail being the print. <b>Position read</b>: XLE bid +1-2% on cash open extends Mon's energy outperformance; broader cyclical bench softens; the dispersion-alpha lane's defensive flank holds via the rotational alpha (energy bid funds XLP/XLV defensive).</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">3. Kospi -2.29% to 7,643.15 gave back ALL of Monday's +4.32% record print — silicon-decouple overseas proxy unwound overnight; Nikkei +0.52% / Topix +0.83% carried Japan-machinery</b> <b>This is the most structurally important overnight read for Shreyas's positioning — the cohort buffer that anchored Monday's bull case is no longer load-bearing.</b> South Korea's Kospi fell 2.29% to 7,643.15 after notching its fresh record high on Monday +4.32% with SK Hynix +11%. The Asia-Pacific split tells the read: Japan's Nikkei 225 added 0.52% to 62,742.57 while Topix rose 0.83% to 3,872.90 — Japan-machinery and exporters carried the tailwind on yen weakness (USD/JPY 157.5); Hong Kong Hang Seng + CSI 300 were mixed-to-modest. <b>The mechanical read</b>: when an HBM-memory pure-play 8,000 miles away rips +11% Monday on AMD-MOU breadth and then GIVES IT ALL BACK -2.29% Tuesday on Iran rhetoric (with no fresh negative chip print), the silicon-decouple thesis is being tested as more positioning-extension than structural-alpha. <b>The cross-confirm</b>: Monday's QCOM round-trip from $247.90 ATH to $232.13 -2.27% close = the same pattern in single-name form on the US tape; both reads independently telegraph that the cohort halo was bought-too-early, profit-taken-too-fast, and now sits exposed into the CPI binary without the structural buffer. <b>Position implication</b>: don't add silicon-cohort longs on any pre-print weakness; let the print clear; cohort-cut decision tree intact (QCOM < $225 / AMD < $400 / NVDA < $200 = 30-50% cut). The thesis isn't broken — AMD substance is intact (Q1 Data Center +57% YoY, Q2 guide $11.2B) — but the positioning extension is now exposed.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">4. QCOM Mon round-trip: intraday ATH $247.90 +9.5% on hyperscaler data-center confirm → closed $232.13 -2.27% as the late-session profit-take fired = textbook first-day-of-rip exhaustion tape pattern</b> <b>This is the single most important position-specific signal heading into Tuesday — and it's the framework's 'lock 50% trim above $245' decision-trigger that missed by 4 hours.</b> QCOM intraday Monday made a fresh 52-week ATH at $247.90 (+9.5%) on three catalysts: (1) CEO Cristiano Amon confirming QCOM data-center processors ship to a large hyperscaler before EOY 2026, (2) US-China 90-day tariff truce extension removing the Android handset-inventory overhang Q3 guide cited, (3) Lumentum +7.7% on NDX inclusion-halo cross-confirming the silicon-cohort breadth. <b>The close told the actual read</b>: $232.13 -2.27%, $15.77 off the ATH, with intraday range $223.10-$247.90 — that's a near-10% intraday range with the close back inside the prior week's base. <b>The framework's pre-set sell-trigger was 'lock minimum 50% trim above $245 on Tue AM open'</b>; the trim opportunity fired Monday intraday at $247.90 and was missed by the framework cadence (Monday's note recommended Tue AM open above $245, but the round-trip happened Monday afternoon). <b>The Tue-AM adjustment</b>: the 200C is still ITM with $32 of intrinsic at $232 close, but the 'house-money to half-house-money' lock should fire on any pre-print bid back through $235; do not let the position sit naked into the 8:30 print without the trim. <b>Cross-confirm watch</b>: $230 is the Mon-AH base support; a break to $225 confirms the round-trip was the cohort-top signal independent of the CPI print outcome.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">5. Cross-asset pre-positioning bear-leaning: 10Y 4.38% (+3bps vs Fri 4.35%), DXY back above 98, USD/JPY 157.5 yen-weak, gold $4,718 / silver $85.70 / platinum $2,089 precious-bid, BTC $80,496-$81,721 pulled back from $82K</b> <b>The cross-asset profile is telegraphing 'bond market quietly front-running the hot-print bear-base-case while equities still price the 7,400 record-print euphoria' — that asymmetry is the entire 90-minute setup.</b> 10Y Treasury yield at 4.38% on Monday's close (vs Friday 4.35%) hasn't broken the recent 4.32-4.40 range, but the directional drift into the print is up — the bond market is letting fresh sticky-rate selling pressure leak in pre-emptively. <b>Dollar index back above 98 on Tuesday</b> as Trump's 'massive life support' rhetoric kept inflation risk in focus and pulled safe-haven flows; USD/JPY at 157.5 has the yen weakening despite Iran risk-off, which tells you the dollar-strength dominates the cross-asset risk-off bid right now. <b>Precious-metals complex stays bid</b>: gold $4,718.77, silver $85.70, platinum $2,088.70, palladium $1,506.50 — the safe-haven leg + inflation-hedge bid is the cleanest cross-asset 'CPI hot' tell, and it's already priced. <b>Crypto pulled back overnight</b>: BTC moved from Mon $82K to $80,496-$81,721 by 7:18 AM ET (-0.5 to -1.5%); ETH $2,280-$2,339 -1.3%. <b>Position implication</b>: the 10Y 4.38% drift pre-print is the early tell for the cohort-cut decision — if 10Y rips through 4.42 in the first 60 seconds of the 8:30 print, the bond market is calling the print hot before equities react, and that's the front-run-the-cohort-cut signal. The precious-metals bid is already priced as the hedge-against-hot-CPI trade; don't chase gold/silver into the print.</div></div>
+<div style="margin-top:18px; padding:14px 16px; border-left:3px solid #ffb347; background:rgba(255,179,71,0.05); border-radius:0 8px 8px 0;"><div style="font-size:13px; line-height:1.6; color:#cdd2de;"><b>Tue 8:30 AM mechanical decision tree (memorize before the print)</b>: (1) <b>10Y rips through 4.42 inside 60 seconds = hot print verified by bonds → front-run cohort cut, sell QCOM 200C trim immediately at the bid, expand tail-hedge.</b> (2) <b>10Y back through 4.30 inside 60 seconds = downside surprise verified → SPY rips 740 → 744 fast, dispersion lane completes, harvest tail-hedge into the vol-pop.</b> (3) <b>10Y unchanged 4.36-4.40 + headline 0.5-0.6% / 3.6-3.7% in-line = base-case chop, hold positioning, lock the QCOM 200C trim at $235+ on any pre-print bid.</b> (4) <b>SPY 735 break with Iran intraday cross-confirm = trapdoor 730 activates, cohort cut 50-70%.</b> The print clears in milliseconds; the bond market reaction inside 60 seconds is the cleanest cross-asset tell of how to position the equity book in the first 5 minutes.</div></div>
+
+<h2 id="tom" class="sec-blue"><span class="marker"></span>Day-Trade Top of Mind — Three Setups for the Open</h2>
+<p style="color:#94a3b8; font-size:13px; margin-top:-6px;">The three highest-conviction setups for the first hour, with explicit triggers. Premarket fetched live; levels are pre-committed entry/invalidation points.</p>
+
+<div class="scenarios">
+  <div class="scn bull">
+    <span class="tag">Long setup</span>
+    <div class="t">No qualifying gainer</div>
+    <p>Premarket window not yet active or no clean gappers in the seed pool. Re-check at 9:25 AM.</p>
+  </div>
+  <div class="scn base">
+    <span class="tag">Index play</span>
+    <div class="t">SPY · $723.77 pre-market</div>
+    <p><b>SPY</b> sits at <b>$723.77</b> pre-open vs prior close <b>$723.77</b>. The two pivots that matter most: <b>$725</b> bull magnet, <b>$720</b> bear pivot. <b>Trigger long:</b> 5-min close above <b>$725</b> with breadth confirming (TICK > +500). <b>Trigger short:</b> 5-min close below <b>$720</b> on volume. <b>Invalidate either:</b> reversal back through the level within 10 min — that's a failed breakout, fade in the opposite direction.</p>
+  </div>
+  <div class="scn bear">
+    <span class="tag">Short setup</span>
+    <div class="t">No qualifying loser</div>
+    <p>Premarket window not yet active or no clean down-gappers in the seed pool. Re-check at 9:25 AM.</p>
+  </div>
+</div>
+
+<h2 id="idx" class="sec-blue"><span class="marker"></span>Index Day-Trade Playbook — SPY/QQQ Mechanics</h2>
+<p>The index playbook below is the macro frame that informs whether single-name long setups carry through the day or get faded. The Strike Map and Opening Drive sections that follow give you the specific SPY levels that define each regime.</p>
+
+<h2 id="vix" class="sec-blue"><span class="marker"></span>Volatility Structure</h2>
+<div style="display:grid; grid-template-columns: 1.3fr 1fr; gap: 14px;">
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">VIX Term Curve</h3>
+    <svg width="100%" height="160" viewBox="0 0 420 160" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="vx-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#58b8ff" stop-opacity="0.35"/><stop offset="100%" stop-color="#58b8ff" stop-opacity="0"/></linearGradient></defs><polygon points="32.0,100.6 150.7,85.3 269.3,55.0 388.0,39.4 388.0,128 32.0,128" fill="url(#vx-grad)"/><polyline points="32.0,100.6 150.7,85.3 269.3,55.0 388.0,39.4" stroke="#58b8ff" stroke-width="2.5" fill="none" stroke-linejoin="round"/><circle cx="32.0" cy="100.6" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="150.7" cy="85.3" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="269.3" cy="55.0" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="388.0" cy="39.4" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><text x="32.0" y="88.6" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">14.64</text><text x="32.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX9D</text><text x="150.7" y="73.3" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">16.72</text><text x="150.7" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX</text><text x="269.3" y="43.0" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">20.82</text><text x="269.3" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX3M</text><text x="388.0" y="27.4" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">22.94</text><text x="388.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX6M</text></svg>
+    <div class="vlabel">
+      <span>Slope (3M−spot): <b>+4.10</b></span>
+      <span>State: <b>contango (normal)</b></span>
+    </div>
+  </div>
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">Cross-Asset Vol</h3>
+    <table style="margin: 0; border: none; background: transparent;">
+      <tr><td class="lbl">VIX (30d SPX)</td><td class="num">16.72</td><td class="num neg">-3.80%</td></tr>
+      <tr><td class="lbl">VIX9D (9d SPX)</td><td class="num">14.64</td><td class="num flag-yel">-11.81%</td></tr>
+      <tr><td class="lbl">VXN (NDX IV)</td><td class="num">22.46</td><td class="num flag-yel">-2.52%</td></tr>
+      <tr><td class="lbl">OVX (Oil IV)</td><td class="num">74.73</td><td class="num flag-yel">-4.96%</td></tr>
+      <tr><td class="lbl">MOVE (Bond vol)</td><td class="num">76.78</td><td class="num flag-yel">-1.39%</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2 id="breadth" class="sec-green"><span class="marker"></span>Breadth — Universe Internals</h2>
+<div class="rings"><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#58b8ff" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="94.34" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">67.0%</div></div></div><div class="caption">% Advancing</div></div><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#52e08f" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="107.21" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">62.5%</div></div></div><div class="caption">> 20-day MA</div></div><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#52e08f" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="84.34" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">70.5%</div></div></div><div class="caption">> 50-day MA</div></div><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#ffb347" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="90.34" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">+0.92%</div></div></div><div class="caption">Avg Day %</div></div></div>
+<p><b>Monday's record-print breadth was conditional, not robust: SPX closed 7,412.84 +0.19% / SPY ATH / RTY also record / NDX +0.29% but the cohort leadership round-tripped intraday (QCOM $247.90 → $232.13 -2.27%) and Russell 2000 ironically printed the cleanest record (small-cap value rotation underneath the AI-cohort top-tick).</b> Pre-open Tue the breadth narrowness applies but now refracted through the cracked-overseas-proxy read (Kospi -2.29% unwound the SK Hynix +11% silicon-decouple confirmation). <b>Watch the cash-open advance-decline ratio</b>: if Tue-AM advances ≥ 55% with energy/defensive/AAPL-anchor leading the bid post-print, the rotation-away-from-tech-into-defensive thesis is the read and cohort cuts trigger softly; if advances ≥ 60% with silicon-cohort leading + Russell carrying the small-cap bid, the dispersion-alpha lane sustains. <b>The single most important breadth tell</b>: whether the energy / defensive bid funds the silicon-cohort rotation OR the silicon-cohort rotation funds the energy / defensive bid in the first 30 minutes.</p>
+
+<h2 id="sectors" class="sec-green"><span class="marker"></span>Sector Rotation — Prior Session</h2>
+<div class="bars"><div class="bar-row"><div><span class="bname">Technology</span></div><div class="betf">XLK</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:48.0%;"></div></div><div class="bpct pos">+2.21%</div></div>
+<div class="bar-row"><div><span class="bname">Materials</span></div><div class="betf">XLB</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:37.74929854738017%;"></div></div><div class="bpct pos">+1.74%</div></div>
+<div class="bar-row"><div><span class="bname">Industrials</span></div><div class="betf">XLI</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:18.171893273380523%;"></div></div><div class="bpct pos">+0.84%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Staples</span></div><div class="betf">XLP</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:13.52424707903636%;"></div></div><div class="bpct pos">+0.62%</div></div>
+<div class="bar-row"><div><span class="bname">Health Care</span></div><div class="betf">XLV</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:8.557145548556838%;"></div></div><div class="bpct pos">+0.39%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Disc.</span></div><div class="betf">XLY</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:6.459857311518814%;"></div></div><div class="bpct pos">+0.30%</div></div>
+<div class="bar-row"><div><span class="bname">Real Estate</span></div><div class="betf">XLRE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:4.435987011372383%;"></div></div><div class="bpct pos">+0.20%</div></div>
+<div class="bar-row"><div><span class="bname">Energy</span></div><div class="betf">XLE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:2.1951029925427754%;"></div></div><div class="bpct pos">+0.10%</div></div>
+<div class="bar-row"><div><span class="bname">Financials</span></div><div class="betf">XLF</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:0.42116548974385537%;"></div></div><div class="bpct pos">+0.02%</div></div>
+<div class="bar-row"><div><span class="bname">Utilities</span></div><div class="betf">XLU</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:0.0%;"></div></div><div class="bpct pos">+0.00%</div></div>
+<div class="bar-row"><div><span class="bname">Communications</span></div><div class="betf">XLC</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:41.20423122486205%; width:8.795768775137951%;"></div></div><div class="bpct neg">-0.40%</div></div></div>
+<p><b>Pre-open sector setup is risk-off-tilted with energy bid extending Monday's outperformance and defensive cohort bid moderately, growth and cyclical-discretionary still on-the-clock for hot-CPI rotation pressure.</b> XLE Monday closed ~$60 +1.5-2% on the WTI rip; Tue cash open should see XLE bid +0.5-1.5% additional on the Brent $107 / WTI $101 extension. XLK Monday closed firm on Mon NDX +0.29% record-print contributor; Tue pre-open softer on QCOM round-trip + Kospi unwind cross-confirm — cohort-correlated CPI-hot risk caps fresh upside. XLP/XLU/XLV bid modestly on defensive rotation continuation; XLF flat (rate-sensitive, waiting for CPI clearance); XLY at risk on cyclical-discretionary de-rate if hot CPI prints. <b>Position</b>: XLE structural bid funds XLP/XLV defensive rotation; the rotational alpha lane is energy-long-via-cohort-correlation vs cyclical-discretionary-short — not in Shreyas's book but the cross-sector read confirms the dispersion-alpha lane's defensive flank.</p>
+
+<h2 id="commodities" class="sec-orange"><span class="marker"></span>Commodity Complex — Energy, Metals, Industrial</h2>
+<div class="commodities"><div class="commodity-group"><div class="grp-title energy">ENERGY</div><div class="commodity-row"><span class="nm">Crude Oil (WTI)</span><span class="px">$95.01</span><span class="ch neg">-7.10%</span></div>
+<div class="commodity-row"><span class="nm">Brent Crude</span><span class="px">$102.90</span><span class="ch neg">-6.34%</span></div>
+<div class="commodity-row"><span class="nm">Natural Gas</span><span class="px">$2.762</span><span class="ch neg">-0.93%</span></div></div> <div class="commodity-group"><div class="grp-title precious">PRECIOUS METALS</div><div class="commodity-row"><span class="nm">Gold</span><span class="px">$4,691.40</span><span class="ch pos">+2.98%</span></div>
+<div class="commodity-row"><span class="nm">Silver</span><span class="px">$77.38</span><span class="ch pos">+5.84%</span></div>
+<div class="commodity-row"><span class="nm">Platinum</span><span class="px">$2,038.70</span><span class="ch pos">+3.98%</span></div></div> <div class="commodity-group"><div class="grp-title industrial">INDUSTRIAL</div><div class="commodity-row"><span class="nm">Copper</span><span class="px">$6.193</span><span class="ch pos">+4.20%</span></div></div></div><div class="commodity-narrative"><p><b>Crude</b> is falling (WTI -7.10%, Brent -6.34%) — under pressure on demand concerns; weighs on <b>XLE</b>. <b>Gold</b> bid (+2.98%) with yields easing — classic risk-off/real-rate trade; pairs with <b>GLD</b>, <b>GDX</b> strength. <b>Silver</b> outperforming gold (+5.84% vs +2.98%) — speculative/industrial bid leaking through. <b>Platinum</b> +3.98% — auto-catalyst and PGM demand proxy, secondary signal. <b>Copper</b> higher (+4.20%) — global-growth read is constructive; supports <b>XLB</b>, <b>FCX</b>. <b>DXY</b> weakening (-0.57%) — mechanical tailwind/headwind for the entire commodity complex.</p></div>
+
+<h2 id="rsi" class="sec-purple"><span class="marker"></span>TradingView Ratings — Indexes &amp; Sectors</h2>
+<h3>Index ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">SPY</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:71%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 71.3</span></div></div>
+<div class="rsi-cell"><div class="tk">QQQ</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:76%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 76.4</span></div></div>
+<div class="rsi-cell"><div class="tk">IWM</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:69%; background:#ffb347;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 69.2</span></div></div>
+<div class="rsi-cell"><div class="tk">DIA</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:59%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 58.5</span></div></div></div>
+<h3>Sector ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">Financials</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:52%; background:#9dd98a;"></div></div><div class="sub"><span>MA SELL</span><span>RSI 52.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Energy</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:60%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 59.7</span></div></div>
+<div class="rsi-cell"><div class="tk">Technology</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:77%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 77.3</span></div></div>
+<div class="rsi-cell"><div class="tk">Health Care</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:46%; background:#8892a8;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 45.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Disc.</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:57%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 57.3</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Staples</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:56%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 56.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Materials</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:53%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 53.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Industrials</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:54%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 53.8</span></div></div>
+<div class="rsi-cell"><div class="tk">Real Estate</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:60%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 59.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Communications</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:50%; background:#9dd98a;"></div></div><div class="sub"><span>MA NEUTRAL</span><span>RSI 50.1</span></div></div>
+<div class="rsi-cell"><div class="tk">Utilities</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:52%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 52.5</span></div></div></div>
+<p><b>Monday's RSI readings printed firmly overbought across SPY/QQQ/XLK ahead of the CPI binary — stretched-relative-to-news heading into a 90-minute event.</b> SPY RSI 71+ with the 740 reclaim-and-extend already in the print, QQQ RSI 76+ firmly overbought, XLK RSI 77+ STRONG BUY = positioning extension that hasn't unwound argues for the post-print mean-reversion scenario regardless of which direction the print lands. <b>Position</b>: TA ratings argue for digestion chop into post-print mean-reversion, NOT for fresh long-add at the bid; respect the overbought readings as positioning extension; harvest covered-call premium on cohort longs to fund tail-hedge into the print, don't add into RSI > 70+ ahead of a 90-minute binary. <b>Cross-confirm</b>: the QCOM Mon round-trip + Kospi -2.29% unwind = TA ratings telling the read that single-name tape is already telling.</p>
+
+<h2 id="fg" class="sec-yellow"><span class="marker"></span>CNN Fear &amp; Greed — Current Reading</h2>
+<div class="caveat">Values from narrative.fg_override (research step)</div>
+<div class="fg-block">
+  <div class="fg-gauge">
+    <svg width="220" height="150.0" viewBox="0 0 220 150.0"><path d="M 25.0 130.0 A 85 85 0 0 1 195.0 130.0" stroke="rgba(255,255,255,0.06)" stroke-width="14" fill="none" stroke-linecap="round"/><path d="M 25.0 130.0 A 85 85 0 0 1 195.0 130.0" stroke="#9dd98a" stroke-width="14" fill="none" stroke-dasharray="267.04" stroke-dashoffset="90.79" stroke-linecap="round"/><line x1="110.0" y1="130.0" x2="140.4" y2="74.8" stroke="#f3f5fa" stroke-width="3" stroke-linecap="round"/><circle cx="110.0" cy="130.0" r="6" fill="#f3f5fa"/><text x="110.0" y="136.0" text-anchor="middle" fill="#f3f5fa" font-size="30" font-weight="700">66</text><text x="110.0" y="158.0" text-anchor="middle" fill="#9dd98a" font-size="11" letter-spacing="1.5" font-weight="600">GREED</text></svg>
+    <div style="margin-top:8px; font-size:10px; color:#8892a8; letter-spacing:1.3px; text-transform:uppercase;">Prev close 67 · 1w 73 · 1m 30</div>
+  </div>
+  <div><div class="fg-comp-grid"><div class="fg-comp"><div class="l">Market Momentum (S&P 500)</div><div class="v">72 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div>
+<div class="fg-comp"><div class="l">Stock Price Strength</div><div class="v">60 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div>
+<div class="fg-comp"><div class="l">Stock Price Breadth</div><div class="v">55 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">NEUTRAL</span></div></div>
+<div class="fg-comp"><div class="l">Put/Call Options</div><div class="v">58 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div>
+<div class="fg-comp"><div class="l">Market Volatility (VIX)</div><div class="v">70 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div>
+<div class="fg-comp"><div class="l">Safe Haven Demand</div><div class="v">58 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div>
+<div class="fg-comp"><div class="l">Junk Bond Demand</div><div class="v">70 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div></div></div>
+</div>
+<p><b>F&G 66 GREED essentially flat vs Mon 67 — the pre-print de-risking hasn't accelerated even as the structural buffer cracked overnight, leaving asymmetric reversal risk fully elevated.</b> The structural read: market momentum still elevated (records still standing pre-open), price strength softened, breadth still narrow (Monday's leadership was QCOM-heavy + Russell 2000 record), VIX-anchored low-17s with modest event-vol bid, put/call skew tightened on hedge-buying into the print, safe-haven demand stronger (gold $4,718 / silver $85.70 / platinum $2,089 + dollar bid above 98). <b>The asymmetric reversal risk</b>: F&G could re-price to 55-60 NEUTRAL fast on a hot CPI surprise; cross-confirm with Iran intraday + 10Y > 4.45 = sharp asymmetric reversal to 45-50 NEUTRAL-FEAR. <b>Position</b>: don't increase exposure on the F&G flat reading (the lack of de-risking is appropriate to no-new-news but doesn't reduce the binary risk); maintain 8-12% portfolio tail-hedge through the CPI print; let the print clear before re-sizing.</p>
+
+<h2 id="risk" class="sec-red"><span class="marker"></span>Risk Matrix — Into the Open &amp; Through the Session</h2>
+
+<div class="risk r-hi">  <div class="head"><div class="t">1. Hot CPI 8:30 AM upside surprise (0.7%+ MoM OR 3.8%+ YoY headline OR 0.4%+ MoM core — the Wells Fargo tail) — 10Y rips through 4.45, SPY breaks 740 then 735 fast, cohort halo cracks broadly</div><div class="p">Highest priority · 90-minute binary</div></div>  <div><b>The bear tail is now structurally cleaner than 24 hours ago because the energy-shock leg is verified as multi-month, not one-month-spike.</b> Wells Fargo's 3.8% / 2.9% hawkish call has the cleanest macro-anchor: WTI/Brent extending through $101/$107 + Hormuz effectively closed + Saudi Aramco's 2027-normalization warning + Iran rhetoric escalating = gasoline/diesel/jet-fuel pass-through is structurally elevated, not transient. A 0.7%+ MoM headline OR 3.8%+ YoY = 10Y rips through 4.42 toward 4.50 inside 60 seconds, FedWatch zero-cut extends into 2027, NDX multiple compression accelerates, SPY breaks 740 then 735 fast, cohort halo cracks. <b>Cross-confirm with QCOM round-trip read</b>: Monday's $247.90 → $232.13 close + Kospi -2.29% unwind = the cohort was already top-ticked; a hot print fires the cohort-cut decision tree on the position-side independent of the macro re-pricing. <b>Position</b>: 8-12% tail-hedge in SPY 720P (3-4 weeks DTE) + VIX 22-25 calls (2-3 weeks DTE); cohort-cut 30-40% triggers on QCOM < $225 OR AMD < $400 OR SPY < 735 intraday; cut to 40% normal size by 10 AM if 10Y > 4.45 + cohort breaks confirm.</div></div>
+<div class="risk r-hi">  <div class="head"><div class="t">2. Iran intraday Tue cash session: verified strike on US asset / US strikes Iranian mainland / verified Hormuz transit incident = trapdoor 730 activates regardless of CPI print outcome</div><div class="p">High priority · cross-binary stagflation risk</div></div>  <div><b>Iran rhetoric overnight stayed hot (Trump 'massive life support' + Qatar accusing Iran of weaponizing Hormuz / blackmailing Gulf states) but kinetic ceasefire still holds (no verified strike on US asset over the weekend or Monday).</b> The intraday risk Tue during cash session: (a) verified Iranian strike on a US asset / Bahrain or Israel target / Saudi facility, (b) US retaliatory strike on Iranian mainland, (c) formal Iranian walk-back of MOU framework with deal-killer framing, (d) verified Hormuz transit incident. Any: WTI rips $108-115, OVX through 85, MOVE > 80, SPY breaks 735 trapdoor toward 730-732 regardless of CPI print outcome. <b>The stagflation cross-confirm risk</b>: hot CPI + Iran kinetic second-leg simultaneously = SPX gives back 7,350 to 7,300, VIX 22-25, MOVE > 85, cohort halo cracks broadly, defensive rotation completes. Probability of standalone Iran kinetic ~12-15%; cross-confirm with hot CPI ~5-7% but impact magnitude justifies tail-hedge sizing. <b>Position</b>: cohort-cut to 40% normal if SPY breaks 735 with any Iran intraday verification.</div></div>
+<div class="risk r-hi">  <div class="head"><div class="t">3. QCOM Mon round-trip was the cohort-top signal: $230 base breaks to $225 post-print regardless of macro = silicon-decouple thesis fails on positioning, not on substance</div><div class="p">High priority · position-specific cohort top-tick</div></div>  <div><b>The single most important position-specific risk into Tuesday is whether Monday's QCOM round-trip from $247.90 ATH to $232.13 -2.27% close was the cohort-top signal.</b> A break of $230 post-print (independent of CPI outcome) confirms the silicon-decouple thesis fails on positioning extension, not on substance — AMD Q1 Data Center +57% YoY + Q2 guide $11.2B beat is intact, QCOM hyperscaler data-center confirm is intact, but the cohort already priced two cycles of catalyst in two sessions and the late-Monday profit-take is structural-cohort-top, not retracement noise. <b>The mechanical risk</b>: QCOM 200C goes from $32 intrinsic at $232 close to $25 intrinsic at $225 break, $20 intrinsic at $220 — gamma compression accelerates the loss as price extends downward. <b>Position</b>: lock the 50% trim above $235 pre-print to convert house-money to half-house-money; hard stop the residual 50% at $225 close, not intraday wick — let the daily print clear the line. <b>Cross-confirm</b>: AMD $400 + NVDA $200 are the cohort-correlated breakpoints; QCOM-specific break with AMD/NVDA holding = position-only risk; QCOM + AMD cross-break = full cohort halo cracks, cut all silicon by 50-70%.</div></div>
+<div class="risk r-med">  <div class="head"><div class="t">4. Stagflation cross-confirm: hot CPI + Iran kinetic + 10Y rips > 4.45 = SPX gives back 7,350 to 7,300, defensive rotation accelerates, AI-cohort breakout retraces 50-70%</div><div class="p">Medium priority · asymmetric tail</div></div>  <div><b>The cleanest asymmetric tail-risk for the Tue session is hot CPI + Iran kinetic second-leg cross-confirm with magnified bond-market reaction.</b> Standalone hot CPI = terminal-stickier soft re-pricing, NDX multiple compression activates, but cohort-decouple buffer-already-cracked means the impact is sharper than typical positioning-extension setups. Standalone Iran kinetic = oil-rip extension to $110+ WTI + safe-haven bid; dispersion-alpha lane can still carry on positioning resilience. <b>Cross-confirm</b>: stagflation framing activates explicitly (rising prices + supply-shock), terminal-rate-stickier locks in for 6+ months, NDX multiple compression accelerates, cohort halo cracks broadly, defensive rotation (XLP/XLU/XLV/GILD) completes, gold rips through $4,800, silver through $90, DXY through $99, SPY breaks 735 → 730 → 725 fast. <b>Probability</b>: standalone hot CPI ~25-30%; standalone Iran kinetic ~12-15%; cross-confirm ~5-7% but impact magnitude justifies the tail-hedge sizing. <b>Position</b>: 8-12% portfolio tail-hedge in SPY 720P + VIX 22-25 calls; cohort-cut to 40% normal if SPY breaks 735 with any Iran intraday verification + 10Y > 4.45; full defensive rotation post-cross-confirm.</div></div>
+<div class="risk r-med">  <div class="head"><div class="t">5. Cohort-resilient hot-CPI fade fails: 10Y stays > 4.40 for 3+ sessions post-print, structural multiple-compression locks in through NVDA print 5/20 — AI-cohort breakout cycle ends</div><div class="p">Medium priority · cycle-extension risk</div></div>  <div><b>The structural week-2 thesis (dispersion-alpha lane carries through NVDA print 5/20) is at risk on a multi-session 10Y > 4.40 hold post-CPI even without a kinetic Iran leg.</b> The mechanism: hot CPI prints, 10Y rips through 4.45, FedWatch zero-cut extends into 2027, multiple compression locks in for 3-5 sessions, cohort halo cracks softly each day, NVDA print 5/20 gets a 'beat-and-cautious-guide' baseline reset that fires the bear-cycle exit. <b>Cross-confirm</b>: AMAT Q2 earnings Thu 5/14 AMC sits between the CPI binary and the NVDA print — a soft AMAT print + hot CPI hangover = silicon-equipment cohort confirms the multiple-compression read, dispersion lane closes 3 sessions early. <b>Position</b>: this is the 'slow bleed' scenario, not the 'fast cascade' — tail-hedge sized for the fast-cascade; slow-bleed risk requires position-specific cohort trims on each daily SPY < 735 close. Cut silicon by 25% on first close < 735; cut another 25% on second consecutive close < 735; rotate to AAPL anchor + GILD healthcare + XLP staples on third consecutive < 735 close.</div></div>
+
+<p style="margin-top:14px;">The asymmetric setup into the 8:30 CPI binary is now structurally bear-leaning vs Monday's framing: Monday's bull-case required SPY-735-hold + benign-CPI (joint ~15-20%); Tuesday's bull-case requires the same SPY-735-hold + a CPI DOWNSIDE SURPRISE — but with the Kospi-unwind + QCOM-round-trip + oil-extension overnight, the structural buffer has weakened, narrowing the bull-cross probability to ~15-20%. Base case is chop-with-hot-in-line CPI (~50-55%); bear cross-confirm requires only ONE of hot-CPI-upside-surprise OR Iran kinetic second-leg verification (~25-30% combined). The asymmetry argues for maintaining 8-12% portfolio tail-hedge through the print AND locking the QCOM 200C 50% trim pre-print (the framework's missed-trigger from Mon afternoon); do NOT let the position sit naked into the binary at full size.</p>
+
+<h2 id="setup" class="sec-blue"><span class="marker"></span>Opening Setup — Three Paths Into Cash</h2>
+<div class="scenarios">  <div class="scn bull"><span class="tag">Bull path</span>    <div class="t">April CPI downside surprise Tue 8:30 (sub-3.5% YoY OR sub-0.5% MoM — Cleveland Fed Nowcast 3.56% path) + Iran chop intraday + 10Y back through 4.30 → SPX rips through 7,440 toward 7,475 on goldilocks-relief, dispersion-alpha lane completes through NVDA print 5/20</div>    <p><b>Tue 8:30 AM CPI</b>: April CPI downside surprise prints sub-3.5% YoY OR sub-0.5% MoM headline (Cleveland Fed Nowcast 3.56% reads the gasoline mean-reversion correctly despite Iran); core stays at-or-below 2.7% YoY. 10Y rips back through 4.30 inside 60 seconds, dollar softens, FedWatch reprices toward modest 2026 cut probability (Sep-Oct 15-20%); markets argue 'pre-print over-corrected on hot-consensus and Iran headlines.' <b>Tue cash session</b>: SPX rips through 7,440 toward 7,460-7,475 on goldilocks-relief; SPY 740 → 744 → 748 magnet sequence engages; QCOM defends $235+ post-print and rebuilds toward $240 (cohort-correlated relief); AMD holds $415+ / NVDA holds $200 / ARM holds recent base. VIX rolls sub-16; F&G prints 70-75 GREED. <b>Iran headline tape</b>: chop-with-no-fresh-kinetic-leg; oil consolidates WTI $99-101 / Brent $105-107 (no fresh extension). <b>Wed-Thu carry</b>: FOMC minutes color the Sep-Oct cut path as 'live option'; AMAT Q2 earnings Thu 5/14 AMC beat + cautious guide = silicon-equipment cohort confirms; dispersion-alpha lane carries through to NVDA print 5/20. <b>Position</b>: 80-90% normal pre-NVDA carry; cut tail-hedge to 5% post-print; QCOM 200C residual 50% rides to $245+; AMD/ARM hold; pair-trade short APLD/IREN on cohort-decouple play harvests alpha. <b>Probability ~15-20%</b> — narrow because the bond market is already pre-positioning for hot-base-case (10Y 4.38% pre-print, DXY > 98).</p></div>  <div class="scn base"><span class="tag">Base case</span>    <div class="t">April CPI in-line-with-hot-consensus Tue 8:30 (0.5-0.7% MoM / 3.6-3.8% YoY) + Iran intraday chop + 10Y holds 4.36-4.42 → SPX chops 7,380-7,420, dispersion-alpha lane carries with mild de-rate; defensive rotation continues</div>    <p><b>Tue 8:30 AM CPI</b>: April CPI prints in-line-with-hot-consensus (0.5-0.7% MoM / 3.6-3.8% YoY headline; 0.2-0.4% MoM / 2.6-2.8% YoY core). 10Y oscillates 4.36-4.42, FedWatch zero-cut pricing persists, NDX multiple compression activates softly. <b>Tue cash session</b>: SPX chops 7,380-7,420 in the 7,350-7,440 damping band; SPY oscillates 735-742 around the round-number bull pivot; QCOM chops $228-238 (Mon round-trip range continues post-print); AMD chops $410-420; ARM mild bid on royalty-cycle structural story; NVDA flat-to--1% on cohort sympathy. APLD/IREN flat-to-down 1-2% on absorbed-cascade follow-through. <b>Defensive rotation continues</b>: XLP/XLU/XLV catch mild bid; GILD adds at the cohort-rotation hedge; energy still bid on Iran structural tail (WTI $99-103 / Brent $105-108). <b>Iran headline tape</b>: chop-with-no-fresh-kinetic-leg; rhetoric stays elevated but no verified second-leg. <b>VIX closes 17-18.5</b>; SPX closes 7,380-7,420 mid-damping band; dispersion-harvest is the trade but de-rated 30-40% vs Monday's structural-Asia-confirmation alpha. <b>Position</b>: 50-60% normal cohort + dispersion + index-pivot; QCOM 200C trim 50% locked above $235; 25% AAPL anchor + GILD-add; 15% put-skew tail-hedge. <b>Probability ~50-55%</b> — the dominant working assumption given the hot consensus is already priced and Cleveland Fed Nowcast 3.56% is asymmetric upside not downside surprise.</p></div>  <div class="scn bear"><span class="tag">Bear path</span>    <div class="t">April CPI hot upside surprise Tue 8:30 (0.7%+ MoM OR 3.8%+ YoY headline — Wells Fargo tail) + 10Y rips > 4.45 + any Iran intraday verification → SPX gives back 7,350 to 7,300, VIX 19-22, MOVE > 80, cohort halo cracks broadly</div>    <p><b>Tue 8:30 AM CPI</b>: hot upside surprise (0.7%+ MoM OR 3.8%+ YoY headline OR 0.4%+ MoM core — the Wells Fargo 3.8% / 2.9% hawkish tail fires). 10Y rips through 4.42 toward 4.45-4.50 inside 60 seconds; dollar firms (DXY > 99); FedWatch zero-cut pricing extends into 2027; oil stays bid on Iran tail (WTI $103-108). <b>Tue cash session</b>: SPX gives back 7,400 fast → 7,380 → 7,360 → 7,330 → 7,300 trapdoor edge tested by 1-2 PM; SPY breaks 735 by 11 AM, 730 by 1 PM. <b>Cohort halo cracks broadly</b>: QCOM breaks $230 base → $225 → $220 on round-trip continuation; AMD breaks $415 → $400 hard stop; NVDA gives back $200; ARM breaks recent base; APLD/IREN -8 to -12% on cohort cascade extension. <b>Defensive rotation accelerates</b>: XLU/XLP/XLV defensive bid; GILD adds; gold rips through $4,800; silver through $90; bond curve flattens. <b>VIX 19-22, MOVE > 80, gamma-flip leg activates</b>; AI-cohort breakout cycle retraces 50-70% from Mon record peak. <b>Iran cross-confirm risk</b>: any Iran intraday verified-strike headline simultaneous = stagflation framing activates, SPX through 7,300 toward 7,275. <b>Position</b>: cut silicon cohort 50-70% Tue AM on 10Y > 4.45 + cohort breaks; hold AAPL anchor + GILD; tail-hedge expand to 15-20%; harvest pair-shorts on APLD/IREN; defensive rotation completes Tue cash session. <b>Probability ~25-30%</b> — sharper than 24 hours ago because the structural buffer cracked overnight (Kospi unwind + QCOM round-trip).</p></div></div>
+
+<h2 id="cat" class="sec-blue"><span class="marker"></span>Catalyst Watch — Next 72 Hours</h2>
+<table>
+<thead><tr><th>When (ET)</th><th>Event</th><th>Read &amp; Implication</th></tr></thead>
+<tbody>
+<tr><td class="flag-red">Tue 5/12 8:30 AM ET</td><td class="flag-red">April 2026 CPI release — consensus 0.6% MoM / 3.7% YoY headline (highest YoY since Jan-2024 3.9%); core 0.3% / 2.7% YoY</td><td class="flag-red">Bull (~15-20%): downside surprise (sub-3.5% YoY OR sub-0.5% MoM — Cleveland Fed Nowcast 3.56% path) → SPX rips through 7,440 fast, dispersion lane completes through NVDA 5/20. Bear (~25-30%): hot upside surprise (0.7%+ MoM OR 3.8%+ YoY — Wells Fargo 3.8% / 2.9% tail) → SPY breaks 740 then 735 fast, cohort halo cracks, defensive rotation accelerates. Base (~50-55%): in-line-with-hot-consensus = chop 7,380-7,420, dispersion lane carries with mild de-rate.</td></tr>
+<tr><td class="flag-yel">Tue 5/12 9:30 AM ET (cash open)</td><td class="flag-yel">SPY 740 round-number hold vs 735 break post-print — first 30 minutes is the regime read for next 8 sessions through NVDA print 5/20</td><td class="flag-yel">Bull: SPY holds 740 with VIX rolling sub-17 on benign-print = upper-magnet 744 → 748 ride; QCOM defends $235+; AMD holds $415+; dispersion lane carries. Bear: SPY breaks 740 to 735 mid-session on hot-print + 10Y > 4.42 = cohort-cut 30-40% triggers; QCOM breaks $230 base toward $225 = position-specific cohort-top confirms; trapdoor 730 activates on Iran intraday cross-confirm.</td></tr>
+<tr><td class="flag-red">Tue 5/12 ALL DAY</td><td class="flag-red">Iran headline tape during cash session — kinetic-second-leg verification risk live throughout (rhetoric stayed hot overnight, ceasefire on 'massive life support')</td><td class="flag-red">Bear: any verified strike on US asset / US strikes Iranian mainland / verified Hormuz transit incident = WTI rips $108+, OVX through 85, SPY trapdoor 730 activates regardless of CPI print outcome. Bull: Trump pivots to 'negotiating tone' post-Beijing meeting / Tehran walk-back of weekend rejection = oil fades sub-$98, dispersion-alpha lane regains carry.</td></tr>
+<tr><td class="flag-yel">Wed 5/13</td><td class="flag-yel">FOMC minutes mid-week + Trump-Xi summit in Beijing (Iran leverage + tariff truce extension)</td><td class="flag-yel">FOMC minutes color the Sep-Oct cut path narrative (now zero priced after CPI repricing); hawkish minutes + post-CPI hot follow-through = cohort sympathy unwind. Trump-Xi summit readout: any 'China helped pressure Iran' framing = tariff-truce extension firms, BIDU/KWEB cohort catches a bid into Q2 earnings window.</td></tr>
+<tr><td class="flag-yel">Thu 5/14 AMC</td><td class="flag-yel">AMAT Q2 earnings — silicon-cohort-adjacent semi-equipment confirmation print between CPI binary and NVDA print</td><td class="flag-yel">Beat + raise = silicon-cohort cycle confirms, dispersion-alpha lane carries to NVDA 5/20 print. Soft AMAT + post-CPI hot hangover = silicon-equipment cohort fails to confirm, dispersion lane closes 3 sessions early.</td></tr>
+<tr><td class="flag-red">Wed 5/20 AMC</td><td class="flag-red">NVDA Q1 earnings — THE structural test for AI-cohort breadth thesis through Q2 capex commentary window</td><td class="flag-red">Bull: NVDA beat-and-raise + capex-confirms-hyperscaler-demand = AI-cohort breakout extension, SPX tracks 7,500+, dispersion lane completes. Bear: NVDA in-line-with-cautious-guide = profit-taking activates on cohort, SPY gives back 735, dispersion lane closes for the cycle.</td></tr>
+</tbody>
+</table>
+
+<h3>Earnings this week (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>Session</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td class="tk">DASH</td><td>DoorDash, Inc. Class A</td><td>Wed May 06</td><td>After close</td><td class="num">0.36</td><td class="num">$72B</td></tr>
+<tr><td class="tk">WBD</td><td>Warner Bros. Discovery, Inc. Series A</td><td>Wed May 06</td><td>After close</td><td class="num">-0.11</td><td class="num">$68B</td></tr>
+<tr><td class="tk">COHR</td><td>Coherent Corp.</td><td>Wed May 06</td><td>After close</td><td class="num">1.40</td><td class="num">$66B</td></tr>
+<tr><td class="tk">APP</td><td>AppLovin Corp. Class A</td><td>Wed May 06</td><td>After close</td><td class="num">3.44</td><td class="num">$161B</td></tr>
+<tr><td class="tk">FTNT</td><td>Fortinet, Inc.</td><td>Wed May 06</td><td>After close</td><td class="num">0.62</td><td class="num">$67B</td></tr>
+<tr><td class="tk">HWM</td><td>Howmet Aerospace Inc.</td><td>Thu May 07</td><td>Before open</td><td class="num">1.11</td><td class="num">$97B</td></tr>
+<tr><td class="tk">MELI</td><td>MercadoLibre, Inc.</td><td>Thu May 07</td><td>During market</td><td class="num">8.52</td><td class="num">$92B</td></tr>
+<tr><td class="tk">MCD</td><td>McDonald's Corporation</td><td>Thu May 07</td><td>Before open</td><td class="num">2.74</td><td class="num">$203B</td></tr>
+<tr><td class="tk">CNQ</td><td>Canadian Natural Resources Limited</td><td>Thu May 07</td><td>Before open</td><td class="num">0.76</td><td class="num">$100B</td></tr>
+<tr><td class="tk">GILD</td><td>Gilead Sciences, Inc.</td><td>Thu May 07</td><td>After close</td><td class="num">1.91</td><td class="num">$166B</td></tr></tbody>
+</table>
+
+<h2 id="movers" class="sec-purple"><span class="marker"></span>Top Movers — Prior Session</h2>
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+<div><h3>Gainers</h3>
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Price</th><th>%</th></tr></thead><tbody><tr><td class="tk">STRL</td><td class="nm">Sterling Infrastructure, Inc.</td><td class="num">$806.00</td><td class="num pos">+52.22%</td></tr>
+<tr><td class="tk">DOCN</td><td class="nm">DigitalOcean Holdings, Inc.</td><td class="num">$152.77</td><td class="num pos">+40.40%</td></tr>
+<tr><td class="tk">VRDN</td><td class="nm">Viridian Therapeutics, Inc.</td><td class="num">$18.75</td><td class="num pos">+33.36%</td></tr>
+<tr><td class="tk">POET</td><td class="nm">POET Technologies Inc.</td><td class="num">$9.21</td><td class="num pos">+29.54%</td></tr>
+<tr><td class="tk">IART</td><td class="nm">Integra LifeSciences Holding…</td><td class="num">$13.22</td><td class="num pos">+24.13%</td></tr>
+<tr><td class="tk">CIFR</td><td class="nm">Cipher Digital Inc.</td><td class="num">$22.10</td><td class="num pos">+23.53%</td></tr></tbody></table></div>
+<div><h3>Losers</h3>
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Price</th><th>%</th></tr></thead><tbody><tr><td class="tk">WGS</td><td class="nm">GeneDx Holdings Corp. Class A</td><td class="num">$34.51</td><td class="num neg">-49.20%</td></tr>
+<tr><td class="tk">BRBR</td><td class="nm">BellRing Brands, Inc.</td><td class="num">$10.64</td><td class="num neg">-38.73%</td></tr>
+<tr><td class="tk">IPGP</td><td class="nm">IPG Photonics Corporation</td><td class="num">$90.84</td><td class="num neg">-25.74%</td></tr>
+<tr><td class="tk">ADEA</td><td class="nm">Adeia Inc.</td><td class="num">$27.82</td><td class="num neg">-17.26%</td></tr>
+<tr><td class="tk">OSIS</td><td class="nm">OSI Systems, Inc.</td><td class="num">$234.74</td><td class="num neg">-17.01%</td></tr>
+<tr><td class="tk">ADTN</td><td class="nm">ADTRAN Holdings, Inc.</td><td class="num">$15.30</td><td class="num neg">-16.58%</td></tr></tbody></table></div>
+</div>
+
+<h2 id="bl" class="sec-red"><span class="marker"></span>Bottom Line — Two Playbooks for the Day</h2>
+
+<p><b>Index playbook (SPY/QQQ structural):</b> <b>SPY ~$740 Mon ATH close → implied open $737-738 inside 735-744 chop band, but the structural buffer cracked overnight (Kospi unwind + QCOM round-trip + oil extension).</b> The 90-minute clock to 8:30 CPI is everything: print clears in milliseconds, SPY positioning fires inside 90 seconds, first 30 minutes of cash session is the regime read through NVDA print 5/20. Bull path: April CPI downside surprise (sub-3.5% YoY OR sub-0.5% MoM — Cleveland Fed Nowcast 3.56%) + 10Y back through 4.30 + Iran chop = SPY rips 740 → 744 → 748 magnet sequence, dispersion lane completes. Bear path: hot upside CPI (Wells Fargo 3.8% / 2.9% tail OR 0.7%+ MoM) + 10Y > 4.45 + any Iran intraday verification = SPY breaks 740 to 735 fast, cohort halo cracks, defensive rotation accelerates. <b>Trapdoor 730 active only on Iran kinetic second-leg verification intraday OR hot CPI + Iran cross-confirm</b>. The mechanical edge play: SPY day-trade long fades 736-738 with stop 734 / target 740-742 only IF Iran intraday quiet AND 10Y < 4.40 AND QCOM holds $230+; conditional bull break SPY > 744 with VIX < 16 + downside-CPI = ride to 748-752; conditional bear break SPY < 735 with VIX > 19 + hot-CPI + 10Y > 4.45 = SPY 730 trapdoor short.</p>
+
+<p><b>Single-name playbook (intraday options):</b> <b>The 90-minute pre-print position-specific decision is QCOM 200C 50% trim lock at $235 base — the framework's 'lock above $245 on Tue AM open' trigger fired Mon intraday at $247.90 and was missed; the Tue-AM adjustment is the must-do trade of the morning.</b> Mon round-trip from $247.90 ATH to $232.13 -2.27% close = cohort-top-tick signal in single-name form, cross-confirmed by Kospi -2.29% unwind on the overseas-proxy side. <b>The dispersion-alpha lane stays held at current size on the structural thesis</b>: long AI-silicon (AMD/QCOM/ARM/MRVL/SMCI) vs short AI-HPC build-out (APLD/IREN cohort sympathy) — the cohort substance is intact (AMD Q1 Data Center +57% YoY + Q2 guide $11.2B beat, QCOM hyperscaler data-center confirm) but positioning extension is exposed. <b>IREN-specific framework cut</b>: lock 50-60% of the 70C position on Tue AM open per the 50DMA-on-close invalidation rule from Mon's $2B convert dilution event — do NOT carry full IREN through the CPI binary with the 50DMA already broken. <b>The cohort halo crack triggers</b>: QCOM breaks $225 base / AMD breaks $400 / NVDA breaks $200 / ARM breaks recent base = cohort cuts trigger 30-50%, dispersion lane partially closes, defensive rotation activates.</p>
+
+<p><b>Tape vs. book:</b> <b>The tape pre-open is bear-leaning (oil extending through bear-pivot, Kospi unwound, 10Y pre-positioning hot, QCOM Mon top-tick) but futures still hold the chop band (ES -0.33% / NQ -0.68% / YM -0.11% / RTY softer) = mechanical positioning is fading the bull-tape Mon record-print, NOT pricing the bear cross-confirm fully yet.</b> The book position into Tue AM: LOCK QCOM 200C 50% trim at $235 base pre-print; CUT IREN 50-60% per framework on the 50DMA invalidation; HOLD remaining dispersion-alpha lane (APLD / ARM / BIDU / RDW) at current size; KEEP the 8-12% portfolio tail-hedge fully deployed in SPY 720P / VIX-call structure through the print. The Mon-night decision tree triggered partially (Mon record-print held, but cohort top-tick verified intraday) — Tuesday's playbook is print-the-binary-then-position, not pre-position-the-print.</p>
+
+<p><b>Profile going into the open:</b></p>
+<ul>
+  <li><b>April CPI 8:30 AM ET binary — consensus 0.6% MoM / 3.7% YoY headline (highest YoY since Jan-2024 3.9%) / 0.3% / 2.7% YoY core</b>; Cleveland Fed Nowcast 3.56% defines bull-cross tail, Wells Fargo 3.8% / 2.9% defines bear tail; CME FedWatch zero Fed cuts in 2026; 10Y pre-positioned 4.38% (up from 4.35% Fri).</li>
+  <li><b>Mon close printed records but cohort leadership round-tripped intraday</b>: SPX 7,412.84 +0.19% / SPY ATH / RTY also record / NDX +0.29% — but QCOM intraday ATH $247.90 +9.5% → $232.13 -2.27% close = cohort-top-tick signal in single-name form; first-day-of-rip exhaustion tape pattern.</li>
+  <li><b>Overnight broke framework's structural buffers on two vectors</b>: WTI $101.37 +3.3% / Brent $107.58 +3.2% extended through bear-pivot on Iran 'massive life support' + Saudi Aramco's 2027-normalization warning; Kospi -2.29% to 7,643.15 gave back ALL of Mon's +4.32% record print — silicon-decouple overseas proxy unwound.</li>
+  <li><b>Cross-asset bear-leaning</b>: 10Y 4.38% (+3bps), DXY > 98, USD/JPY 157.5 yen-weak despite Iran, gold $4,718 / silver $85.70 / platinum $2,089 precious-bid, BTC $80,496-$81,721 pulled back from $82K = bond market quietly front-running hot-print bear-base-case while equities still hold chop band.</li>
+  <li><b>F&G 66 GREED flat vs Mon 67 — pre-print de-risking has NOT accelerated despite structural buffer crack</b>; asymmetric reversal risk on hot CPI + Iran cross-confirm fully elevated, F&G to 55-60 NEUTRAL fast on either single leg.</li>
+</ul>
+
+<p><b>The honest caveat:</b> <b>The structural buffer that anchored Monday's bull case has cracked overnight on two independent vectors — and that materially shifts the asymmetric setup vs 24 hours ago.</b> Monday's framework relied on (a) Kospi/SK Hynix Asia-overnight verification of silicon-decouple and (b) oil staying inside the $98-103 / $103+ bear-pivot containment — both are now broken (Kospi -2.29% unwound to 7,643.15 below Mon's record, Brent $107.58 well beyond ceiling). The honest framework caveat: even if April CPI prints in-line-with-hot-consensus and SPY chops 735-742 post-print, the multi-day setup into AMAT Thu 5/14 AMC + NVDA print 5/20 is now structurally more vulnerable to a slow-bleed multiple-compression sequence than the framework's original 'digestion-chop-then-completion' base case. Don't treat the chop-band-held-pre-print futures as permission to leave QCOM 200C at full size into the binary — the cohort top-tick has already been telegraphed.</p>
+
+<p><b>Highest-value recognition:</b> <b>The single most actionable recognition is that Monday's QCOM round-trip ($247.90 intraday ATH → $232.13 close -2.27%) was a missed framework decision trigger that must be locked Tuesday AM.</b> The framework's pre-set rule was 'lock minimum 50% trim above $245 on Tue AM open' — the trim opportunity fired Monday intraday at $247.90 (above the trigger) and was missed by 4 hours because the framework cadence anchored on Tue AM open not Mon intraday wick. The Tue-AM adjustment is structural: lock the 50% trim on any pre-print bid back through $235 base; hard stop the residual 50% at $225 close. <b>The lesson for framework discipline</b>: when the trigger fires intraday (especially on a +9.5% move that's already +47% above strike), the framework cadence should allow same-day execution rather than next-AM execution. <b>Position implication for Tuesday</b>: this is the must-do trade of the morning regardless of what April CPI prints — converting house-money to half-house-money on QCOM 200C is the cleanest pre-binary risk-management trade in the basket.</p>
+
+<p><b>Positioning takeaway:</b> <b>LOCK QCOM 200C 50% trim at $235 base pre-print; CUT IREN 50-60% per framework on the 50DMA invalidation; HOLD dispersion-alpha lane remainder (APLD / ARM / BIDU / RDW) at current size; KEEP the 8-12% portfolio tail-hedge fully deployed.</b> The Mon-night framework triggered partially (Mon record-print held, but cohort top-tick verified intraday + IREN 50DMA broke on convert dilution) — Tuesday's playbook is execute-the-missed-Mon-triggers-and-print-the-binary, not pre-position-the-print. <b>Specific Tue-AM cohort-cut decision tree</b>: cut 30-40% additional silicon if SPY breaks 735 intraday + 10Y > 4.45 + cohort breaks (QCOM < $225 / AMD < $400); cut 50-70% if cross-confirm with Iran intraday verification. <b>Hedge logic</b>: don't unwind hedges into pre-print bid; let any vol-pop into the 8:30 print be hedge-exit-liquidity on legs that have worked (oil-call structure if applicable, VIX 22-25C if VIX rips above 20 post-print).</p>
+
+<p><b>Historical perspective:</b> <b>The setup analog is a textbook 'record-print-with-cohort-top-tick-intraday' pattern into a tier-1 inflation binary.</b> Historically when post-records weekends bring partial-bear-pivot verification (oil-extension + sentiment-rhetoric breakdown without verified kinetic-strike) and Mon prints fresh records with cohort leadership round-tripping intraday ahead of a tier-1 inflation print where consensus has repriced hotter into the print, the Tue 8:30 binary clears as the dominant directional event and the cohort halo carries or cracks based on the in-line-vs-surprise dynamic relative to the now-hot consensus. <b>Comparable setups</b>: pre-FOMC binary days with bear-cohort-positioning extension on top of a Mon record-print + intraday cohort round-trip typically see the print clear the binary then directional regime activate; the round-trip pattern is the structural top-tick telegram that the bid was thin at the highs. <b>The structural difference vs typical setups</b>: the cross-asset pre-positioning (10Y 4.38% + DXY > 98 + precious bid) is already bear-leaning before the print, which means the bull-cross asymmetric path requires both the Cleveland Fed Nowcast 3.56% downside surprise AND a 10Y unwind through 4.30 — that's a higher bar than typical pre-FOMC setups. <b>Position implication</b>: respect the pattern (binary-then-direction, not pre-direction-the-binary), lock the missed-trigger Mon-QCOM trim Tuesday AM, maintain tail-hedge through the print.</p>
+
+<p class="flag-red"><b>Into Tue AM open: mark SPY $740 (round-number bull pivot — first-hour post-print reclaim test), $735 (bear pivot — cohort-cut decision trigger on hot-CPI + 10Y > 4.45), $730 (trapdoor — active only on Iran kinetic second-leg verification intraday OR hot CPI + Iran cross-confirm). Reclaim 740 with VIX < 17 + 10Y < 4.35 = upper-magnet 744 → 748 engages, dispersion lane carries. Break 735 with 10Y > 4.45 + cohort breaks = cohort cuts trigger 30-40%, dispersion lane partially closes, defensive rotation activates softly. The single cleanest mechanical tell is the 10Y reaction inside 60 seconds of the 8:30 print — 10Y > 4.42 fast = front-run cohort cut; 10Y back through 4.30 fast = harvest tail-hedge into vol-pop.</b></p>
+
+<h2 id="gloss" class="sec-yellow"><span class="marker"></span>Glossary</h2>
+<dl class="gloss">
+<div><dt>GEX (Gamma Exposure)</dt><dd>Net dealer gamma position. Positive = dealers stabilize (sell rallies, buy dips). Negative = amplify. Read qualitatively here via VIX term structure.</dd></div>
+<div><dt>VIX9D</dt><dd>9-day implied vol on SPX. Captures the event window tighter than spot VIX (30-day). Compression vs spot = market pricing a binary.</dd></div>
+<div><dt>Vanna</dt><dd>Sensitivity of option delta to IV. IV crush on good news forces mechanical dealer buying — "vol crush → mechanical bid."</dd></div>
+<div><dt>Charm</dt><dd>Delta decay over time. Runs 24/7. Bleeds a call-heavy book even in a flat tape.</dd></div>
+<div><dt>Magnet / Accelerator / Trapdoor</dt><dd>Strike vocabulary. Magnet = positive-gamma strike attracting price. Accelerator = negative-gamma strike amplifying. Trapdoor = cluster that cascades.</dd></div>
+<div><dt>Contango / Backwardation</dt><dd>VIX curve shape. Contango (front &lt; back) = normal. Backwardation (front &gt; back) = stress.</dd></div>
+<div><dt>MOVE</dt><dd>Bond-market VIX. Rising MOVE = rates vol expanding, cross-asset hedge pressure.</dd></div>
+<div><dt>OVX</dt><dd>Oil-market VIX. Leading indicator for geopolitical repricing.</dd></div>
+<div><dt>Binary</dt><dd>A known-date catalyst with two discrete outcomes. Requires different positioning than a trend.</dd></div>
+</dl>
+
+<footer>
+  Sources · <a href="https://www.thestreet.com/latest-news/stock-market-today-may-12-2026-updates">TheStreet — Stock Market Today (May 12, 2026): S&P futures down with CPI, Middle East in focus</a> · <a href="https://www.cnbc.com/2026/05/12/oil-prices-today-brent-wti-trump-iran-war-hormuz.html">CNBC — Oil prices today: Brent, WTI rise as Iran tensions escalate (May 12 2026)</a> · <a href="https://www.cnbc.com/2026/05/12/asia-markets-today-live-updates-kospi-hang-seng-index-nikkei-225-sensex-csi-300.html">CNBC — Asia markets May 12 2026 (Nikkei, Kospi, Hang Seng, CSI 300)</a> · <a href="https://www.cnbc.com/2026/05/11/inflation-reading-tuesday-expected-to-show-prices-at-nearly-a-three-year-high.html">CNBC — Inflation reading Tuesday expected to show prices at nearly a three-year high</a> · <a href="https://www.kiplinger.com/investing/economy/cpi-report-april-2026-what-to-expect">Kiplinger — What to Expect From the April CPI Report</a> · <a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting">Cleveland Fed — Inflation Nowcasting (April 2026 CPI projection 3.56% YoY)</a> · <a href="https://www.thestreet.com/latest-news/stock-market-today-may-11-2026-updates">TheStreet — Stock Market Today (May 11, 2026): Stocks post modest gains as oil rises; S&P 500, Russell 2000 set records</a> · <a href="https://www.fool.com/investing/2026/05/11/whats-going-on-with-qualcomm-stock/">Motley Fool — What's Going on With Qualcomm Stock? (May 11 2026)</a> · <a href="https://www.cnn.com/2026/05/11/world/live-news/iran-war-proposal-trump">CNN — Iran war live updates: Trump says ceasefire on 'massive life support'</a> · <a href="https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-tuesday-may-12-2026-bitcoin-and-ethereum-prices-backing-off-113324298.html">Yahoo Finance — Bitcoin and ethereum prices today (May 12, 2026)</a> · <a href="https://www.bloomberg.com/news/articles/2026-05-12/us-stock-futures-today-gamestop-hims-hers-microvast-wendy-s">Bloomberg — US Premarket Movers for May 12, 2026</a> · <a href="https://www.bls.gov/schedule/news_release/cpi.htm">BLS — Consumer Price Index Schedule of Releases</a> · <a href="https://www.cnn.com/markets/fear-and-greed">CNN F&G</a>
+</footer>
+
+</div></body></html>
