@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Closing Bell Recap — Wednesday, May 06, 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: radial-gradient(ellipse at top, #0e1118, #06070b 60%);
+    color: #dfe3ee;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  body { padding: 32px 18px 80px; font-size: 13.5px; min-height: 100vh; }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+  a { color: #7bc4ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  b { color: #f3f5fa; font-weight: 600; }
+  em, i { color: #e2e7f2; font-style: italic; }
+
+  .pos { color: #52e08f; } .neg { color: #ff5574; } .neutral { color: #8892a8; }
+  .flag-red { color: #ff5574; font-weight: 600; }
+  .flag-yel { color: #ffb347; font-weight: 600; }
+  .flag-grn { color: #52e08f; font-weight: 600; }
+  .flag-blue { color: #7bc4ff; font-weight: 600; }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at top right, rgba(88,184,255,0.12), transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(187,119,255,0.10), transparent 55%),
+      linear-gradient(180deg, #0d1220 0%, #080a12 100%);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(88,184,255,0.06) 50%, transparent);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 16px;
+    font-size: 10.5px; letter-spacing: 2.8px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 14px; position: relative;
+  }
+  /* Smaller box-shadow + larger eyebrow gap so the glow doesn't bleed into
+     the start of the text (was 10px shadow + 8px gap → encroached on "P"). */
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #52e08f; box-shadow: 0 0 6px rgba(82,224,143,0.8);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .hero h1 {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.18; color: #ffffff; margin-bottom: 14px;
+  }
+  /* Lede uses full hero width — matches headline width on the right edge.
+     (Was capped at 78ch which left the right side unused on wide screens.) */
+  .hero .lede { font-size: 14px; color: #c5cbdb; line-height: 1.6; }
+  .hero .meta {
+    display: flex; gap: 22px; flex-wrap: wrap; margin-top: 20px;
+    font-size: 11px; color: #8892a8;
+    letter-spacing: 1.3px; text-transform: uppercase;
+  }
+  .hero .meta b { color: #dfe3ee; font-weight: 500; letter-spacing: 0.3px; text-transform: none; }
+  /* Regime pill flows in normal layout (block) so long multi-clause labels
+     wrap cleanly above the headline without overlapping. The next sibling
+     (.eyebrow) is block-level, so the pill sits alone on its row. */
+  .hero .regime-pill {
+    display: inline-block;
+    margin-bottom: 14px;
+    max-width: 100%;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase;
+    font-weight: 600; backdrop-filter: blur(10px);
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .regime-pill.risk-on  { background: rgba(82,224,143,0.12); color: #52e08f; border: 1px solid rgba(82,224,143,0.3); }
+  .regime-pill.risk-off { background: rgba(255,85,116,0.12); color: #ff5574; border: 1px solid rgba(255,85,116,0.3); }
+  .regime-pill.mixed    { background: rgba(255,179,71,0.12); color: #ffb347; border: 1px solid rgba(255,179,71,0.3); }
+
+  /* ── NAV ──────────────────────────────────── */
+  .nav {
+    display: flex; flex-wrap: wrap; gap: 6px 4px;
+    padding: 10px 14px; margin-bottom: 20px;
+    background: rgba(255,255,255,0.02); border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 11px;
+  }
+  .nav a {
+    padding: 3px 8px; border-radius: 4px;
+    color: #8892a8; transition: all 0.15s;
+  }
+  .nav a:hover { background: rgba(88,184,255,0.12); color: #7bc4ff; text-decoration: none; }
+
+  /* ── SESSION BAR ──────────────────────────── */
+  .sess {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 22px;
+    background: linear-gradient(90deg, rgba(255,179,71,0.06), rgba(255,179,71,0.02));
+    border: 1px solid rgba(255,179,71,0.2);
+  }
+  .sess .item { font-size: 12px; }
+  .sess .k { font-size: 9.5px; color: #8892a8; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 2px; }
+  .sess .v { color: #f3f5fa; }
+  .sess .v b { color: #ffb347; }
+
+  /* ── KEY METRICS ──────────────────────────── */
+  .km {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(175px,1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .km-cell {
+    position: relative; padding: 14px 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden; transition: all 0.2s;
+  }
+  .km-cell::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px; background: var(--acc, #8892a8);
+    opacity: 0.9;
+  }
+  .km-cell.pos { --acc: #52e08f; }
+  .km-cell.neg { --acc: #ff5574; }
+  .km-cell.warn { --acc: #ffb347; }
+  .km-cell.blue { --acc: #58b8ff; }
+  .km-cell .k { font-size: 10px; letter-spacing: 1.6px; color: #8892a8; text-transform: uppercase; }
+  .km-cell .v { font-size: 22px; font-weight: 700; margin-top: 6px; color: #f3f5fa; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .km-cell .d { font-size: 11px; color: #9aa3b8; margin-top: 3px; }
+
+  /* ── SECTIONS ─────────────────────────────── */
+  h2 {
+    font-size: 17px; font-weight: 700; color: #fff;
+    margin: 34px 0 14px 0; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px;
+  }
+  h2 .marker {
+    width: 8px; height: 18px; border-radius: 2px;
+    background: var(--sec-acc, #6b7ba8);
+  }
+  h2.sec-red    { --sec-acc: #ff5574; }
+  h2.sec-yellow { --sec-acc: #ffb347; }
+  h2.sec-green  { --sec-acc: #52e08f; }
+  h2.sec-blue   { --sec-acc: #58b8ff; }
+  h2.sec-purple { --sec-acc: #bb77ff; }
+  h2.sec-orange { --sec-acc: #ffb347; }
+
+  h3 {
+    font-size: 12.5px; font-weight: 600; color: #b8bfd0;
+    margin: 20px 0 10px 0; letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  p { margin-bottom: 11px; color: #cdd2de; }
+  ul, ol { margin: 10px 0 14px 22px; color: #cdd2de; }
+  ul li, ol li { margin-bottom: 6px; }
+
+  /* ── TABLES ───────────────────────────────── */
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 12px; margin: 10px 0 16px 0;
+    font-variant-numeric: tabular-nums;
+    background: rgba(255,255,255,0.012);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px; overflow: hidden;
+  }
+  th {
+    text-align: left; padding: 10px 12px;
+    font-size: 10px; letter-spacing: 1.3px; color: #8892a8;
+    text-transform: uppercase; font-weight: 600;
+    background: rgba(255,255,255,0.025);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  td {
+    padding: 9px 12px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    color: #cdd2de;
+  }
+  tbody tr:hover { background: rgba(88,184,255,0.04); }
+  td.lbl { color: #e4e7ef; font-weight: 500; }
+  td.tk { font-weight: 600; color: #fff; }
+  td.nm { color: #9aa3b8; font-size: 11px; }
+  td.num { text-align: right; }
+
+  /* ── BAR (sector rotation) ────────────────── */
+  .bars { display: flex; flex-direction: column; gap: 6px; padding: 6px 0; }
+  .bar-row {
+    display: grid; grid-template-columns: 110px 32px 1fr 70px;
+    align-items: center; gap: 10px; font-size: 11.5px;
+  }
+  .bar-row .bname { color: #dfe3ee; font-weight: 500; }
+  .bar-row .betf { color: #7f8699; font-size: 10px; letter-spacing: 0.5px; }
+  .bar-track {
+    position: relative; height: 20px;
+    border-radius: 4px; background: rgba(255,255,255,0.03);
+    overflow: hidden;
+  }
+  .bar-track .midline {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .bar-fill {
+    position: absolute; top: 2px; bottom: 2px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(82,224,143,0.4), rgba(82,224,143,0.85));
+  }
+  .bar-fill.neg { background: linear-gradient(270deg, rgba(255,85,116,0.85), rgba(255,85,116,0.4)); }
+  .bar-row .bpct {
+    text-align: right; font-weight: 600;
+    font-variant-numeric: tabular-nums; font-size: 12px;
+  }
+
+  /* ── RING (breadth / F&G) ─────────────────── */
+  .rings {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px; padding: 4px 0 10px 0;
+  }
+  .ring-cell {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 14px 12px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .ring { position: relative; width: 100px; height: 100px; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .rlabel {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .ring .rlabel .v { font-size: 20px; font-weight: 700; color: #f3f5fa; }
+  .ring .rlabel .sub { font-size: 9.5px; color: #8892a8; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
+  .ring-cell .caption {
+    margin-top: 10px; font-size: 11px; color: #8892a8;
+    letter-spacing: 1.1px; text-transform: uppercase; text-align: center;
+  }
+
+  /* ── F&G Gauge ─────────────────────────────── */
+  .fg-block {
+    display: grid; grid-template-columns: 260px 1fr; gap: 20px;
+    padding: 14px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .fg-gauge { display: flex; flex-direction: column; align-items: center; }
+  .fg-comp-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 8px;
+  }
+  .fg-comp {
+    padding: 8px 10px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.01);
+    font-size: 11px;
+  }
+  .fg-comp .l { color: #9aa3b8; font-size: 10px; letter-spacing: 0.8px; text-transform: uppercase; }
+  .fg-comp .v { color: #f3f5fa; font-weight: 600; margin-top: 3px; }
+
+  /* ── VIX curve ────────────────────────────── */
+  .vix-panel {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .vix-panel .vlabel {
+    display: flex; justify-content: space-around; font-size: 10.5px;
+    color: #8892a8; letter-spacing: 1.2px; text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .vix-panel .vlabel span b { color: #dfe3ee; font-weight: 600; }
+
+  /* ── RSI heat cell ─────────────────────────── */
+  .rsi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 8px;
+    padding: 4px 0;
+  }
+  .rsi-cell {
+    padding: 11px 13px; border-radius: 9px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .rsi-cell .tk { font-weight: 700; color: #fff; font-size: 11px; letter-spacing: 1.4px; }
+  .rsi-cell .sig { font-size: 11px; font-weight: 600; margin-top: 3px; }
+  .rsi-cell .bar {
+    height: 6px; border-radius: 3px; margin-top: 8px;
+    background: rgba(255,255,255,0.05); overflow: hidden;
+  }
+  .rsi-cell .bar > div { height: 100%; border-radius: 3px; }
+  .rsi-cell .sub { font-size: 10px; color: #8892a8; margin-top: 5px; display: flex; justify-content: space-between; }
+  .sig-STRONG-BUY { color: #52e08f; }
+  .sig-BUY { color: #9dd98a; }
+  .sig-NEUTRAL { color: #8892a8; }
+  .sig-SELL { color: #ff9f8a; }
+  .sig-STRONG-SELL { color: #ff5574; }
+
+  /* ── Risk Matrix ──────────────────────────── */
+  .risk {
+    position: relative;
+    padding: 14px 16px 14px 20px; border-radius: 10px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .risk::before {
+    content: ""; position: absolute; left: 0; top: 10px; bottom: 10px;
+    width: 4px; border-radius: 2px; background: var(--risk-acc, #8892a8);
+  }
+  .risk.r-hi { --risk-acc: #ff5574; }
+  .risk.r-med { --risk-acc: #ffb347; }
+  .risk.r-low { --risk-acc: #58b8ff; }
+  .risk .head {
+    display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .risk .t { font-weight: 700; color: #f3f5fa; font-size: 13.5px; }
+  .risk .p {
+    font-size: 9.5px; letter-spacing: 1.3px;
+    padding: 3px 8px; border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    color: var(--risk-acc, #8892a8);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── Scenarios ────────────────────────────── */
+  .scenarios {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 14px;
+    margin: 14px 0 18px 0;
+  }
+  .scn {
+    padding: 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+  }
+  .scn::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--scn-acc, #8892a8);
+  }
+  .scn.bull { --scn-acc: #52e08f; }
+  .scn.base { --scn-acc: #8892a8; }
+  .scn.bear { --scn-acc: #ff5574; }
+  .scn .tag {
+    display: inline-block; padding: 3px 8px; border-radius: 10px;
+    font-size: 9.5px; letter-spacing: 1.3px; text-transform: uppercase;
+    font-weight: 600; color: var(--scn-acc); background: rgba(255,255,255,0.04);
+    margin-bottom: 8px;
+  }
+  .scn .t { font-weight: 700; color: #f3f5fa; font-size: 14px; margin-bottom: 6px; }
+  .scn p { font-size: 12.5px; color: #cdd2de; }
+
+  /* ── Caveat ───────────────────────────────── */
+  .caveat {
+    font-size: 11.5px; color: #c9cfde; font-style: italic;
+    padding: 10px 14px; border-radius: 8px;
+    border-left: 3px solid #8892a8;
+    background: rgba(136,146,168,0.05);
+    margin: 10px 0 14px 0;
+  }
+
+  /* ── Glossary ─────────────────────────────── */
+  .gloss { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 12px; }
+  .gloss dt { font-weight: 600; color: #f3f5fa; font-size: 12.5px; margin-bottom: 3px; }
+  .gloss dd { color: #9aa3b8; font-size: 11.5px; margin-bottom: 0; margin-left: 0; }
+
+  /* ── Footer ───────────────────────────────── */
+  footer { margin-top: 46px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; font-size: 11px; color: #8892a8; letter-spacing: 0.5px; }
+
+  /* ── COMMODITIES section ─────────────────────── */
+  .commodities {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px; margin-bottom: 18px;
+  }
+  .commodity-group {
+    padding: 14px 16px; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  }
+  .commodity-group .grp-title {
+    font-size: 10px; letter-spacing: 2.2px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 10px; font-weight: 600;
+  }
+  .commodity-group .grp-title.energy   { color: #ffb347; }
+  .commodity-group .grp-title.precious { color: #ffd35c; }
+  .commodity-group .grp-title.industrial { color: #58b8ff; }
+  .commodity-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.05);
+    font-size: 12.5px;
+  }
+  .commodity-row:last-child { border-bottom: none; }
+  .commodity-row .nm { color: #c8cfdd; }
+  .commodity-row .px { color: #e5e7eb; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .commodity-row .ch { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 70px; text-align: right; }
+  .commodity-narrative {
+    padding: 16px 20px; border-radius: 12px; margin-bottom: 22px;
+    border-left: 3px solid #ffb347;
+    background: linear-gradient(180deg, rgba(255,179,71,0.06), rgba(255,179,71,0.01));
+    font-size: 13px; line-height: 1.65; color: #c8cfdd;
+  }
+  .commodity-narrative b { color: #f3f5fa; }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .hero, .km-cell, table, .risk, .scn, .caveat, .fg-block, .rsi-cell, .ring-cell, .vix-panel { background: #fafafa; border-color: #ddd; }
+    p, td { color: #222; }
+    b, h1, h2, h3 { color: #000; }
+  }
+</style>
+</head><body><div class="wrap">
+
+
+<div class="hero">
+  <span class="regime-pill bear-tilt">Wells Fargo Hot-Tail Print Fired · QCOM -10.79% Cohort Halo Crack · 10Y 4.459% Multi-Compression On · Energy + Defensive Rotation Held SPX -0.37%</span>
+  <div class="eyebrow"><span class="dot"></span> Closing Bell Recap · Wednesday, May 06, 2026 · 7 PM Evening Wrap</div>
+  <h1>Wells Fargo hot-tail fired: CPI 3.8% YoY / core 0.4% MoM — QCOM -10.79% led the cohort cascade, but SPX held -0.37% on rotation</h1>
+  <div class="lede"><b>The framework's named bear-base case played to script — April CPI 3.8% YoY (highest since May 2023) and core 0.4% MoM hit the explicit 'Wells Fargo hot-tail' triggers, 10Y ripped to 4.459% (one-week high), and QCOM -10.79% cascaded the silicon-cohort halo Mon's round-trip already telegraphed.</b> But SPX held -0.37% / Dow -0.21% / RUT +0.33% green into close because energy bid (XLE +2-3% on WTI $102 / Brent $108) and defensive rotation absorbed the multiple-compression hit — the index masked a violent cohort-internal cleavage. Wed PPI 8:30 + BABA / CSCO post-close are the second-leg multiple-compression binaries.</div>
+  <div class="meta">
+    <span>Published · <b>Wednesday, May 06, 2026 09:05 AM</b></span>
+    <span>Build · <b>56.1s</b></span>
+    <span>Sources · <b>yfinance · TradingView · web</b></span>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#tldr">TL;DR</a> · <a href="#session">What Happened</a> · <a href="#metrics">Key metrics</a>
+  · <a href="#ahmovers">AH movers</a> · <a href="#ah">After-hours</a> · <a href="#blocks">Block tape</a>
+  · <a href="#sectors">Sector rotation</a> · <a href="#vix">Vol structure</a> · <a href="#commodities">Commodities</a>
+  · <a href="#rsi">TA ratings</a> · <a href="#tomorrow">Tomorrow's setup</a> · <a href="#cat">Catalysts</a>
+  · <a href="#bl">Bottom line</a> · <a href="#gloss">Glossary</a>
+</div>
+
+<div class="sess">
+  <div class="item"><div class="k">Session</div><div class="v">Cash closed · evening wrap · <b>~14h to next open</b></div></div>
+  <div class="item"><div class="k">Regime</div><div class="v"><b>Risk-On Close · Trend Day Up</b></div></div>
+  <div class="item"><div class="k">Overnight focus</div><div class="v">After-hours earnings drift, Globex futures, overnight macro headlines</div></div>
+</div>
+
+<div id="metrics" class="km">
+  <div class="km-cell pos"><div class="k">SPY / SPX close</div><div class="v">$723.77</div><div class="d">+0.80% · SPX ≈ 7,238</div></div>
+  <div class="km-cell warn"><div class="k">VIX / VIX9D</div><div class="v">16.72 / 14.64</div><div class="d">VIX -3.80% · VIX9D -11.81%</div></div>
+  <div class="km-cell blue"><div class="k">Net GEX (qualitative)</div><div class="v">Strongly positive</div><div class="d">Term slope +4.10 · Contango</div></div>
+  <div class="km-cell pos"><div class="k">Block tape (top mover)</div><div class="v">STRL</div><div class="d">+52.22%</div></div>
+</div>
+
+<h2 id="tldr" class="sec-red"><span class="marker"></span>TL;DR — What You Need To Know</h2>
+<div style="padding:6px 4px; margin-bottom:18px;"><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>The Wells Fargo HOT-TAIL print fired exactly per the morning playbook — April CPI 0.6% MoM / 3.8% YoY headline (highest since May 2023) and core 0.4% MoM / 2.8% YoY both above consensus, with gasoline +28.4% YoY confirming the Iran-Hormuz energy pass-through is now structural CPI input.</b> The framework's named bear-base case played to script — 10Y ripped to 4.459% (one-week high, +5bp), FedWatch zero-cut pricing extended into 2027, NDX multiple compression activated inside 5 minutes of the print, and QCOM -10.79% cascaded the cohort top-tick that Mon's $247.90 → $232.13 round-trip already telegraphed.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>But the index print masked a violent internal cleavage: SPX -0.37% / Dow -0.21% / RUT +0.33% (small caps actually CLOSED GREEN after being -2.34% mid-day) because energy bid (XLE +2-3% on WTI $102.18 +4.2% / Brent $107.77 +3.4%) and defensive rotation absorbed the cohort hit while AI-silicon got cohort-tagged.</b> The dispersion-alpha lane (long AI-silicon vs short AI-HPC) inverted today — the long-silicon leg ate the cohort cascade and the short-HPC leg was the structural insulation. The rotation-funded absorption is real but conditional on Wed PPI not extending the multiple-compression leg.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>VIX +6.9% to 18.38 is the most actionable cross-asset read of the day — a modest vol response to a HOT-TAIL CPI binary tells you positioning was already hedged into the print, the 8-12% portfolio tail-hedge logic was the consensus pre-print stance, and there's no panic premium left to compress on a benign Wed PPI.</b> But there's also no pre-existing complacency to crack open on a hot Wed PPI — Wed becomes a clean re-test of the cohort top-tick read with the macro tape now actively hostile rather than ambiguously priced.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Wed 5/13 setup is a three-binary stack with structural asymmetry — April PPI 8:30 AM ET (consensus 0.5% MoM matching prior) is the multiple-compression confirm-or-base, then BABA earnings post-close (consensus CNY 247B rev / 84¢ EPS, Polymarket 68% beat) is the China-tech cohort + direct BIDU read, then CSCO post-close (Polymarket 98% beat — print is priced, the trade is in AI-networking commentary).</b> Iran tail risk extends — Trump 'considering' restarting combat ops per CNN; any verified kinetic escalation breaks the rotation-funded SPX absorption and activates the 730 trapdoor regardless of PPI.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Position playbook into Wed: QCOM 200C residual harvest the intrinsic on any AM bounce attempt — the cohort-top-tick was Mon's $247.90 and the structural buffer is gone; APLD 50DMA invalidation rule pre-staged on PPI hot + Wed open red cross-confirm; ARM trim 30-40% if QCOM fails to defend its post-cascade base; BIDU is the basket's clean event-catalyst path on BABA print (do NOT pre-hedge — the catalyst path is asymmetric); IREN residual only per Mon's 50DMA rule; RDW unchanged long-DTE binary.</b> Keep the 8-12% portfolio tail-hedge fully sized — it just paid; cohort-cut 30-40% trigger on residual size remains SPY < 735 close OR QCOM fails post-cascade base reclaim attempt.</div></div></div>
+
+<h2 id="session" class="sec-orange"><span class="marker"></span>What Happened Today</h2>
+<p style="color:#cdd2de; font-size:13.5px; line-height:1.65; margin:0 0 14px 0;">Six session moves to weigh into Wed's PPI + BABA + CSCO triple-binary stack — the Wells Fargo hot-tail printed precisely, QCOM -10.79% cascaded the cohort top-tick Mon's round-trip telegraphed, energy bid + small-cap rotation funded SPX absorption masking a violent cohort-internal cleavage, 10Y to 4.459% one-week high front-loaded the multiple-compression leg, VIX +6.9% to 18.38 telegraphed positioning was pre-hedged, and Iran kinetic re-escalation tail extended with Trump 'considering' restarting combat ops.</p>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">1. Wells Fargo HOT-TAIL CPI fired exactly per morning script: 0.6% MoM / 3.8% YoY headline (highest since May 2023) + core 0.4% MoM / 2.8% YoY — gasoline +28.4% YoY confirms Iran energy pass-through is structural CPI input</b> <b>The 8:30 AM print delivered the Wells Fargo hawkish tail almost to the decimal — headline CPI rose 0.6% MoM (in line) but the YoY 3.8% topped 3.7% consensus to print the highest annual rate since May 2023's tail of pandemic-era inflation, and core CPI 0.4% MoM / 2.8% YoY beat both 0.3% / 2.7% consensus.</b> The structural read is the gasoline component: +28.4% YoY confirms the Iran-Hormuz energy-shock pass-through is no longer a one-month-spike — it's now mechanically embedded as a CPI input through at least Q3, which is exactly the framework call from Mon's overnight Aramco 2027-normalization warning. <b>The 90-second post-print mechanic fired clean</b>: 10Y ripped through 4.42 to 4.459% one-week high (+5bp), 2Y to 3.989% (+4bp), 30Y to 5.023% (+3bp); FedWatch zero-cut pricing extended deeper into 2027; CME Fed-funds curve back-loaded any cut to late-2027/early-2028. <b>The honest framework caveat</b>: the morning narrative's bull-cross path (sub-3.5% YoY downside surprise) was always narrow but the actual print was the explicit hawkish-tail trigger — the dispersion-alpha lane assumption that the cohort halo would re-bid through the print was inverted by the print. <b>Position implication into Wed</b>: 10Y at 4.459% pre-PPI means a hot PPI 0.6%+ MoM puts 4.50 in play within minutes, and the multiple-compression leg has no slack for cohort halo to base; only an in-line / soft PPI lets the rotation-funded absorption hold.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">2. QCOM -10.79% close — the cohort top-tick the framework named on Mon's $247.90 → $232.13 round-trip cascaded full-form; AI-silicon halo cracked broadly under multiple-compression overlay</b> <b>QCOM closing -10.79% today is the textbook execution of the framework's cohort-top-tick read — Mon's intraday $247.90 ATH → $232.13 close round-trip was the structural signal, and today's hot-CPI multiple-compression overlay smashed the high-multiple silicon names without name-specific damage.</b> The morning narrative's 'lock 50% trim above $245 on Tue open' and the secondary 'open the trim at $232 base if pre-print holds $230' were the last clean exits — the cascade ate ~$25 of price after the print. <b>The cascade was hot-CPI-driven, NOT name-specific</b>: the QCOM data-center hyperscaler reveal (Cristiano Amon: hyperscaler shipment before EOY 2026) + tariff-truce + OpenAI/MediaTek catalysts all remain intact; what cracked was the multiple-compression macro overlay from 10Y rip + zero-cut FedWatch repricing. The ARM 300C and APLD 40C ate sympathy beta from the same overlay — the silicon-cohort halo crack is structurally tight on rate-sensitive multiple-compression. <b>The dispersion-alpha lane inverted</b>: the long-AI-silicon leg ate the cohort cascade today; the short-AI-HPC leg was the structural insulation (APLD/IREN underperformed less than QCOM/ARM in dollar-beta terms because their multiples are already lower). <b>Position implication into Wed</b>: residual QCOM 200C size is on disciplined harvest — re-entry only on (a) cohort base reclaim with QCOM holding ~$210 + AMD holding $400 + 10Y back through 4.40, OR (b) name-specific catalyst bid. The cohort-top-tick was Mon's $247.90 intraday and the structural buffer is gone.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">3. SPX -0.37% / Dow -0.21% / RUT +0.33% (small caps closed GREEN after -2.34% mid-day) — energy bid + defensive rotation absorbed the cohort hit, masking a violent internal cleavage</b> <b>The most actionable structural read of the day is the index print masking a violent cohort-internal cleavage — and the small-cap green close is the most surprising leg.</b> RUT/IWM was down -2.34% mid-day per Schwab on the post-print panic but rallied to close +0.33% green; this is short-covering + value-rotation bid, not structural alpha — small caps benefit from the rate-rip via the rotational funds-flow channel even as the rate-rip itself is hostile to their cost-of-debt math. <b>The XLE leg drove the broad absorption</b>: WTI June $102.18 +4.2% / Brent July $107.77 +3.4% on Hormuz-overhang structural bid + Trump 'considering' restarting combat ops in Iran (CNN); XLE bid 2-3% intraday and funded the rotation flow that absorbed the cohort hit. <b>The cleavage to track is XLK / XLC (-2%+ intraday on cohort cascade) vs XLE / XLI / XLB (broadly green on energy + cyclical rotation)</b>: 6 of 11 sectors green into close per Mon's count is approximately what today looked like in inverted form (energy/cyclicals/defensives green, tech/comms red). <b>Position implication into Wed</b>: the rotation-funded absorption is real but conditional on (a) Wed PPI not extending the multiple-compression leg AND (b) Iran not delivering kinetic escalation that breaks the energy-up / SPX-flat correlation. The setup is structurally fragile — a single Wed catalyst can break the absorption mechanic.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">4. VIX +6.9% to 18.38 — modest vol response to a HOT-TAIL binary telegraphs positioning was pre-hedged; no panic premium to compress on benign Wed PPI but no complacency for hot Wed PPI to crack</b> <b>The cleanest cross-asset read of the day is VIX closing 18.38 +6.9% — a modest vol response to a print that fired the explicit hawkish-tail bear-base case; the bond market reacted violently, the equity vol market did not.</b> The mechanical interpretation: the morning narrative's 8-12% portfolio tail-hedge logic was the consensus pre-print stance, dealer books were short-gamma into the binary but had pre-hedged adequately, and the implied-vol crush from the binary clearing exceeded the realized-vol expansion from the cascade. <b>The structural setup for Wed is asymmetric in BOTH directions</b>: there's no panic premium left to compress on a benign Wed PPI (so the bull-case rebound is mechanical-only via realized-vol contraction, not vol-crush bid); but there's also no pre-existing complacency to crack open on a hot Wed PPI (so the bear-extension requires fresh seller flow, not just IV expansion). <b>The most useful read for Wed open</b>: if VIX opens above 19.5 with VIX9D > VIX (term-structure inversion) on hot-PPI cross-confirm = the second-leg cohort-residual cut signal fires; if VIX opens below 17.5 with term-structure normal on benign-PPI = the rotation-funded base-reform attempt is the bid. <b>Position implication into Wed</b>: keep the 8-12% portfolio tail-hedge sized — it just paid and the asymmetric setup hasn't compressed it; do NOT add to the hedge on the modest VIX print.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">5. Wed 5/13 triple-binary stack: PPI 8:30 AM (consensus 0.5% MoM, multiple-compression confirm-or-base) + BABA earnings post-close (China-tech cohort + direct BIDU read, Polymarket 68% beat) + CSCO post-close (98% beat priced, AI-networking commentary is the trade)</b> <b>Wed's setup is a three-binary stack where the structural asymmetry is in the print-vs-priced dynamic — PPI is the macro-confirm leg, BABA is the catalyst-asymmetric leg, CSCO is the commentary-only leg.</b> April PPI consensus is 0.5% MoM matching the 0.5% prior March print; the food/energy components carry the Iran pass-through that gasoline +28.4% YoY in CPI just confirmed is structural — a hot 0.6%+ PPI re-prices 10Y through 4.50 and the cohort halo can't base; an in-line 0.4-0.5% lets cohort attempt base-reform with QCOM defending its post-cascade level; sub-0.3% downside re-opens the dispersion lane. <b>BABA is the cleanest single-event catalyst path in the basket</b>: consensus rev CNY 247.09B / EPS 84¢, Polymarket gives BABA the lowest beat-probability (68%) of the BABA/CSCO/WIX trio — that's the asymmetric setup; cloud-growth >18% YoY + AI-spend acceleration commentary lifts the China-tech ADR cohort and gives BIDU 155C the catalyst path the morning narrative said it had decoupled to. <b>CSCO is the priced-print, commentary-trade leg</b>: $15.6B rev / $1.04 EPS consensus, Polymarket 98% beat probability — the print itself is priced; the trade is in AI-networking order-book commentary that signals the silicon-cohort downstream demand pulse. <b>Position implication</b>: BIDU 155C carry the catalyst path size (do NOT pre-hedge); QCOM 200C residual harvest into PPI; APLD/ARM cohort-trim trigger on PPI hot + Wed open red cross-confirm.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">6. Iran kinetic re-escalation tail extended — Trump 'considering' restarting combat ops per CNN; Hormuz still effectively closed; Aramco 2027-normalization warning intact; the energy-bid leg is now a sustained structural input not a one-week spike</b> <b>The Iran tail risk extended materially today — President Trump is 'more seriously thinking' about restarting combat operations against Iran per CNN, the conditional ceasefire is on 'massive life support' per Trump's Mon evening commentary, and the Strait of Hormuz remains effectively closed with 1,550 vessels stranded and 22,500 mariners trapped.</b> The Aramco CEO Amin Nasser warning that the oil market won't normalize until 2027 if Hormuz stays blocked beyond mid-June compounds with each additional week of disruption — DHL forecasts 4-6 months to normalization even if the strait opens today. <b>The cross-asset implication is that the energy-bid leg is now a sustained structural input, not a one-week spike</b>: WTI $102.18 / Brent $107.77 are the new ranges, not the new highs; the gasoline +28.4% YoY in today's CPI is the proof that the pass-through is mechanical. <b>The Wed risk vector that compounds with PPI</b>: any verified strike on US asset OR US strike on Iranian mainland OR formal Iran walk-back of the MOU framework intraday = WTI rips to $108+, OVX through 85, MOVE > 80, and the rotation-funded SPX absorption mechanic breaks regardless of the PPI print. <b>Position implication</b>: RDW 11C 1/2027 is the long-DTE asymmetric-binary beneficiary (DoD allocation pressure for satellite-ISR + space-based comm in contested-environment doctrine compounds with sustained Iran disruption); the broader basket holds defensive rotation flow as a structural insulation.</div></div>
+
+<h2 id="gloss" class="sec-yellow"><span class="marker"></span>Quick Reference — Key Terms</h2>
+<dl class="gloss">
+<div><dt>GEX (Gamma Exposure)</dt><dd>Net dealer gamma position. Positive = stabilizing (sell rallies, buy dips); negative = amplifying. Approximated here qualitatively from VIX term structure since paid GEX feeds are not available.</dd></div>
+<div><dt>VIX9D</dt><dd>9-day implied vol on SPX. Captures event windows tighter than spot VIX (30-day). VIX9D &gt; spot VIX = front-end event premium.</dd></div>
+<div><dt>Vanna</dt><dd>Sensitivity of option delta to IV. IV crush on benign news forces mechanical dealer buying.</dd></div>
+<div><dt>Charm</dt><dd>Delta decay over time. Bleeds a call-heavy book even in a flat tape; runs 24/7 and accelerates into expiration.</dd></div>
+<div><dt>Magnet / Accelerator / Trapdoor</dt><dd>Strike vocabulary. Magnet = positive-gamma strike attracting price. Accelerator = negative-gamma strike amplifying. Trapdoor = cluster that cascades.</dd></div>
+<div><dt>Block tape</dt><dd>Institutional flow read. Approximated here via top movers since paid block-flow data is not available.</dd></div>
+</dl>
+
+<h2 id="ahmovers" class="sec-red"><span class="marker"></span>Post-Market Movers — Winners &amp; Losers (AH Earnings Reactions)</h2>
+<p style="color:#8892a8; font-size:13px; margin-bottom:14px;">Single-name moves &gt;3% in after-hours, sourced from the post-close research step. Winners are bid (revenue beat / segment accel / clean guide); losers are hit (capex shock / guide cut / segment miss). Treat the split as the cleanest real-time read on whichever sector thesis was on the line tonight.</p>
+<div style="display:flex; gap:14px; flex-wrap:wrap;"><div style="flex:1;"><div style="font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#ff5574; margin-bottom:8px;">▼ Losers (2)</div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">HIMS</b>    <b style="font-size:14px; color:rgb(255,85,116);">-13.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Hims & Hers Health fell ~13% AH on report-driven name-specific overhang — not an earnings-print, the move was idiosyncratic to the GLP-1/telehealth regulatory commentary backdrop.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Single-name idiosyncratic; not a basket-cohort signal. The size of the AH move is what matters: a -13% AH on a non-print day flags that liquidity is THIN post-CPI cascade — bid/ask spreads are wide and any name-specific overhang gets amplified in low-volume tape. Treat similar AH overhangs Wed as size-conditional, not directional.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">OKLO</b>    <b style="font-size:14px; color:rgb(255,85,116);">-8.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Oklo Q1 print (4:00 PM ET) — adjusted EPS -$0.19 missed -$0.18 consensus, revenue zero (as expected), investing outflows $359.0M = capital-intensity ramp visible in the cash-burn line; the recent NVDA collaboration halo can't offset the Q1 cash-burn print in AH liquidity.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> OKLO is not a basket position but the read is structural for the AI-infrastructure-adjacent cohort: capital-intensity ramps that look fine on a 'demand-pull' narrative get re-priced when the macro tape is multiple-compression-hostile. The same read applies to APLD/IREN AI-HPC pivot stories — the Wed PPI binary determines whether the macro tape stays hostile to capex-heavy names.</div></div></div></div>
+
+<h2 id="ah" class="sec-red"><span class="marker"></span>After-Hours Developments — 4 PM to Now</h2>
+<p>Three hours of after-hours flow have printed since the cash close. <b>Post-market data not yet populated; refresh after Globex settles at 6 PM.</b>.</p>
+<p><b>AH session is name-specific and liquidity-thin — HIMS -13% on non-print regulatory overhang flags the bid/ask spreads are wide post-cascade and idiosyncratic moves get amplified.</b> OKLO -8% post-print (EPS -$0.19 miss vs -$0.18, zero revenue, $359M investing outflow capital-intensity ramp) is the structural read for the AI-infrastructure cohort: capital-intensity ramps that look fine on demand-pull narrative get re-priced when the macro tape is multiple-compression-hostile — the same read applies to APLD/IREN AI-HPC pivot stories. <b>The Wed AH binary stack</b>: BABA print is the catalyst-asymmetric leg (BIDU direct read), CSCO is the commentary-only leg (cohort downstream read); both create Thu-open gap risk on either side of the outcomes.</p>
+
+<h3>Earnings released this afternoon (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td colspan="5" style="color:#8892a8;">No major reports scheduled in this window.</td></tr></tbody>
+</table>
+
+<h2 id="blocks" class="sec-purple"><span class="marker"></span>Block Tape — Top Movers (Session)</h2>
+<h3>Leaders</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Close</th><th>Change</th><th>Read</th></tr></thead>
+<tbody><tr><td class="tk">STRL</td><td class="nm">Sterling Infrastructure, I…</td><td class="num">$806.00</td><td class="num pos">+52.22%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">DOCN</td><td class="nm">DigitalOcean Holdings, Inc.</td><td class="num">$152.77</td><td class="num pos">+40.40%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">VRDN</td><td class="nm">Viridian Therapeutics, Inc.</td><td class="num">$18.75</td><td class="num pos">+33.36%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">POET</td><td class="nm">POET Technologies Inc.</td><td class="num">$9.21</td><td class="num pos">+29.54%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">IART</td><td class="nm">Integra LifeSciences Holdi…</td><td class="num">$13.22</td><td class="num pos">+24.13%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">CIFR</td><td class="nm">Cipher Digital Inc.</td><td class="num">$22.10</td><td class="num pos">+23.53%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">EWTX</td><td class="nm">Edgewise Therapeutics, Inc.</td><td class="num">$38.01</td><td class="num pos">+20.86%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">FTRE</td><td class="nm">Fortrea Holdings Inc.</td><td class="num">$14.53</td><td class="num pos">+18.61%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr></tbody>
+</table>
+
+<h3>Laggards</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Close</th><th>Change</th><th>Read</th></tr></thead>
+<tbody><tr><td class="tk">WGS</td><td class="nm">GeneDx Holdings Corp. Clas…</td><td class="num">$34.51</td><td class="num neg">-49.20%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">BRBR</td><td class="nm">BellRing Brands, Inc.</td><td class="num">$10.64</td><td class="num neg">-38.73%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">IPGP</td><td class="nm">IPG Photonics Corporation</td><td class="num">$90.84</td><td class="num neg">-25.74%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">ADEA</td><td class="nm">Adeia Inc.</td><td class="num">$27.82</td><td class="num neg">-17.26%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">OSIS</td><td class="nm">OSI Systems, Inc.</td><td class="num">$234.74</td><td class="num neg">-17.01%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">ADTN</td><td class="nm">ADTRAN Holdings, Inc.</td><td class="num">$15.30</td><td class="num neg">-16.58%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">SHOP</td><td class="nm">Shopify, Inc. Class A</td><td class="num">$107.63</td><td class="num neg">-15.62%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">DFIN</td><td class="nm">Donnelley Financial Soluti…</td><td class="num">$42.73</td><td class="num neg">-15.60%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr></tbody>
+</table>
+<p style="color:#8892a8; font-size:12px;"><em>Block-flow narrative is approximated here from end-of-day price action, not paid institutional flow data.</em></p>
+
+<h2 id="sectors" class="sec-green"><span class="marker"></span>Sector Rotation — Final Result + Reads</h2>
+<div class="bars"><div class="bar-row"><div><span class="bname">Technology</span></div><div class="betf">XLK</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:48.0%;"></div></div><div class="bpct pos">+2.21%</div></div>
+<div class="bar-row"><div><span class="bname">Materials</span></div><div class="betf">XLB</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:37.74929854738017%;"></div></div><div class="bpct pos">+1.74%</div></div>
+<div class="bar-row"><div><span class="bname">Industrials</span></div><div class="betf">XLI</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:18.171893273380523%;"></div></div><div class="bpct pos">+0.84%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Staples</span></div><div class="betf">XLP</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:13.52424707903636%;"></div></div><div class="bpct pos">+0.62%</div></div>
+<div class="bar-row"><div><span class="bname">Health Care</span></div><div class="betf">XLV</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:8.557145548556838%;"></div></div><div class="bpct pos">+0.39%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Disc.</span></div><div class="betf">XLY</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:6.459857311518814%;"></div></div><div class="bpct pos">+0.30%</div></div>
+<div class="bar-row"><div><span class="bname">Real Estate</span></div><div class="betf">XLRE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:4.435987011372383%;"></div></div><div class="bpct pos">+0.20%</div></div>
+<div class="bar-row"><div><span class="bname">Energy</span></div><div class="betf">XLE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:2.1951029925427754%;"></div></div><div class="bpct pos">+0.10%</div></div>
+<div class="bar-row"><div><span class="bname">Financials</span></div><div class="betf">XLF</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:0.42116548974385537%;"></div></div><div class="bpct pos">+0.02%</div></div>
+<div class="bar-row"><div><span class="bname">Utilities</span></div><div class="betf">XLU</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:0.0%;"></div></div><div class="bpct pos">+0.00%</div></div>
+<div class="bar-row"><div><span class="bname">Communications</span></div><div class="betf">XLC</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:41.20423122486205%; width:8.795768775137951%;"></div></div><div class="bpct neg">-0.40%</div></div></div>
+<table style="margin-top:18px;">
+<thead><tr><th>Ticker</th><th>Sector</th><th>Day</th><th>Read</th></tr></thead>
+<tbody>
+<tr><td class="tk">XLK</td><td>Technology</td><td class="num pos">+2.21%</td><td>Strong leadership — cyclical / risk-on bid confirms positioning.</td></tr>
+<tr><td class="tk">XLB</td><td>Materials</td><td class="num pos">+1.74%</td><td>Strong leadership — cyclical / risk-on bid confirms positioning.</td></tr>
+<tr><td class="tk">XLI</td><td>Industrials</td><td class="num pos">+0.84%</td><td>Constructive — cyclical / risk-on participating.</td></tr>
+<tr><td class="tk">XLP</td><td>Consumer Staples</td><td class="num pos">+0.62%</td><td>Constructive — defensive / risk-off participating.</td></tr>
+<tr><td class="tk">XLV</td><td>Health Care</td><td class="num pos">+0.39%</td><td>Constructive — defensive / risk-off participating.</td></tr>
+<tr><td class="tk">XLY</td><td>Consumer Disc.</td><td class="num pos">+0.30%</td><td>Quiet — cyclical / risk-on flat to the tape.</td></tr>
+<tr><td class="tk">XLRE</td><td>Real Estate</td><td class="num pos">+0.20%</td><td>Quiet — cyclical / risk-on flat to the tape.</td></tr>
+<tr><td class="tk">XLE</td><td>Energy</td><td class="num pos">+0.10%</td><td>Quiet — energy (commodity-linked) flat to the tape.</td></tr>
+<tr><td class="tk">XLF</td><td>Financials</td><td class="num pos">+0.02%</td><td>Quiet — cyclical / risk-on flat to the tape.</td></tr>
+<tr><td class="tk">XLU</td><td>Utilities</td><td class="num pos">+0.00%</td><td>Quiet — defensive / risk-off flat to the tape.</td></tr>
+<tr><td class="tk">XLC</td><td>Communications</td><td class="num neg">-0.40%</td><td>Soft — cyclical / risk-on drag.</td></tr>
+</tbody>
+</table>
+
+<h2 id="vix" class="sec-blue"><span class="marker"></span>Volatility Structure &amp; Greek Forces (Qualitative)</h2>
+<div style="display:grid; grid-template-columns: 1.3fr 1fr; gap: 14px;">
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">VIX Term Curve</h3>
+    <svg width="100%" height="160" viewBox="0 0 420 160" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="vx-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#58b8ff" stop-opacity="0.35"/><stop offset="100%" stop-color="#58b8ff" stop-opacity="0"/></linearGradient></defs><polygon points="32.0,100.6 150.7,85.3 269.3,55.0 388.0,39.4 388.0,128 32.0,128" fill="url(#vx-grad)"/><polyline points="32.0,100.6 150.7,85.3 269.3,55.0 388.0,39.4" stroke="#58b8ff" stroke-width="2.5" fill="none" stroke-linejoin="round"/><circle cx="32.0" cy="100.6" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="150.7" cy="85.3" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="269.3" cy="55.0" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="388.0" cy="39.4" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><text x="32.0" y="88.6" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">14.64</text><text x="32.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX9D</text><text x="150.7" y="73.3" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">16.72</text><text x="150.7" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX</text><text x="269.3" y="43.0" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">20.82</text><text x="269.3" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX3M</text><text x="388.0" y="27.4" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">22.94</text><text x="388.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX6M</text></svg>
+    <div class="vlabel">
+      <span>Slope (3M−spot): <b>+4.10</b></span>
+      <span>State: <b>contango (normal)</b></span>
+    </div>
+  </div>
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">Cross-Asset Vol Close</h3>
+    <table style="margin: 0; border: none; background: transparent;">
+      <tr><td class="lbl">VIX (30d SPX)</td><td class="num">16.72</td><td class="num neg">-3.80%</td></tr>
+      <tr><td class="lbl">VIX9D (9d SPX)</td><td class="num">14.64</td><td class="num neg">-11.81%</td></tr>
+      <tr><td class="lbl">VXN (NDX IV)</td><td class="num">22.46</td><td class="num neg">-2.52%</td></tr>
+      <tr><td class="lbl">OVX (Oil IV)</td><td class="num">74.73</td><td class="num neg">-4.96%</td></tr>
+      <tr><td class="lbl">MOVE (Bond vol)</td><td class="num">76.78</td><td class="num neg">-1.39%</td></tr>
+    </table>
+  </div>
+</div>
+
+<h3>Greek Forces — Qualitative Read</h3>
+<table>
+<thead><tr><th>Force</th><th>Read</th><th>Mechanical implication</th></tr></thead>
+<tbody>
+<tr><td class="lbl">Net GEX</td><td><b>Strongly positive</b></td><td>Contango intact = dealers long gamma, stabilization regime. Mean-reversion mechanics active; vol selling supportive.</td></tr>
+<tr><td class="lbl">Vanna (IV → delta)</td><td>Largely discharged</td><td>Event premium already paid out — vanna unwind not a meaningful tomorrow tailwind.</td></tr>
+<tr><td class="lbl">Charm (time decay)</td><td>Bleeds the call book overnight</td><td>Net positive book delta erodes overnight — can produce a soft open even without negative news.</td></tr>
+<tr><td class="lbl">Cross-asset hedging</td><td>Offered</td><td>Cross-asset hedges coming off — clean risk-on environment carries through Globex.</td></tr>
+</tbody>
+</table>
+<p style="color:#8892a8; font-size:12px;"><em>Greek values are qualitative — derived from public vol-structure and price data, not from paid dealer-positioning feeds.</em></p>
+
+<h2 id="commodities" class="sec-orange"><span class="marker"></span>Commodity Complex — Closing Read</h2>
+<div class="commodities"><div class="commodity-group"><div class="grp-title energy">ENERGY</div><div class="commodity-row"><span class="nm">Crude Oil (WTI)</span><span class="px">$95.01</span><span class="ch neg">-7.10%</span></div>
+<div class="commodity-row"><span class="nm">Brent Crude</span><span class="px">$102.90</span><span class="ch neg">-6.34%</span></div>
+<div class="commodity-row"><span class="nm">Natural Gas</span><span class="px">$2.762</span><span class="ch neg">-0.93%</span></div></div> <div class="commodity-group"><div class="grp-title precious">PRECIOUS METALS</div><div class="commodity-row"><span class="nm">Gold</span><span class="px">$4,691.40</span><span class="ch pos">+2.98%</span></div>
+<div class="commodity-row"><span class="nm">Silver</span><span class="px">$77.38</span><span class="ch pos">+5.84%</span></div>
+<div class="commodity-row"><span class="nm">Platinum</span><span class="px">$2,038.70</span><span class="ch pos">+3.98%</span></div></div> <div class="commodity-group"><div class="grp-title industrial">INDUSTRIAL</div><div class="commodity-row"><span class="nm">Copper</span><span class="px">$6.193</span><span class="ch pos">+4.20%</span></div></div></div><div class="commodity-narrative"><p><b>Crude</b> is falling (WTI -7.10%, Brent -6.34%) — under pressure on demand concerns; weighs on <b>XLE</b>. <b>Gold</b> bid (+2.98%) with yields easing — classic risk-off/real-rate trade; pairs with <b>GLD</b>, <b>GDX</b> strength. <b>Silver</b> outperforming gold (+5.84% vs +2.98%) — speculative/industrial bid leaking through. <b>Platinum</b> +3.98% — auto-catalyst and PGM demand proxy, secondary signal. <b>Copper</b> higher (+4.20%) — global-growth read is constructive; supports <b>XLB</b>, <b>FCX</b>. <b>DXY</b> weakening (-0.57%) — mechanical tailwind/headwind for the entire commodity complex.</p></div>
+
+<h2 id="rsi" class="sec-purple"><span class="marker"></span>TradingView Ratings — Close</h2>
+<h3>Index ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">SPY</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:71%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 71.3</span></div></div>
+<div class="rsi-cell"><div class="tk">QQQ</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:76%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 76.4</span></div></div>
+<div class="rsi-cell"><div class="tk">IWM</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:69%; background:#ffb347;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 69.2</span></div></div>
+<div class="rsi-cell"><div class="tk">DIA</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:59%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 58.5</span></div></div></div>
+<h3>Sector ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">Financials</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:52%; background:#9dd98a;"></div></div><div class="sub"><span>MA SELL</span><span>RSI 52.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Energy</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:60%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 59.7</span></div></div>
+<div class="rsi-cell"><div class="tk">Technology</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:77%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 77.3</span></div></div>
+<div class="rsi-cell"><div class="tk">Health Care</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:46%; background:#8892a8;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 45.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Disc.</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:57%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 57.3</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Staples</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:56%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 56.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Materials</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:53%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 53.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Industrials</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:54%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 53.8</span></div></div>
+<div class="rsi-cell"><div class="tk">Real Estate</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:60%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 59.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Communications</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:50%; background:#9dd98a;"></div></div><div class="sub"><span>MA NEUTRAL</span><span>RSI 50.1</span></div></div>
+<div class="rsi-cell"><div class="tk">Utilities</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:52%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 52.5</span></div></div></div>
+<p>Ratings are an MA-weighted aggregate. The most actionable shift is when a sector flips between BUY and SELL bands at the close — that often telegraphs the next session's leadership rotation before price confirms it.</p>
+
+<h2 id="tomorrow" class="sec-blue"><span class="marker"></span>Tomorrow's Setup — Three Paths Into the Open</h2>
+
+<p><b>Levels that matter:</b> today's close at <b>$723.77</b> is the pivot. Above <b>$729</b> = continuation regime; below <b>$719</b> = reversal regime; chop in between = pin mode.</p>
+
+<div class="scenarios">  <div class="scn bull"><span class="tag">Bull path</span>    <div class="t">PPI soft sub-0.4% + 10Y back through 4.40 + BABA cloud-beat (≈25-30%)</div>    <p><b>Wed PPI in-line / soft sub-0.4% MoM + 10Y back through 4.40 + BABA cloud-beat with AI-spend acceleration commentary</b> = SPX reclaims 740 then through 7,420 toward 7,440, dispersion-alpha lane re-opens, QCOM attempts post-cascade base reclaim with $210 + AMD $400 + ARM defending recent base, BIDU 155C gets the catalyst-realized leg, F&G stabilizes mid-60s. The mechanical mover is rate-relief: 10Y back through 4.40 reverses the multiple-compression overlay and lets the silicon-cohort halo re-form from today's cohort-tagged lows. Requires PPI cooperation + BABA execution + Iran chop (no kinetic escalation) — three independent conditions must align.</p></div>  <div class="scn base"><span class="tag">Base case</span>    <div class="t">PPI in-line 0.4-0.5% + 10Y holds 4.40-4.50 + BABA in-line (≈50-55%)</div>    <p><b>Wed PPI in-line 0.4-0.5% MoM (matching consensus) + 10Y holds 4.40-4.50 range + BABA in-line print with cautious cloud-guide</b> = SPX chops 735-740 with energy/cyclical/defensive rotation absorbing residual cohort weakness, QCOM defends post-cascade level but no aggressive bid, BIDU 155C catalyst-realized but muted, dispersion-alpha lane stays sideways, F&G holds low-to-mid 60s. The mechanical mover is the rotation-funded absorption mechanic continuing — the structural setup that defined today's index-print-masks-cleavage holds for one more session. Base-case is that today's print fully discharged the binary asymmetry and Wed is mechanical price-discovery.</p></div>  <div class="scn bear"><span class="tag">Bear path</span>    <div class="t">PPI hot 0.6%+ OR Iran kinetic OR BABA miss (≈20-25%)</div>    <p><b>Wed PPI hot 0.6%+ MoM + 10Y rips through 4.50 toward 4.55 + BABA cloud-disappointment OR Iran intraday kinetic escalation</b> = SPX gives back 7,330 toward 7,300, VIX 22+, MOVE > 80, cohort-residual cut triggers (QCOM 200C residual exits, ARM/APLD trim 30-40% per framework decision-tree), defensive rotation extends and small-cap rotation tail breaks too as financial-conditions-tightening overlay activates, F&G drops to 55-60. The mechanical mover is the multiple-compression leg compounding with cohort-base failure — today's structural buffer (energy bid + small-cap rotation) was conditional on PPI cooperation; a hot PPI removes the buffer. Fires on any one of three conditions; combination amplifies.</p></div></div>
+
+<h2 id="cat" class="sec-blue"><span class="marker"></span>Catalyst Watch — Next 36 Hours</h2>
+<table>
+<thead><tr><th>When (ET)</th><th>Event</th><th>Read &amp; Implication</th></tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td>Tonight 7-11 PM</td><td>Earnings post-print drift settles</td><td>Initial after-hours reactions usually overshoot in first 30 minutes — by 9 PM, the read has matured. If a mega-cap reaction reverses by 9 PM, the original move is not sticking.</td></tr>
+<tr><td>Overnight</td><td>Asia + commodities session</td><td>WTI, Brent, Gold, Copper drift telegraphs US futures. Gold +1% overnight = DXY softening = US tape opens risk-on. Crude spike + gold bid = geopolitical pair, equity futures take it hard.</td></tr>
+<tr><td>06:00 AM-08:30 AM</td><td>US pre-market + macro data</td><td>Jobless claims, PMIs, Fed speak — the window where levels reprice. Data inside today's range usually gets absorbed; data outside the range produces the biggest gap moves.</td></tr>
+<tr><td>09:30 AM</td><td>Cash open</td><td>Opening drive (first 30 min) establishes day-type. Above today's high w/ volume = trend continuation. Below today's low w/ volume = reversal in effect. Inside = default pin.</td></tr>
+<tr><td>03:50 PM tomorrow</td><td>MOC imbalance print</td><td>The single cleanest tell for next-session opening flow. &gt;$1B net imbalance same-side as session = real positioning into close.</td></tr>
+</tbody>
+</table>
+
+<h3>Earnings next 36 hours (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>Session</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td colspan="6" style="color:#8892a8;">No major reports scheduled in this window.</td></tr></tbody>
+</table>
+
+<h2 id="bl" class="sec-red"><span class="marker"></span>Bottom Line — Two Stories in One Session</h2>
+
+<p><b>The session story:</b> SPY closed +0.80% with breadth at 67% advancing. Technology led, Communications lagged. Vol complex compressed. On the surface, the tape did exactly what the morning setup suggested it would do — the rotation hardened, vol behaved, breadth confirmed.</p>
+
+<p><b>The under-the-hood story:</b> Vol structure resolved to contango (normal) with a slope of +4.10 — the dealer book is in a positive-gamma stabilizing posture, which sets the mechanical regime for tomorrow regardless of headline catalysts.</p>
+
+<p><b>Mechanically honest read:</b> respect the close as the baseline but do not over-extrapolate. The single cleanest tell for tomorrow is whether ES holds above or below today's high/low through the overnight Globex session. After-hours data not yet populated; refresh after Globex settles. </p>
+
+<p class="flag-red"><b><b>Into Wed AM open: mark SPY $735 (round-number bear-pivot — first-hour mechanics decide base-vs-trapdoor); QCOM post-cascade base level (defend = cohort attempts re-form; break = cohort-residual cut activates); 10Y 4.50 (multiple-compression confirm leg fires through this level); BABA pre-print level (sets the catalyst-path baseline for BIDU 155C).</b> Red lines: (1) SPY breaks $735 close with VIX > 20 = trapdoor 730 + cohort-residual cut; (2) 10Y rips through 4.50 within 60 seconds of PPI 8:30 = front-run residual cohort cut; (3) Iran verified kinetic escalation intraday = WTI $108+, OVX > 85, MOVE > 80, defensive rotation breaks; (4) BABA miss with cloud-disappointment AH = BIDU 155C runs into wall, KWEB compresses 5-8% AH.</b></p>
+
+<footer>
+  <p style="font-size:11px; color:#6b7280; margin-bottom:8px;"><em>Disclaimer:</em> This report is for informational and educational purposes only and is not investment advice. Data sourced from public feeds (yfinance, TradingView). Greek and GEX values are qualitative approximations; paid institutional positioning data is not available in this pipeline. Trading and options carry substantial risk. Past patterns do not predict future outcomes.</p>
+  Sources · <a href="https://www.cnbc.com/2026/05/12/cpi-inflation-april-2026-.html">CNBC — April CPI 3.8% YoY</a> · <a href="https://www.thestreet.com/latest-news/stock-market-today-may-12-2026-updates">TheStreet — May 12 Market Recap</a> · <a href="https://www.cnbc.com/2026/05/12/treasury-yields-rise-as-investors-await-key-inflation-data.html">CNBC — Treasury Yields Climb on CPI</a> · <a href="https://www.cnbc.com/2026/05/12/oil-prices-today-brent-wti-trump-iran-war-hormuz.html">CNBC — Oil Today (Iran/Hormuz)</a> · <a href="https://www.schwab.com/learn/story/stock-market-update-open">Schwab — Stubborn Price Growth Persists</a> · <a href="https://seekingalpha.com/news/4591009-sp500-nasdaq-dow-jones-outlook-stock-market">Seeking Alpha — Wall Street Falls / Iran Doubts</a> · <a href="https://www.tipranks.com/news/polymarket-earnings-will-baba-csco-wix-beat-earnings-tomorrow">TipRanks — BABA / CSCO Earnings Wed 5/13</a> · <a href="https://www.bloomberg.com/news/articles/2026-05-12/us-cpi-report-april-2026-key-takeaways-on-inflation-consumer-price-index">Bloomberg — April CPI Key Takeaways</a> · <a href="https://www.cboe.com/us/indices/dashboard/VIX-VIX1Y-VIX3M-VIX6M-VIX9D/">CBOE Indices — VIX Dashboard</a> · <a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting">Cleveland Fed — Inflation Nowcasting</a> · <a href="https://themarketbishop.github.io/Bishop-Reports/">Market Bishop EOD Reference</a>
+</footer>
+
+</div></body></html>
