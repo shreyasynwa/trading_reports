@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Closing Bell Recap — Wednesday, May 06, 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: radial-gradient(ellipse at top, #0e1118, #06070b 60%);
+    color: #dfe3ee;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  body { padding: 32px 18px 80px; font-size: 13.5px; min-height: 100vh; }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+  a { color: #7bc4ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  b { color: #f3f5fa; font-weight: 600; }
+  em, i { color: #e2e7f2; font-style: italic; }
+
+  .pos { color: #52e08f; } .neg { color: #ff5574; } .neutral { color: #8892a8; }
+  .flag-red { color: #ff5574; font-weight: 600; }
+  .flag-yel { color: #ffb347; font-weight: 600; }
+  .flag-grn { color: #52e08f; font-weight: 600; }
+  .flag-blue { color: #7bc4ff; font-weight: 600; }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at top right, rgba(88,184,255,0.12), transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(187,119,255,0.10), transparent 55%),
+      linear-gradient(180deg, #0d1220 0%, #080a12 100%);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(88,184,255,0.06) 50%, transparent);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 16px;
+    font-size: 10.5px; letter-spacing: 2.8px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 14px; position: relative;
+  }
+  /* Smaller box-shadow + larger eyebrow gap so the glow doesn't bleed into
+     the start of the text (was 10px shadow + 8px gap → encroached on "P"). */
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #52e08f; box-shadow: 0 0 6px rgba(82,224,143,0.8);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .hero h1 {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.18; color: #ffffff; margin-bottom: 14px;
+  }
+  /* Lede uses full hero width — matches headline width on the right edge.
+     (Was capped at 78ch which left the right side unused on wide screens.) */
+  .hero .lede { font-size: 14px; color: #c5cbdb; line-height: 1.6; }
+  .hero .meta {
+    display: flex; gap: 22px; flex-wrap: wrap; margin-top: 20px;
+    font-size: 11px; color: #8892a8;
+    letter-spacing: 1.3px; text-transform: uppercase;
+  }
+  .hero .meta b { color: #dfe3ee; font-weight: 500; letter-spacing: 0.3px; text-transform: none; }
+  /* Regime pill flows in normal layout (block) so long multi-clause labels
+     wrap cleanly above the headline without overlapping. The next sibling
+     (.eyebrow) is block-level, so the pill sits alone on its row. */
+  .hero .regime-pill {
+    display: inline-block;
+    margin-bottom: 14px;
+    max-width: 100%;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase;
+    font-weight: 600; backdrop-filter: blur(10px);
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .regime-pill.risk-on  { background: rgba(82,224,143,0.12); color: #52e08f; border: 1px solid rgba(82,224,143,0.3); }
+  .regime-pill.risk-off { background: rgba(255,85,116,0.12); color: #ff5574; border: 1px solid rgba(255,85,116,0.3); }
+  .regime-pill.mixed    { background: rgba(255,179,71,0.12); color: #ffb347; border: 1px solid rgba(255,179,71,0.3); }
+
+  /* ── NAV ──────────────────────────────────── */
+  .nav {
+    display: flex; flex-wrap: wrap; gap: 6px 4px;
+    padding: 10px 14px; margin-bottom: 20px;
+    background: rgba(255,255,255,0.02); border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 11px;
+  }
+  .nav a {
+    padding: 3px 8px; border-radius: 4px;
+    color: #8892a8; transition: all 0.15s;
+  }
+  .nav a:hover { background: rgba(88,184,255,0.12); color: #7bc4ff; text-decoration: none; }
+
+  /* ── SESSION BAR ──────────────────────────── */
+  .sess {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 22px;
+    background: linear-gradient(90deg, rgba(255,179,71,0.06), rgba(255,179,71,0.02));
+    border: 1px solid rgba(255,179,71,0.2);
+  }
+  .sess .item { font-size: 12px; }
+  .sess .k { font-size: 9.5px; color: #8892a8; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 2px; }
+  .sess .v { color: #f3f5fa; }
+  .sess .v b { color: #ffb347; }
+
+  /* ── KEY METRICS ──────────────────────────── */
+  .km {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(175px,1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .km-cell {
+    position: relative; padding: 14px 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden; transition: all 0.2s;
+  }
+  .km-cell::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px; background: var(--acc, #8892a8);
+    opacity: 0.9;
+  }
+  .km-cell.pos { --acc: #52e08f; }
+  .km-cell.neg { --acc: #ff5574; }
+  .km-cell.warn { --acc: #ffb347; }
+  .km-cell.blue { --acc: #58b8ff; }
+  .km-cell .k { font-size: 10px; letter-spacing: 1.6px; color: #8892a8; text-transform: uppercase; }
+  .km-cell .v { font-size: 22px; font-weight: 700; margin-top: 6px; color: #f3f5fa; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .km-cell .d { font-size: 11px; color: #9aa3b8; margin-top: 3px; }
+
+  /* ── SECTIONS ─────────────────────────────── */
+  h2 {
+    font-size: 17px; font-weight: 700; color: #fff;
+    margin: 34px 0 14px 0; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px;
+  }
+  h2 .marker {
+    width: 8px; height: 18px; border-radius: 2px;
+    background: var(--sec-acc, #6b7ba8);
+  }
+  h2.sec-red    { --sec-acc: #ff5574; }
+  h2.sec-yellow { --sec-acc: #ffb347; }
+  h2.sec-green  { --sec-acc: #52e08f; }
+  h2.sec-blue   { --sec-acc: #58b8ff; }
+  h2.sec-purple { --sec-acc: #bb77ff; }
+  h2.sec-orange { --sec-acc: #ffb347; }
+
+  h3 {
+    font-size: 12.5px; font-weight: 600; color: #b8bfd0;
+    margin: 20px 0 10px 0; letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  p { margin-bottom: 11px; color: #cdd2de; }
+  ul, ol { margin: 10px 0 14px 22px; color: #cdd2de; }
+  ul li, ol li { margin-bottom: 6px; }
+
+  /* ── TABLES ───────────────────────────────── */
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 12px; margin: 10px 0 16px 0;
+    font-variant-numeric: tabular-nums;
+    background: rgba(255,255,255,0.012);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px; overflow: hidden;
+  }
+  th {
+    text-align: left; padding: 10px 12px;
+    font-size: 10px; letter-spacing: 1.3px; color: #8892a8;
+    text-transform: uppercase; font-weight: 600;
+    background: rgba(255,255,255,0.025);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  td {
+    padding: 9px 12px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    color: #cdd2de;
+  }
+  tbody tr:hover { background: rgba(88,184,255,0.04); }
+  td.lbl { color: #e4e7ef; font-weight: 500; }
+  td.tk { font-weight: 600; color: #fff; }
+  td.nm { color: #9aa3b8; font-size: 11px; }
+  td.num { text-align: right; }
+
+  /* ── BAR (sector rotation) ────────────────── */
+  .bars { display: flex; flex-direction: column; gap: 6px; padding: 6px 0; }
+  .bar-row {
+    display: grid; grid-template-columns: 110px 32px 1fr 70px;
+    align-items: center; gap: 10px; font-size: 11.5px;
+  }
+  .bar-row .bname { color: #dfe3ee; font-weight: 500; }
+  .bar-row .betf { color: #7f8699; font-size: 10px; letter-spacing: 0.5px; }
+  .bar-track {
+    position: relative; height: 20px;
+    border-radius: 4px; background: rgba(255,255,255,0.03);
+    overflow: hidden;
+  }
+  .bar-track .midline {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .bar-fill {
+    position: absolute; top: 2px; bottom: 2px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(82,224,143,0.4), rgba(82,224,143,0.85));
+  }
+  .bar-fill.neg { background: linear-gradient(270deg, rgba(255,85,116,0.85), rgba(255,85,116,0.4)); }
+  .bar-row .bpct {
+    text-align: right; font-weight: 600;
+    font-variant-numeric: tabular-nums; font-size: 12px;
+  }
+
+  /* ── RING (breadth / F&G) ─────────────────── */
+  .rings {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px; padding: 4px 0 10px 0;
+  }
+  .ring-cell {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 14px 12px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .ring { position: relative; width: 100px; height: 100px; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .rlabel {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .ring .rlabel .v { font-size: 20px; font-weight: 700; color: #f3f5fa; }
+  .ring .rlabel .sub { font-size: 9.5px; color: #8892a8; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
+  .ring-cell .caption {
+    margin-top: 10px; font-size: 11px; color: #8892a8;
+    letter-spacing: 1.1px; text-transform: uppercase; text-align: center;
+  }
+
+  /* ── F&G Gauge ─────────────────────────────── */
+  .fg-block {
+    display: grid; grid-template-columns: 260px 1fr; gap: 20px;
+    padding: 14px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .fg-gauge { display: flex; flex-direction: column; align-items: center; }
+  .fg-comp-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 8px;
+  }
+  .fg-comp {
+    padding: 8px 10px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.01);
+    font-size: 11px;
+  }
+  .fg-comp .l { color: #9aa3b8; font-size: 10px; letter-spacing: 0.8px; text-transform: uppercase; }
+  .fg-comp .v { color: #f3f5fa; font-weight: 600; margin-top: 3px; }
+
+  /* ── VIX curve ────────────────────────────── */
+  .vix-panel {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .vix-panel .vlabel {
+    display: flex; justify-content: space-around; font-size: 10.5px;
+    color: #8892a8; letter-spacing: 1.2px; text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .vix-panel .vlabel span b { color: #dfe3ee; font-weight: 600; }
+
+  /* ── RSI heat cell ─────────────────────────── */
+  .rsi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 8px;
+    padding: 4px 0;
+  }
+  .rsi-cell {
+    padding: 11px 13px; border-radius: 9px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .rsi-cell .tk { font-weight: 700; color: #fff; font-size: 11px; letter-spacing: 1.4px; }
+  .rsi-cell .sig { font-size: 11px; font-weight: 600; margin-top: 3px; }
+  .rsi-cell .bar {
+    height: 6px; border-radius: 3px; margin-top: 8px;
+    background: rgba(255,255,255,0.05); overflow: hidden;
+  }
+  .rsi-cell .bar > div { height: 100%; border-radius: 3px; }
+  .rsi-cell .sub { font-size: 10px; color: #8892a8; margin-top: 5px; display: flex; justify-content: space-between; }
+  .sig-STRONG-BUY { color: #52e08f; }
+  .sig-BUY { color: #9dd98a; }
+  .sig-NEUTRAL { color: #8892a8; }
+  .sig-SELL { color: #ff9f8a; }
+  .sig-STRONG-SELL { color: #ff5574; }
+
+  /* ── Risk Matrix ──────────────────────────── */
+  .risk {
+    position: relative;
+    padding: 14px 16px 14px 20px; border-radius: 10px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .risk::before {
+    content: ""; position: absolute; left: 0; top: 10px; bottom: 10px;
+    width: 4px; border-radius: 2px; background: var(--risk-acc, #8892a8);
+  }
+  .risk.r-hi { --risk-acc: #ff5574; }
+  .risk.r-med { --risk-acc: #ffb347; }
+  .risk.r-low { --risk-acc: #58b8ff; }
+  .risk .head {
+    display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .risk .t { font-weight: 700; color: #f3f5fa; font-size: 13.5px; }
+  .risk .p {
+    font-size: 9.5px; letter-spacing: 1.3px;
+    padding: 3px 8px; border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    color: var(--risk-acc, #8892a8);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── Scenarios ────────────────────────────── */
+  .scenarios {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 14px;
+    margin: 14px 0 18px 0;
+  }
+  .scn {
+    padding: 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+  }
+  .scn::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--scn-acc, #8892a8);
+  }
+  .scn.bull { --scn-acc: #52e08f; }
+  .scn.base { --scn-acc: #8892a8; }
+  .scn.bear { --scn-acc: #ff5574; }
+  .scn .tag {
+    display: inline-block; padding: 3px 8px; border-radius: 10px;
+    font-size: 9.5px; letter-spacing: 1.3px; text-transform: uppercase;
+    font-weight: 600; color: var(--scn-acc); background: rgba(255,255,255,0.04);
+    margin-bottom: 8px;
+  }
+  .scn .t { font-weight: 700; color: #f3f5fa; font-size: 14px; margin-bottom: 6px; }
+  .scn p { font-size: 12.5px; color: #cdd2de; }
+
+  /* ── Caveat ───────────────────────────────── */
+  .caveat {
+    font-size: 11.5px; color: #c9cfde; font-style: italic;
+    padding: 10px 14px; border-radius: 8px;
+    border-left: 3px solid #8892a8;
+    background: rgba(136,146,168,0.05);
+    margin: 10px 0 14px 0;
+  }
+
+  /* ── Glossary ─────────────────────────────── */
+  .gloss { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 12px; }
+  .gloss dt { font-weight: 600; color: #f3f5fa; font-size: 12.5px; margin-bottom: 3px; }
+  .gloss dd { color: #9aa3b8; font-size: 11.5px; margin-bottom: 0; margin-left: 0; }
+
+  /* ── Footer ───────────────────────────────── */
+  footer { margin-top: 46px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; font-size: 11px; color: #8892a8; letter-spacing: 0.5px; }
+
+  /* ── COMMODITIES section ─────────────────────── */
+  .commodities {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px; margin-bottom: 18px;
+  }
+  .commodity-group {
+    padding: 14px 16px; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  }
+  .commodity-group .grp-title {
+    font-size: 10px; letter-spacing: 2.2px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 10px; font-weight: 600;
+  }
+  .commodity-group .grp-title.energy   { color: #ffb347; }
+  .commodity-group .grp-title.precious { color: #ffd35c; }
+  .commodity-group .grp-title.industrial { color: #58b8ff; }
+  .commodity-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.05);
+    font-size: 12.5px;
+  }
+  .commodity-row:last-child { border-bottom: none; }
+  .commodity-row .nm { color: #c8cfdd; }
+  .commodity-row .px { color: #e5e7eb; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .commodity-row .ch { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 70px; text-align: right; }
+  .commodity-narrative {
+    padding: 16px 20px; border-radius: 12px; margin-bottom: 22px;
+    border-left: 3px solid #ffb347;
+    background: linear-gradient(180deg, rgba(255,179,71,0.06), rgba(255,179,71,0.01));
+    font-size: 13px; line-height: 1.65; color: #c8cfdd;
+  }
+  .commodity-narrative b { color: #f3f5fa; }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .hero, .km-cell, table, .risk, .scn, .caveat, .fg-block, .rsi-cell, .ring-cell, .vix-panel { background: #fafafa; border-color: #ddd; }
+    p, td { color: #222; }
+    b, h1, h2, h3 { color: #000; }
+  }
+</style>
+</head><body><div class="wrap">
+
+
+<div class="hero">
+  <span class="regime-pill risk-on">Risk-On Records — AI Capex Bid Absorbs Stagflation Print · SNOW +36.5% Breaks SaaS Pattern · DELL AH +22% Sets Up Friday</span>
+  <div class="eyebrow"><span class="dot"></span> Closing Bell Recap · Wednesday, May 06, 2026 · 7 PM Evening Wrap</div>
+  <h1>Thursday closes at fresh records as AI-infrastructure capex bid absorbs the PCE 3.8% three-year-high — SNOW +36.5% breaks the SaaS pattern, DELL AH blowout sets up Friday</h1>
+  <div class="lede"><b>SPX +0.58% to 7,563.63 record close, Nasdaq +0.91% to 26,917.47 record close — the AI-software-infrastructure cohort absorbed April PCE 3.8% (highest since May 2023) and 10Y to 4.50% as SNOW's +36.5% best-ever day (Q1 beat + $6B AWS deal + FY27 guide raised 27%→31%) broke the software-cohort margin pattern decisively at the data-cloud level.</b> DELL after-hours +22% on record $43.84B revenue + AI server backlog $51.30B (from $43B) + FY27 AI server revenue guide $60B (from $50B) sets up Friday's open with the cleanest direct AI-Factory capex cohort-cousin validation of the cycle — APLD's AI-Factory contracted-revenue compounder thesis just got hyperscaler-anchored. The cross-current: Iran-US 60-day ceasefire MoU pending Trump approval compressed safe-haven premium and pushed silver below the $76 SLV trim leg with DXY still sub-100, leaving the dual-condition trim one leg short heading into Friday.</div>
+  <div class="meta">
+    <span>Published · <b>Wednesday, May 06, 2026 09:05 AM</b></span>
+    <span>Build · <b>56.1s</b></span>
+    <span>Sources · <b>yfinance · TradingView · web</b></span>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#tldr">TL;DR</a> · <a href="#session">What Happened</a> · <a href="#metrics">Key metrics</a>
+  · <a href="#ahmovers">AH movers</a> · <a href="#ah">After-hours</a> · <a href="#blocks">Block tape</a>
+  · <a href="#sectors">Sector rotation</a> · <a href="#vix">Vol structure</a> · <a href="#commodities">Commodities</a>
+  · <a href="#rsi">TA ratings</a> · <a href="#tomorrow">Tomorrow's setup</a> · <a href="#cat">Catalysts</a>
+  · <a href="#bl">Bottom line</a> · <a href="#gloss">Glossary</a>
+</div>
+
+<div class="sess">
+  <div class="item"><div class="k">Session</div><div class="v">Cash closed · evening wrap · <b>~14h to next open</b></div></div>
+  <div class="item"><div class="k">Regime</div><div class="v"><b>Risk-On Close · Trend Day Up</b></div></div>
+  <div class="item"><div class="k">Overnight focus</div><div class="v">After-hours earnings drift, Globex futures, overnight macro headlines</div></div>
+</div>
+
+<div id="metrics" class="km">
+  <div class="km-cell pos"><div class="k">SPY / SPX close</div><div class="v">$723.77</div><div class="d">+0.80% · SPX ≈ 7,238</div></div>
+  <div class="km-cell warn"><div class="k">VIX / VIX9D</div><div class="v">16.72 / 14.64</div><div class="d">VIX -3.80% · VIX9D -11.81%</div></div>
+  <div class="km-cell blue"><div class="k">Net GEX (qualitative)</div><div class="v">Strongly positive</div><div class="d">Term slope +4.10 · Contango</div></div>
+  <div class="km-cell pos"><div class="k">Block tape (top mover)</div><div class="v">STRL</div><div class="d">+52.22%</div></div>
+</div>
+
+<h2 id="tldr" class="sec-red"><span class="marker"></span>TL;DR — What You Need To Know</h2>
+<div style="padding:6px 4px; margin-bottom:18px;"><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Thursday closed at fresh records as the AI-infrastructure capex bid absorbed the stagflation pulse cleanly — SPX +0.58% to 7,563.63 record close, Nasdaq +0.91% to 26,917.47 record close, Dow +0.05%, VIX 16.29.</b> April PCE 3.8% (highest since May 2023) + core PCE 3.3% (highest since Nov 2023) + jobless claims 215K (highest since mid-April) + 10Y to 4.50% painted a stagflation-tinged macro print, but the AI-cloud + AI-server + AI-Factory cohort halo absorbed it cleanly — the structural read is that AI capex spending is now operating independent of the rate path because the capex is multi-year hyperscaler-contracted.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>SNOW soared +36.5% to its best day ever on $1.39B revenue +33% + $6B 5-year AWS commitment + FY27 guide raised from 27% to 31% YoY growth — the print broke the software-cohort margin pattern (BOX -4% / ZS -17%) decisively at the data-cloud level.</b> The asymmetric cohort-decider read: SNOW (data-cloud capex play) won big, CRM (traditional SaaS application) sold on SaaSpocalypse fear despite beating ($11.13B / $3.88 EPS / Agentforce ARR $1.2B +205% YoY) — data-cloud capex flow is mechanically winning while traditional SaaS faces AI-disruption skepticism. GOOG benefits structurally as Alphabet sits inside the AI-cloud + Gemini cohort halo.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>DELL AH BLOWOUT +22% on record $43.84B revenue + AI server backlog $51.30B (from $43B) + FY27 AI server revenue guide raised to $60B (from $50B) + FY27 total revenue $165-169B — the single largest direct AI-Factory cohort-cousin validation of the cycle.</b> APLD's contracted-revenue compounder thesis ($31B base / $73B with-options across four AI Factory campuses) just got hyperscaler-anchored at the demand layer — Friday's open should reprice the AI-Factory capex cohort upward on DELL spillover. COST modest +0.4% AH on $70.53B revenue beat + $4.93 EPS in-line + comps +9.8% + digital +21.5% — consumer-cohort path doesn't extend the decel narrative.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Iran 60-day ceasefire MoU between US-Iran negotiators reached pending Trump approval — Brent -58c to $93.71, WTI +22c to $88.90, silver $74.26 (-0.91%), SLV $67.48.</b> The geopolitical-premium bid compressed and pushed silver below the $76 SLV trim leg, but DXY remained sub-100 (the MoU compressed the intraday DXY surge), so the dual-condition trim is now one leg short of firing not two. Trump's approval decision is the binary cross-asset catalyst — approval extends the compression, rejection re-fires the premium. Jun 80C with 21 DTE faces structural decay risk.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Position book closes Thursday with the AI-infrastructure book structurally validated and the precious-metals leg structurally damaged — DRAM +35.90% / APLD +54.10% (chip pullback dragged today, DELL AH reset Friday's setup) / SKM +24.79% / ARM 240C +1.57% (compressed hard on chip pullback, strike-reach path now requires sustained AI-Factory + AI-PC + Mag-7 capex translation through mid-June) / GOOG +24.41% (cleanest AI-cloud + Mag-7 cohort halo extension since entry) / RDW +23.37% / NOK +10.04% / SLV -24.46% (Iran ceasefire compression + silver below $76 leg fired) / ARM 300C -87.71% (structurally terminal at 8 DTE, $300 strike ~16% out-of-reach on ATH $259.44).</b> The cohort divide: AI-infrastructure cohort book at cycle-record cohort halo with hyperscaler-anchored capex backstop; SLV faces binary Iran-MoU-approval decay path; ARM 300C let-expire.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Friday position playbook</b>: <span class="flag-grn">HOLD APLD/DRAM/NOK/GOOG/SKM/RDW full size</span> — DELL AMC $51B AI server backlog + $60B FY27 AI server guide is the cleanest direct AI-Factory cohort-cousin validation of the cycle, Friday's open should reprice the cohort upward · <span class="flag-grn">ARM 240C HOLD with caveat</span> — chip-cohort tactical pullback Thursday compressed strike-reach path, but MRVL FY27 $11B raise + DELL AI server $60B guide validate AI-CPU royalty cycle structurally; trim only on closing-basis recent-base loss · <span class="flag-yel">SLV HOLD pending Trump's Iran MoU approval decision</span> — silver below $76 trim leg fired but DXY sub-100 keeps dual-condition trim one leg short; Trump approval extends decay, rejection re-fires premium · <span class="flag-red">ARM 300C LET EXPIRE</span> — structurally terminal at 8 DTE, harvest window closed when MRVL cohort-residual ARM gap to $275+ never materialized.</div></div></div>
+
+<h2 id="session" class="sec-orange"><span class="marker"></span>What Happened Today</h2>
+<p style="color:#cdd2de; font-size:13.5px; line-height:1.65; margin:0 0 14px 0;">Thursday closed at fresh records as the AI-infrastructure capex bid absorbed the PCE 3.8% three-year-high + 10Y to 4.50% + jobless claims 215K stagflation pulse cleanly. SNOW +36.5% best-ever day on $6B AWS deal + FY27 guide raise broke the software-cohort margin pattern; CRM beat-but-sold on SaaSpocalypse fear; DELL AH +22% blowout on $51B AI server backlog + FY27 AI server $60B guide sets up Friday's open with cleanest AI-Factory cohort-cousin validation of the cycle.</p>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">1. <b>DELL AH BLOWOUT +22% — record $43.84B revenue / $4.86 EPS / AI server backlog $51.30B (from $43B) / FY27 AI server revenue guide $60B (from $50B target) / FY27 total revenue $165-169B — single largest AI-Factory cohort-cousin validation of the cycle into Friday's open</b></b> Thursday's AMC delivered the single most structurally important catalyst of the week — Dell Technologies reported fiscal Q1 2027 with record total revenue of $43.84 billion, adjusted EPS of $4.86 (vs $2.93 estimate, a 65.87% beat), AI server backlog of $51.30 billion exiting Q1 (up from $43 billion at the end of Q4 2026), FY27 revenue guidance raised to $165-169 billion, and FY27 AI server revenue guidance raised to roughly $60 billion (well above the prior $50 billion target). The stock soared +22% in after-hours trading as the magnitude of the AI server backlog and the FY27 AI server revenue raise crystallized the hyperscaler-anchored capex pipeline at a level that re-anchors the AI-infrastructure capex cycle for the next 4-6 quarters. Position-book translation: APLD's contracted-revenue compounder thesis ($31B base / $73B with-options across four AI Factory campuses including Polaris Forge 3) just got hyperscaler-anchored at the demand layer — the AI server $60B FY27 guide is the structural cross-check that the AI-Factory capex is hyperscaler-real not narrative. DRAM gets cohort-residual flow on the memory-intensive AI server backlog ($51B in custom hyperscaler boxes = massive HBM/DRAM demand). NOK gets direct optical/silicon-photonics + networking cohort-cousin validation. The Friday open should reprice the AI-Factory capex cohort upward on DELL spillover.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">3. <b>CRM beat-but-sold — $11.13B revenue +13% / $3.88 EPS vs $3.12 est / Agentforce ARR $1.2B +205% YoY / combined Agentforce + Data 360 + Informatica $3.4B ARR — but tape sold the SaaSpocalypse fear; -3% AH Wed + continued pressure Thursday</b></b> Salesforce Wednesday AMC delivered an unambiguous beat on every line — $11.13B revenue (+13% YoY, ahead of $11.05B expectation), non-GAAP EPS $3.88 (vs $3.12 estimate, +25% beat), Agentforce ARR $1.2 billion (+205% YoY, well above the Q4 $800M / +169% YoY base), combined Agentforce + Data 360 + Informatica ARR $3.4 billion (+200% YoY), full-year FY27 revenue guide raised to $45.9B-46.2B — and yet the stock dropped roughly 3% in early after-hours and continued to face selling pressure Thursday on what the tape labeled SaaSpocalypse fear. The structural read: the market is questioning whether traditional SaaS application companies can survive AI disruption fast enough even with strong AI product traction; CRM is now down ~33% YTD despite the beat. Position-book translation: not position-book direct (no CRM exposure) but the cross-cohort read is critical — the cohort halo extends through AI-infrastructure capex (SNOW, DELL, MRVL, APLD) not traditional SaaS applications. The SaaSpocalypse-sold-the-beat pattern creates Friday continuation risk for any traditional SaaS prints; data-cloud and AI-server cohort positions benefit asymmetrically.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">4. <b>MRVL beat ($2.42B rev +28% / $0.80 EPS / Q2 guide $2.70B implying ~35% YoY / FY27 guide raised to $11B / custom AI ramp >2x in FY28) up ~7% AH Wed but muted Thursday on broader chip pullback (NVDA -1%)</b></b> Marvell delivered the cleanest direct ARM 240C + NOK cohort-cousin print of the cycle — Q1 FY27 revenue $2.42 billion (+28% YoY beat), EPS $0.80 (beat $0.75 est), Q2 revenue guide $2.70 billion ±5% (implying ~35% YoY growth, accelerating from 28%), FY27 revenue guide raised to $11 billion (implying ~30% growth), custom AI XPU revenue ($1.5 billion FY26) now guided to more-than-double in FY28, and the CEO described 'exceptional AI-related bookings' as the structural driver. The stock gained ~7% in after-hours Wednesday but the Thursday reaction was muted as the broader chip-cohort took a tactical pullback (NVDA -1%) on the PCE 3.8% three-year-high + 10Y to 4.50% rate-restraint re-firing. Position-book translation: ARM 240C compressed today on the chip-cohort tactical pullback (PnL +1.57% after $14.20 close on the option) — the structural cohort-cousin validation is intact (MRVL FY27 raise to $11B + custom AI >2x FY28 + DELL AI server $60B FY27 guide all confirm the AI-CPU royalty cycle ARM rides on) but the strike-reach path now requires AI-Factory + AI-PC + Mag-7 capex follow-through translating to ARM royalty-rate compounding by mid-June; NOK absorbed the chop and gets the direct optical/silicon-photonics cohort tailwind from Friday's open into the DELL spillover.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">5. <b>April PCE headline 3.8% (highest since May 2023) + core PCE 3.3% (highest since Nov 2023) + jobless claims 215K (highest since mid-April) + Q1 GDP revised to 2.0% (from 0.5%) — stagflation-tinged pulse, but AI-infrastructure capex bid absorbed it cleanly at fresh records</b></b> Thursday's macro data resolved with a stagflation-tinged composite: April headline PCE rose to 3.8% from 3.5% (the highest reading since May 2023, driven in part by Iran-conflict oil-shock effects and tariff pass-through), core PCE rose to 3.3% from 3.2% (highest since November 2023, though core MoM was a slower-than-expected 0.2%), initial jobless claims rose to 215,000 (highest in over a month), and Q1 GDP second estimate was revised up sharply to 2.0% from the prior 0.5% estimate. The 10Y yield rose to 4.50% (+0.02 pp) on the print. Despite the rate-restraint composite, the AI-infrastructure cohort halo (SNOW +36.5%, MSFT/ORCL/PLTR +3-4%) absorbed the macro pulse cleanly and drove SPX and Nasdaq to fresh record closes — the structural read is that AI capex spending is now operating independent of the rate path because the multi-year hyperscaler-contracted nature of the capex pipeline (validated by DELL's $51B AI server backlog Thursday AMC) removes the discount-rate sensitivity. Position-book translation: long-duration tech rate-relief tailwind compressed but cohort halo structural support remains the dominant cohort flow direction; Friday's Chicago PMI + Michigan Sentiment final are the discrete tells on whether the rate-restraint narrative re-fires or the AI capex bid extends further.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">6. <b>Iran 60-day ceasefire MoU between US-Iran negotiators reached pending Trump approval — Brent -58c to $93.71, WTI +22c to $88.90, silver $74.26 (-0.91%), SLV $67.48 — silver below $76 trim leg FIRED but DXY sub-100 keeps dual-condition trim one leg short</b></b> Negotiators reached a 60-day memorandum of understanding to extend the ceasefire and start negotiations over Iran's nuclear program — Trump still has to approve the deal. The cross-asset read: Brent crude fell 58 cents to $93.71 per barrel and WTI added 22 cents to $88.90 despite earlier strike-exchange volatility, as the diplomatic progress compressed the geopolitical premium. Silver fell to $74.26 (-0.91%) and SLV ETF to $67.48, putting silver below the $76 trim leg of the SLV dual-condition trim — but DXY remained sub-100 (the MoU compressed the intraday DXY surge that the strike exchange had driven), so the dual-condition trim (silver below $72 + DXY above 100) is now one leg short of firing. Position-book translation: SLV took the structural hit (PnL -24.46% on the Jun 80C with 21 DTE) — Trump's MoU approval decision is the binary cross-asset catalyst into Friday: approval compresses safe-haven complex further (extends SLV pain, supports rate-relief residual back into long-duration tech), rejection re-fires the geopolitical premium and reverses the silver/oil compression. RDW absorbs the ceasefire without thesis damage — defense-adjacent space-economy thesis runs on independent DoD/NASA contract-award timing windows.</div></div>
+<div style="margin-top:18px; padding:14px 16px; border-left:3px solid #ffb347; background:rgba(255,179,71,0.05); border-radius:0 8px 8px 0;"><div style="font-size:13px; line-height:1.6; color:#cdd2de;"><b>Framework read</b>: Thursday resolved the AMC cohort-decider stack with a structural splitter — SNOW (data-cloud capex) won decisively (+36.5% best-ever day) while CRM (traditional SaaS application despite Agentforce $1.2B ARR +205% YoY) was sold on SaaSpocalypse fear. The structural rule into Friday's open: the AI-infrastructure-capex cohort halo (data-cloud + AI-server + AI-Factory + chip-design) is the dominant cohort flow direction, while traditional application-SaaS faces AI-disruption multiple compression. DELL AH +22% on $51B AI server backlog + $60B FY27 AI server guide is the post-close structural cap that extends the cohort halo into Friday open. The bear-combo path now requires the stagflation pulse (PCE 3.8% three-year-high + core PCE 3.3% + jobless claims 215K + 10Y to 4.50%) to overwhelm the AI-infrastructure capex bid — Friday's Chicago PMI + Michigan Sentiment are the discrete tells on whether the rate-restraint narrative re-fires.</div></div>
+
+<h2 id="gloss" class="sec-yellow"><span class="marker"></span>Quick Reference — Key Terms</h2>
+<dl class="gloss">
+<div><dt>GEX (Gamma Exposure)</dt><dd>Net dealer gamma position. Positive = stabilizing (sell rallies, buy dips); negative = amplifying. Approximated here qualitatively from VIX term structure since paid GEX feeds are not available.</dd></div>
+<div><dt>VIX9D</dt><dd>9-day implied vol on SPX. Captures event windows tighter than spot VIX (30-day). VIX9D &gt; spot VIX = front-end event premium.</dd></div>
+<div><dt>Vanna</dt><dd>Sensitivity of option delta to IV. IV crush on benign news forces mechanical dealer buying.</dd></div>
+<div><dt>Charm</dt><dd>Delta decay over time. Bleeds a call-heavy book even in a flat tape; runs 24/7 and accelerates into expiration.</dd></div>
+<div><dt>Magnet / Accelerator / Trapdoor</dt><dd>Strike vocabulary. Magnet = positive-gamma strike attracting price. Accelerator = negative-gamma strike amplifying. Trapdoor = cluster that cascades.</dd></div>
+<div><dt>Block tape</dt><dd>Institutional flow read. Approximated here via top movers since paid block-flow data is not available.</dd></div>
+</dl>
+
+<h2 id="ahmovers" class="sec-red"><span class="marker"></span>Post-Market Movers — Winners &amp; Losers (AH Earnings Reactions)</h2>
+<p style="color:#8892a8; font-size:13px; margin-bottom:14px;">Single-name moves &gt;3% in after-hours, sourced from the post-close research step. Winners are bid (revenue beat / segment accel / clean guide); losers are hit (capex shock / guide cut / segment miss). Treat the split as the cleanest real-time read on whichever sector thesis was on the line tonight.</p>
+<div style="display:flex; gap:14px; flex-wrap:wrap;"><div style="flex:1;"><div style="font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#52e08f; margin-bottom:8px;">▲ Winners (4)</div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">DELL</b>    <b style="font-size:14px; color:rgb(82,224,143);">+22.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Dell Technologies Q1 FY27 AMC blowout — record $43.84B revenue / $4.86 EPS (vs $2.93 est, +65.87% beat) / AI server backlog $51.30B exiting Q1 (up from $43B at end of Q4 2026) / FY27 revenue guide raised to $165-169B / FY27 AI server revenue raised to $60B (from $50B target). CEO described 'exceptional AI-related bookings' as the structural driver.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Direct AI-Factory cohort-cousin validation for APLD (PnL +54.10%) — APLD's contracted-revenue compounder thesis ($31B base / $73B with-options across four AI Factory campuses including Polaris Forge 3) just got hyperscaler-anchored at the demand layer; Friday's open should reprice the AI-Factory capex cohort upward on DELL spillover. DRAM benefits from cohort-residual flow as $51B AI server backlog = massive HBM/DRAM demand. NOK gets direct optical/silicon-photonics + networking cohort-cousin validation from the AI-Server build-out cycle.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">SNOW</b>    <b style="font-size:14px; color:rgb(82,224,143);">+36.5%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Snowflake Q1 FY27 (Wed AMC, Thursday session) — best-ever day +36.5%. Q1 revenue $1.39B (+33% YoY), product revenue $1.33B (+34%), NRR 126%, 779 customers >$1M TTM product revenue (+29% YoY), $6 billion 5-year commitment to AWS infrastructure, full-year FY27 revenue guide raised from 27% to 31% YoY growth, Q2 product revenue guide $1.415B-$1.42B.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Broke the software-cohort margin pattern (BOX -4% / ZS -17%) decisively at the data-cloud level — data-cloud capex is winning, traditional SaaS faces AI-disruption skepticism. GOOG (PnL +24.41%) benefits structurally as Alphabet sits inside the AI-cloud + Gemini-monetization cohort halo and the SNOW AWS $6B 5-year commitment is direct evidence that hyperscaler-cloud-capex is accelerating not decelerating into FY27. Cohort halo extends through AI-infrastructure capex (SNOW, DELL, MRVL, APLD) not traditional SaaS applications.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">MRVL</b>    <b style="font-size:14px; color:rgb(82,224,143);">+7.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Marvell Q1 FY27 (Wed AMC) — beat ($2.42B revenue +28% YoY, $0.80 EPS vs $0.75 est), Q2 guide $2.70B ±5% implying ~35% YoY (accelerating from 28%), FY27 revenue guide raised to $11B (~30% growth), custom AI XPU revenue ($1.5B FY26) now guided to more-than-double in FY28, CEO cited 'exceptional AI-related bookings.' Stock up ~7% AH Wed but Thursday reaction muted on broader chip pullback.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Direct ARM 240C + NOK cohort-cousin validation intact at the structural level — AI-CPU royalty cycle (ARM rides) + optical/silicon-photonics networking cycle (NOK rides) both got hyperscaler-anchored FY27/FY28 capex confirmation. ARM 240C strike-reach path now requires AI-Factory + AI-PC + Mag-7 capex translation to ARM royalty-rate compounding by mid-June; NOK absorbs Thursday chop and gets direct Friday tailwind from DELL spillover.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">COST</b>    <b style="font-size:14px; color:rgb(82,224,143);">+0.4%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Costco Q3 FY26 AMC — $70.53B total revenue (beat $69.81B est), $4.93 EPS (in-line), net sales $69.15B (+11.6% YoY), comparable sales US +9.4% / Canada +10.7% / Other International +11.2% / Total +9.8% / Digital +21.5%. Stock +0.4% to $999.40 AH.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Consumer-cohort path doesn't extend the decel narrative — comps +9.8% + digital +21.5% structurally rejects the PHM/LOW/WMT/INTU consumer-decel cohort cross-check pattern. Not position-book direct; structural read = consumer-cohort is bifurcated (warehouse + digital winning, traditional retail under pressure) — supports the broader risk-on tape continuing into Friday open without consumer-cohort drag firing.</div></div></div><div style="flex:1;"><div style="font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#ff5574; margin-bottom:8px;">▼ Losers (1)</div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">CRM</b>    <b style="font-size:14px; color:rgb(255,85,116);">-3.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Salesforce Q1 FY27 — beat all lines ($11.13B revenue +13% YoY, $3.88 non-GAAP EPS vs $3.12 est, Agentforce ARR $1.2B +205% YoY, combined Agentforce + Data 360 + Informatica $3.4B ARR +200% YoY, FY27 revenue guide raised to $45.9B-46.2B). 3.8B Agentic Work Units +111% QoQ, 28.6T tokens processed +152% QoQ.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Stock dropped ~3% AH Wed + continued pressure Thursday on SaaSpocalypse fear — the tape is questioning whether traditional SaaS application companies can survive AI disruption fast enough even with strong AI product traction. CRM now -33% YTD. Not position-book direct; cross-cohort read = the cohort halo extends through AI-infrastructure capex not traditional SaaS applications. The SaaSpocalypse-sold-the-beat pattern creates Friday continuation risk for any traditional SaaS prints.</div></div></div><div style="flex:1;"><div style="font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#ffb347; margin-bottom:8px;">◆ Flat / Mixed (2)</div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,179,71,0.08); border-left:3px solid rgb(255,179,71); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,179,71);">HPQ</b>    <b style="font-size:14px; color:rgb(255,179,71);">0.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">HP Inc Q2 FY26 (Wed AMC) — revenue beat (Personal Systems +13% on AI-PC + commercial demand strength), EPS $0.81 vs $0.71 estimate. AI PCs + advanced compute + workforce solutions all delivered double-digit growth.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Constructive AI-PC narrative cross-check — adds incremental cohort-cousin support for ARM 240C (Snapdragon X / AI-PC ARM architecture exposure) and the broader chip-design royalty cycle. Not position-book direct; structural read = the AI-cohort halo extends to consumer-tech (AI-PC) layer, supports the cohort halo structural intact through Friday.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,179,71,0.08); border-left:3px solid rgb(255,179,71); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,179,71);">SNPS</b>    <b style="font-size:14px; color:rgb(255,179,71);">0.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;">Synopsys Q2 FY26 (Wed AMC) — $2.276B total revenue beat company guidance with broad-based strength including ANSYS integration. Design Automation revenue $1.822B with EDA growth >8% YoY on hardware-assisted verification + advanced node solutions demand. Design IP $454M (-6% YoY, +12% QoQ).</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Chip-design EDA cohort cross-check extends the AI-infrastructure capex narrative — EDA tools demand is the leading indicator for the next round of hyperscaler custom chip design, supports the cohort halo structural extension. Not position-book direct; structural read = the AI-CPU + custom-XPU + AI-server design cycle ARM 240C + MRVL ride on is structurally extending.</div></div></div></div>
+
+<h2 id="ah" class="sec-red"><span class="marker"></span>After-Hours Developments — 4 PM to Now</h2>
+<p>Three hours of after-hours flow have printed since the cash close. <b>Post-market data not yet populated; refresh after Globex settles at 6 PM.</b>.</p>
+<p><b>Post-close action tells the structural cohort-halo extension story — DELL AH BLOWOUT +22% on record $43.84B revenue / $4.86 EPS / AI server backlog $51.30B (from $43B) / FY27 AI server revenue raised to $60B (from $50B) is the single largest direct AI-Factory cohort-cousin validation of the cycle.</b> COST modest +0.4% AH on revenue beat + comps +9.8% + digital +21.5% — consumer-cohort path does not extend decel narrative. The structural translation: APLD's contracted-revenue compounder thesis just got hyperscaler-anchored at the demand layer; Friday's open should reprice the AI-Factory capex cohort upward on DELL spillover. DRAM gets cohort-residual flow on memory-intensive AI server backlog ($51B custom hyperscaler boxes = massive HBM/DRAM demand); NOK gets direct optical/silicon-photonics + networking cohort-cousin validation; ARM 240C strike-reach path gets indirect AI-server royalty-cycle support. Position-book: AI-infrastructure cohort book at structural cycle-record cohort halo with hyperscaler-anchored capex backstop heading into Friday.</p>
+
+<h3>Earnings released this afternoon (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td colspan="5" style="color:#8892a8;">No major reports scheduled in this window.</td></tr></tbody>
+</table>
+
+<h2 id="blocks" class="sec-purple"><span class="marker"></span>Block Tape — Top Movers (Session)</h2>
+<h3>Leaders</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Close</th><th>Change</th><th>Read</th></tr></thead>
+<tbody><tr><td class="tk">STRL</td><td class="nm">Sterling Infrastructure, I…</td><td class="num">$806.00</td><td class="num pos">+52.22%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">DOCN</td><td class="nm">DigitalOcean Holdings, Inc.</td><td class="num">$152.77</td><td class="num pos">+40.40%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">VRDN</td><td class="nm">Viridian Therapeutics, Inc.</td><td class="num">$18.75</td><td class="num pos">+33.36%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">POET</td><td class="nm">POET Technologies Inc.</td><td class="num">$9.21</td><td class="num pos">+29.54%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">IART</td><td class="nm">Integra LifeSciences Holdi…</td><td class="num">$13.22</td><td class="num pos">+24.13%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">CIFR</td><td class="nm">Cipher Digital Inc.</td><td class="num">$22.10</td><td class="num pos">+23.53%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">EWTX</td><td class="nm">Edgewise Therapeutics, Inc.</td><td class="num">$38.01</td><td class="num pos">+20.86%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">FTRE</td><td class="nm">Fortrea Holdings Inc.</td><td class="num">$14.53</td><td class="num pos">+18.61%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr></tbody>
+</table>
+
+<h3>Laggards</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Close</th><th>Change</th><th>Read</th></tr></thead>
+<tbody><tr><td class="tk">WGS</td><td class="nm">GeneDx Holdings Corp. Clas…</td><td class="num">$34.51</td><td class="num neg">-49.20%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">BRBR</td><td class="nm">BellRing Brands, Inc.</td><td class="num">$10.64</td><td class="num neg">-38.73%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">IPGP</td><td class="nm">IPG Photonics Corporation</td><td class="num">$90.84</td><td class="num neg">-25.74%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">ADEA</td><td class="nm">Adeia Inc.</td><td class="num">$27.82</td><td class="num neg">-17.26%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">OSIS</td><td class="nm">OSI Systems, Inc.</td><td class="num">$234.74</td><td class="num neg">-17.01%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">ADTN</td><td class="nm">ADTRAN Holdings, Inc.</td><td class="num">$15.30</td><td class="num neg">-16.58%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">SHOP</td><td class="nm">Shopify, Inc. Class A</td><td class="num">$107.63</td><td class="num neg">-15.62%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">DFIN</td><td class="nm">Donnelley Financial Soluti…</td><td class="num">$42.73</td><td class="num neg">-15.60%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr></tbody>
+</table>
+<p style="color:#8892a8; font-size:12px;"><em>Block-flow narrative is approximated here from end-of-day price action, not paid institutional flow data.</em></p>
+
+<h2 id="sectors" class="sec-green"><span class="marker"></span>Sector Rotation — Final Result + Reads</h2>
+<div class="bars"><div class="bar-row"><div><span class="bname">Technology</span></div><div class="betf">XLK</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:48.0%;"></div></div><div class="bpct pos">+2.21%</div></div>
+<div class="bar-row"><div><span class="bname">Materials</span></div><div class="betf">XLB</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:37.74929854738017%;"></div></div><div class="bpct pos">+1.74%</div></div>
+<div class="bar-row"><div><span class="bname">Industrials</span></div><div class="betf">XLI</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:18.171893273380523%;"></div></div><div class="bpct pos">+0.84%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Staples</span></div><div class="betf">XLP</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:13.52424707903636%;"></div></div><div class="bpct pos">+0.62%</div></div>
+<div class="bar-row"><div><span class="bname">Health Care</span></div><div class="betf">XLV</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:8.557145548556838%;"></div></div><div class="bpct pos">+0.39%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Disc.</span></div><div class="betf">XLY</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:6.459857311518814%;"></div></div><div class="bpct pos">+0.30%</div></div>
+<div class="bar-row"><div><span class="bname">Real Estate</span></div><div class="betf">XLRE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:4.435987011372383%;"></div></div><div class="bpct pos">+0.20%</div></div>
+<div class="bar-row"><div><span class="bname">Energy</span></div><div class="betf">XLE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:2.1951029925427754%;"></div></div><div class="bpct pos">+0.10%</div></div>
+<div class="bar-row"><div><span class="bname">Financials</span></div><div class="betf">XLF</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:0.42116548974385537%;"></div></div><div class="bpct pos">+0.02%</div></div>
+<div class="bar-row"><div><span class="bname">Utilities</span></div><div class="betf">XLU</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:0.0%;"></div></div><div class="bpct pos">+0.00%</div></div>
+<div class="bar-row"><div><span class="bname">Communications</span></div><div class="betf">XLC</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:41.20423122486205%; width:8.795768775137951%;"></div></div><div class="bpct neg">-0.40%</div></div></div>
+<table style="margin-top:18px;">
+<thead><tr><th>Ticker</th><th>Sector</th><th>Day</th><th>Read</th></tr></thead>
+<tbody>
+<tr><td class="tk">XLK</td><td>Technology</td><td class="num pos">+2.21%</td><td>Strong leadership — cyclical / risk-on bid confirms positioning.</td></tr>
+<tr><td class="tk">XLB</td><td>Materials</td><td class="num pos">+1.74%</td><td>Strong leadership — cyclical / risk-on bid confirms positioning.</td></tr>
+<tr><td class="tk">XLI</td><td>Industrials</td><td class="num pos">+0.84%</td><td>Constructive — cyclical / risk-on participating.</td></tr>
+<tr><td class="tk">XLP</td><td>Consumer Staples</td><td class="num pos">+0.62%</td><td>Constructive — defensive / risk-off participating.</td></tr>
+<tr><td class="tk">XLV</td><td>Health Care</td><td class="num pos">+0.39%</td><td>Constructive — defensive / risk-off participating.</td></tr>
+<tr><td class="tk">XLY</td><td>Consumer Disc.</td><td class="num pos">+0.30%</td><td>Quiet — cyclical / risk-on flat to the tape.</td></tr>
+<tr><td class="tk">XLRE</td><td>Real Estate</td><td class="num pos">+0.20%</td><td>Quiet — cyclical / risk-on flat to the tape.</td></tr>
+<tr><td class="tk">XLE</td><td>Energy</td><td class="num pos">+0.10%</td><td>Quiet — energy (commodity-linked) flat to the tape.</td></tr>
+<tr><td class="tk">XLF</td><td>Financials</td><td class="num pos">+0.02%</td><td>Quiet — cyclical / risk-on flat to the tape.</td></tr>
+<tr><td class="tk">XLU</td><td>Utilities</td><td class="num pos">+0.00%</td><td>Quiet — defensive / risk-off flat to the tape.</td></tr>
+<tr><td class="tk">XLC</td><td>Communications</td><td class="num neg">-0.40%</td><td>Soft — cyclical / risk-on drag.</td></tr>
+</tbody>
+</table>
+
+<h2 id="vix" class="sec-blue"><span class="marker"></span>Volatility Structure &amp; Greek Forces (Qualitative)</h2>
+<div style="display:grid; grid-template-columns: 1.3fr 1fr; gap: 14px;">
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">VIX Term Curve</h3>
+    <svg width="100%" height="160" viewBox="0 0 420 160" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="vx-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#58b8ff" stop-opacity="0.35"/><stop offset="100%" stop-color="#58b8ff" stop-opacity="0"/></linearGradient></defs><polygon points="32.0,100.6 150.7,85.3 269.3,55.0 388.0,39.4 388.0,128 32.0,128" fill="url(#vx-grad)"/><polyline points="32.0,100.6 150.7,85.3 269.3,55.0 388.0,39.4" stroke="#58b8ff" stroke-width="2.5" fill="none" stroke-linejoin="round"/><circle cx="32.0" cy="100.6" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="150.7" cy="85.3" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="269.3" cy="55.0" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="388.0" cy="39.4" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><text x="32.0" y="88.6" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">14.64</text><text x="32.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX9D</text><text x="150.7" y="73.3" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">16.72</text><text x="150.7" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX</text><text x="269.3" y="43.0" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">20.82</text><text x="269.3" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX3M</text><text x="388.0" y="27.4" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">22.94</text><text x="388.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX6M</text></svg>
+    <div class="vlabel">
+      <span>Slope (3M−spot): <b>+4.10</b></span>
+      <span>State: <b>contango (normal)</b></span>
+    </div>
+  </div>
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">Cross-Asset Vol Close</h3>
+    <table style="margin: 0; border: none; background: transparent;">
+      <tr><td class="lbl">VIX (30d SPX)</td><td class="num">16.72</td><td class="num neg">-3.80%</td></tr>
+      <tr><td class="lbl">VIX9D (9d SPX)</td><td class="num">14.64</td><td class="num neg">-11.81%</td></tr>
+      <tr><td class="lbl">VXN (NDX IV)</td><td class="num">22.46</td><td class="num neg">-2.52%</td></tr>
+      <tr><td class="lbl">OVX (Oil IV)</td><td class="num">74.73</td><td class="num neg">-4.96%</td></tr>
+      <tr><td class="lbl">MOVE (Bond vol)</td><td class="num">76.78</td><td class="num neg">-1.39%</td></tr>
+    </table>
+  </div>
+</div>
+
+<h3>Greek Forces — Qualitative Read</h3>
+<table>
+<thead><tr><th>Force</th><th>Read</th><th>Mechanical implication</th></tr></thead>
+<tbody>
+<tr><td class="lbl">Net GEX</td><td><b>Strongly positive</b></td><td>Contango intact = dealers long gamma, stabilization regime. Mean-reversion mechanics active; vol selling supportive.</td></tr>
+<tr><td class="lbl">Vanna (IV → delta)</td><td>Largely discharged</td><td>Event premium already paid out — vanna unwind not a meaningful tomorrow tailwind.</td></tr>
+<tr><td class="lbl">Charm (time decay)</td><td>Bleeds the call book overnight</td><td>Net positive book delta erodes overnight — can produce a soft open even without negative news.</td></tr>
+<tr><td class="lbl">Cross-asset hedging</td><td>Offered</td><td>Cross-asset hedges coming off — clean risk-on environment carries through Globex.</td></tr>
+</tbody>
+</table>
+<p style="color:#8892a8; font-size:12px;"><em>Greek values are qualitative — derived from public vol-structure and price data, not from paid dealer-positioning feeds.</em></p>
+
+<h2 id="commodities" class="sec-orange"><span class="marker"></span>Commodity Complex — Closing Read</h2>
+<div class="commodities"><div class="commodity-group"><div class="grp-title energy">ENERGY</div><div class="commodity-row"><span class="nm">Crude Oil (WTI)</span><span class="px">$95.01</span><span class="ch neg">-7.10%</span></div>
+<div class="commodity-row"><span class="nm">Brent Crude</span><span class="px">$102.90</span><span class="ch neg">-6.34%</span></div>
+<div class="commodity-row"><span class="nm">Natural Gas</span><span class="px">$2.762</span><span class="ch neg">-0.93%</span></div></div> <div class="commodity-group"><div class="grp-title precious">PRECIOUS METALS</div><div class="commodity-row"><span class="nm">Gold</span><span class="px">$4,691.40</span><span class="ch pos">+2.98%</span></div>
+<div class="commodity-row"><span class="nm">Silver</span><span class="px">$77.38</span><span class="ch pos">+5.84%</span></div>
+<div class="commodity-row"><span class="nm">Platinum</span><span class="px">$2,038.70</span><span class="ch pos">+3.98%</span></div></div> <div class="commodity-group"><div class="grp-title industrial">INDUSTRIAL</div><div class="commodity-row"><span class="nm">Copper</span><span class="px">$6.193</span><span class="ch pos">+4.20%</span></div></div></div><div class="commodity-narrative"><p><b>Crude</b> is falling (WTI -7.10%, Brent -6.34%) — under pressure on demand concerns; weighs on <b>XLE</b>. <b>Gold</b> bid (+2.98%) with yields easing — classic risk-off/real-rate trade; pairs with <b>GLD</b>, <b>GDX</b> strength. <b>Silver</b> outperforming gold (+5.84% vs +2.98%) — speculative/industrial bid leaking through. <b>Platinum</b> +3.98% — auto-catalyst and PGM demand proxy, secondary signal. <b>Copper</b> higher (+4.20%) — global-growth read is constructive; supports <b>XLB</b>, <b>FCX</b>. <b>DXY</b> weakening (-0.57%) — mechanical tailwind/headwind for the entire commodity complex.</p></div>
+
+<h2 id="rsi" class="sec-purple"><span class="marker"></span>TradingView Ratings — Close</h2>
+<h3>Index ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">SPY</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:71%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 71.3</span></div></div>
+<div class="rsi-cell"><div class="tk">QQQ</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:76%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 76.4</span></div></div>
+<div class="rsi-cell"><div class="tk">IWM</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:69%; background:#ffb347;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 69.2</span></div></div>
+<div class="rsi-cell"><div class="tk">DIA</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:59%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 58.5</span></div></div></div>
+<h3>Sector ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">Financials</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:52%; background:#9dd98a;"></div></div><div class="sub"><span>MA SELL</span><span>RSI 52.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Energy</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:60%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 59.7</span></div></div>
+<div class="rsi-cell"><div class="tk">Technology</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:77%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 77.3</span></div></div>
+<div class="rsi-cell"><div class="tk">Health Care</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:46%; background:#8892a8;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 45.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Disc.</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:57%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 57.3</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Staples</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:56%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 56.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Materials</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:53%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 53.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Industrials</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:54%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 53.8</span></div></div>
+<div class="rsi-cell"><div class="tk">Real Estate</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:60%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 59.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Communications</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:50%; background:#9dd98a;"></div></div><div class="sub"><span>MA NEUTRAL</span><span>RSI 50.1</span></div></div>
+<div class="rsi-cell"><div class="tk">Utilities</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:52%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 52.5</span></div></div></div>
+<p>Ratings are an MA-weighted aggregate. The most actionable shift is when a sector flips between BUY and SELL bands at the close — that often telegraphs the next session's leadership rotation before price confirms it.</p>
+
+<h2 id="tomorrow" class="sec-blue"><span class="marker"></span>Tomorrow's Setup — Three Paths Into the Open</h2>
+
+<p><b>Levels that matter:</b> today's close at <b>$723.77</b> is the pivot. Above <b>$729</b> = continuation regime; below <b>$719</b> = reversal regime; chop in between = pin mode.</p>
+
+<div class="scenarios">  <div class="scn bull"><span class="tag">Bull path</span>    <div class="t">DELL AH gap holds above +18% into Friday open + chip-cohort gap-up + APLD repricing higher + Chicago PMI ≥50 + Michigan Sentiment holds + Trump approves Iran MoU + 10Y holds below 4.55% = AI-infrastructure cohort halo extends, SPX/NDX print fresh records Friday close</div>    <p>Bull-combo Friday: DELL holds the +22% AH gap above +18% into Friday's open and through the first hour, the chip-cohort tactical pullback Thursday reverses cleanly with APLD gapping +5-8% on the AI-Factory cohort-cousin validation, DRAM extends on memory-intensive AI server backlog cohort tailwind, NOK extends on direct networking cohort-cousin tailwind. Chicago PMI prints ≥50, Michigan Consumer Sentiment final holds steady, Michigan inflation expectations not elevated — the stagflation pulse compresses. Trump approves the Iran 60-day ceasefire MoU — Brent extends compression, 10Y holds below 4.55%, DXY stays sub-100. SPX extends past 7,570, Nasdaq extends past 26,950, Dow tests 50,800; VIX holds 15-17 range. SNOW gap-hold above +30% extends data-cloud cohort halo. Position-book translation: every long-AI-cohort leg compounds the recent gain; APLD/DRAM/NOK/SKM all benefit from cohort halo extension; ARM 240C strike-reach path recovers on cohort cousins; GOOG extends Mag-7 + AI-cloud cohort halo; RDW catches Industrials cohort halo extension; SLV recovers modestly on intra-week chop but structural overhang continues.</p></div>  <div class="scn base"><span class="tag">Base case</span>    <div class="t">DELL holds AH gap modestly (+10-15%) + chip-cohort base-builds (no follow-through gap-up) + Chicago PMI 48-50 + Michigan Sentiment mixed + Trump approval delayed + 10Y holds 4.45-4.55 + SPY chops 753-759 range — cohort halo holds intact, doesn't extend, weekend digestion sets up Monday open</div>    <p>Base case Friday: DELL holds the AH gap modestly (+10-15%) into Friday open as profit-taking absorbs some magnitude — APLD gaps +2-4% on the AI-Factory cohort-cousin validation, the chip-cohort base-builds without follow-through gap-up. Chicago PMI prints in the 48-50 range, Michigan Sentiment final holds mixed (constructive on confidence but sticky on inflation expectations), Trump's Iran MoU approval decision delayed to weekend or early next week. 10Y holds 4.45-4.55 range, DXY sub-100. SPY chops 753-759 range, SPX chops 7,540-7,580, Nasdaq chops 26,800-26,950; VIX holds 16-17 range. Cohort book holds intact: ARM 240C holds recent base, APLD holds gap-and-go pattern, DRAM/NOK/SKM/GOOG hold bases. SLV Jun 80C continues structural decay; Trump approval decision over weekend extends compression. Position-book translation: hold full book through Friday's cohort-halo-intact regime; no trim triggers fire; weekend digestion sets up Monday open with AI-infrastructure capex cohort halo intact + SLV decision-pending.</p></div>  <div class="scn bear"><span class="tag">Bear path</span>    <div class="t">DELL AH gap gives back 50%+ into Friday open + chip-cohort tactical pullback Thursday extends + Chicago PMI <48 + Michigan Sentiment compresses + Michigan inflation expectations elevated + Trump rejects Iran MoU = AI-cohort book gives back 2-4% Friday close, software-cohort margin pattern attempt reverses</div>    <p>Bear-combo Friday: DELL gives back 50%+ of the +22% AH gap on profit-taking or incremental NVDA/SMCI cohort-cousin compression — APLD gap-up compresses to flat/negative on the AI-Factory cohort halo retreat, the chip-cohort tactical pullback Thursday extends into Friday close. Chicago PMI prints structurally weak (<48), Michigan Consumer Sentiment final compresses, Michigan inflation expectations elevated — the stagflation narrative hardens. Trump rejects the Iran MoU or signals continued strike-cycle — silver rallies hard back above $76 (SLV trim leg unfires), Brent re-fires through $95, DXY tests 100, 10Y rips above 4.65% on Iran-shock-induced inflation re-pricing. SNOW fades 8-12% on best-ever-day gap-fill. SPX breaks 7,540, Nasdaq breaks 26,800; VIX bids above 18 on coordinated AI-cohort cohort-residual flow compression. Position-book translation: ARM 240C trim trigger fires on closing-basis loss of recent base; SLV gets temporary relief but Jun 80C structural decay continues; cohort book gives back 15-25% of recent cohort halo gain; weekend digestion compresses Monday open.</p></div></div>
+
+<h2 id="cat" class="sec-blue"><span class="marker"></span>Catalyst Watch — Next 36 Hours</h2>
+<table>
+<thead><tr><th>When (ET)</th><th>Event</th><th>Read &amp; Implication</th></tr></thead>
+<tbody>
+<tr><td class="flag-yel">Fri 5/29 — 9:45 AM ET</td><td class="flag-yel">Chicago PMI (May)</td><td class="flag-yel">Manufacturing-cohort cross-check on the stagflation pulse. Chicago PMI <48 extends rate-restraint narrative, pressures long-duration tech discount-rate tailwind. ≥50 reverses the stagflation-pulse extension, supports AI-cohort halo extension.</td></tr>
+<tr><td class="flag-yel">Fri 5/29 — 10:00 AM ET</td><td class="flag-yel">Michigan Consumer Sentiment final (May) + Michigan inflation expectations</td><td class="flag-yel">Consumer-cohort cross-check + critical inflation-expectations cross-check on the rate path. Sticky/elevated Michigan inflation expectations extend stagflation narrative (10Y rises further); compressed inflation expectations support rate-relief residual.</td></tr>
+<tr><td class="flag-red">Fri 5/29 — pending</td><td class="flag-red">Trump approval decision on Iran 60-day ceasefire MoU</td><td class="flag-red">Binary cross-asset catalyst. Approval = safe-haven compression continues (extends SLV pain, supports rate-relief residual back into long-duration tech). Rejection = geopolitical premium re-fires (silver rallies back above $76, oil re-fires, DXY tests 100, 10Y rips above 4.65%).</td></tr>
+<tr><td class="flag-yel">Fri 5/29 — overnight</td><td class="flag-yel">Germany flash CPI</td><td class="flag-yel">European inflation cross-check. Cooler print supports global rate-relief narrative + extends AI-cohort halo; hotter extends rate-restraint pressure.</td></tr>
+<tr><td class="flag-red">Fri 5/29 — open + first hour</td><td class="flag-red">DELL gap-hold tracking (AH +22% on $51B AI server backlog + $60B FY27 AI server guide)</td><td class="flag-red">Direct AI-Factory cohort-cousin validation gap-hold is the binary structural decider for cohort halo extension. Above +18% AH gap holds = APLD repricing higher, chip-cohort tactical pullback Thursday reverses. Gives back 50%+ = AI-Factory cohort tailwind compresses modestly, weekend digestion sets up cautious Monday open.</td></tr>
+<tr><td class="flag-yel">Tue 6/3 — week open</td><td class="flag-yel">ISM Manufacturing + JOLTS + start of June macro window</td><td class="flag-yel">Next macro window opens with ISM Manufacturing and JOLTS as the cross-checks on the stagflation pulse extension or compression. The AI-cohort halo is structurally insulated but the rate-path narrative drives the long-duration tech discount-rate tailwind.</td></tr>
+<tr><td class="flag-yel">Mid-June (next 2-3 weeks)</td><td class="flag-yel">ARM 240C / SLV 80C / GOOG 425C June expiry window</td><td class="flag-yel">Three Jun 2026 expiry positions with 21 DTE — ARM 240C at +1.57% PnL with strike-reach path requiring AI-Factory + AI-PC + Mag-7 capex translation by mid-June; SLV 80C at -24.46% facing structural decay pending Trump Iran MoU decision; GOOG 425C at +24.41% benefiting from AI-cloud + Mag-7 cohort halo extension. Discrete catalyst stack accelerates through June.</td></tr>
+<tr><td class="flag-red">Jun 16-17</td><td class="flag-red">FOMC meeting + SEP update</td><td class="flag-red">Mid-June FOMC + Summary of Economic Projections update is the discrete decider on whether the May PCE 3.8% / core 3.3% / jobless claims 215K stagflation pulse alters the 2026 rate path. Hawkish revision = long-duration tech compression; dovish = AI-cohort halo extension structural.</td></tr>
+<tr><td>Tonight 7-11 PM</td><td>Earnings post-print drift settles</td><td>Initial after-hours reactions usually overshoot in first 30 minutes — by 9 PM, the read has matured. If a mega-cap reaction reverses by 9 PM, the original move is not sticking.</td></tr>
+<tr><td>Overnight</td><td>Asia + commodities session</td><td>WTI, Brent, Gold, Copper drift telegraphs US futures. Gold +1% overnight = DXY softening = US tape opens risk-on. Crude spike + gold bid = geopolitical pair, equity futures take it hard.</td></tr>
+<tr><td>06:00 AM-08:30 AM</td><td>US pre-market + macro data</td><td>Jobless claims, PMIs, Fed speak — the window where levels reprice. Data inside today's range usually gets absorbed; data outside the range produces the biggest gap moves.</td></tr>
+<tr><td>09:30 AM</td><td>Cash open</td><td>Opening drive (first 30 min) establishes day-type. Above today's high w/ volume = trend continuation. Below today's low w/ volume = reversal in effect. Inside = default pin.</td></tr>
+<tr><td>03:50 PM tomorrow</td><td>MOC imbalance print</td><td>The single cleanest tell for next-session opening flow. &gt;$1B net imbalance same-side as session = real positioning into close.</td></tr>
+</tbody>
+</table>
+
+<h3>Earnings next 36 hours (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>Session</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td colspan="6" style="color:#8892a8;">No major reports scheduled in this window.</td></tr></tbody>
+</table>
+
+<h2 id="bl" class="sec-red"><span class="marker"></span>Bottom Line — Two Stories in One Session</h2>
+
+<p><b>The session story:</b> <b>Thursday closed at fresh records as the AI-software-infrastructure cohort absorbed the stagflation pulse cleanly — SPX +0.58% to 7,563.63 record close, Nasdaq +0.91% to 26,917.47 record close, Dow +0.05%, VIX 16.29 cycle-low.</b> SNOW soared +36.5% to its best day ever on $1.39B revenue +33% + $6B AWS 5-year commitment + FY27 guide raised from 27% to 31% YoY — broke the software-cohort margin pattern decisively at the data-cloud level. CRM beat hard ($11.13B / $3.88 EPS / Agentforce ARR $1.2B +205% YoY) but was sold on SaaSpocalypse fear (-3% AH Wed + continued Thursday pressure, -33% YTD). MRVL beat ($2.42B +28% / FY27 raised to $11B / custom AI ramp >2x FY28) but Thursday muted on broader chip pullback (NVDA -1%). April PCE headline 3.8% (highest since May 2023) + core PCE 3.3% + jobless claims 215K + 10Y to 4.50% painted stagflation-tinged macro. Iran-US 60-day ceasefire MoU reached pending Trump approval — Brent -58c to $93.71, silver $74.26 (-0.91%), SLV $67.48 (silver below $76 trim leg fired but DXY sub-100 keeps dual-condition trim one leg short). AMC stack: DELL BLOWOUT +22% AH ($43.84B record revenue / $4.86 EPS / AI server backlog $51.30B from $43B / FY27 AI server revenue $60B from $50B) sets up Friday open with direct AI-Factory cohort-cousin validation; COST modest +0.4% AH on $70.53B beat + comps +9.8% + digital +21.5%.</p>
+
+<p><b>The under-the-hood story:</b> <b>The actual character of Thursday's close is the AI-infrastructure capex cohort halo extension at cycle-record fresh records with hyperscaler-anchored capex backstop — SNOW $6B AWS commit + DELL $51B AI server backlog + $60B FY27 AI server guide + MRVL FY27 $11B raise + APLD $31B base contracted are now mechanically anchoring the AI-capex bid independent of the rate path.</b> The cohort halo is mechanically priced at intact cycle-record levels; the DELL AH +22% spillover into Friday's open is the discrete binary for whether the cohort halo extends through weekend at intact levels. SPX 7,563.63 record close + Nasdaq 26,917.47 record close + VIX 16.29 cycle-low = structural decider for Friday — hold $753 + reclaim $759 on bull-combo Friday open (DELL gap holds + APLD repricing + Chicago PMI ≥50 + Michigan Sentiment holds + Trump approves Iran MoU) = cohort halo extends into weekend at intact levels, path opens to $762-766 magnets; break $753 + bear-combo Friday (DELL gap-give-back + soft macro data + Trump rejects Iran MoU + chip-cohort pullback extension) = trapdoor opens and weekend digestion compresses Monday open to coordinated 2-4% AI-cohort drawdown. The structural asymmetry: AI-infrastructure capex book is hyperscaler-funded; SLV faces binary Iran-MoU-approval decision; ARM 300C let-expire.</p>
+
+<p><b>Mechanically honest read:</b> Respect Thursday's AI-software-infrastructure cohort halo extension as the structural follow-through that absorbed the PCE 3.8% three-year-high + core PCE 3.3% + jobless claims 215K + 10Y to 4.50% stagflation pulse cleanly at fresh records. The cohort-book extension into Friday requires: DELL AH +22% gap holds above +18% into Friday open + APLD repricing higher on AI-Factory cohort-cousin validation + chip-cohort tactical pullback Thursday reverses + Chicago PMI ≥50 + Michigan Sentiment holds + Trump approves Iran MoU + 10Y holds below 4.55%. Any single leg failing flips the setup: DELL gap gives back 50%+ + soft Chicago PMI <48 + soft Michigan Sentiment + sticky Michigan inflation expectations + Trump rejects Iran MoU + 10Y rips above 4.55% = AI-cohort halo retreat fires Friday close, weekend digestion compresses Monday open to coordinated 2-4% AI-cohort drawdown, SLV gets one-session relief but Jun 80C structural decay continues.</p>
+
+<p class="flag-red"><b><b>Into Friday open + first-hour cohort-residual flow direction + weekend digestion</b>: SPY $753 hold with DELL AH +22% gap holds above +18% + APLD repricing higher + Chicago PMI ≥50 + Michigan Sentiment holds + Trump approves Iran MoU + 10Y holds below 4.55% = cohort halo extends through weekend at intact levels, ARM 240C cohort-halo extension supports strike-reach path through mid-June. Break $753 with DELL gap-give-back + chip-cohort pullback extension + soft macro data + Trump rejects Iran MoU + 10Y rips above 4.55% = bear-combo confirmation fires Friday close + weekend digestion compresses Monday open. The structural decider into Friday: DELL AH +22% gap-hold above +18% into Friday's open is the cleanest single tell on whether the AI-Factory cohort-cousin validation translates to a Friday cohort halo extension or compresses back on profit-taking. Trump's Iran MoU approval decision is the binary cross-asset catalyst that compresses or extends the safe-haven complex (SLV trim decision-relevant window opens on silver-below-$72 OR DXY-above-100 combo).</b></p>
+
+<footer>
+  <p style="font-size:11px; color:#6b7280; margin-bottom:8px;"><em>Disclaimer:</em> This report is for informational and educational purposes only and is not investment advice. Data sourced from public feeds (yfinance, TradingView). Greek and GEX values are qualitative approximations; paid institutional positioning data is not available in this pipeline. Trading and options carry substantial risk. Past patterns do not predict future outcomes.</p>
+  Sources · <a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-may-28-2026">Stock Market Today May 28 record S&P/Nasdaq TheStreet</a> · <a href="https://www.gurufocus.com/news/8886680/snowflake-snow-shares-surge-37-on-strong-earnings-and-aws-deal">SNOW surges 37% on earnings AWS deal GuruFocus</a> · <a href="https://www.fool.com/earnings/call-transcripts/2026/05/27/snowflake-snow-q1-2027-earnings-transcript/">Snowflake Q1 FY27 transcript Motley Fool</a> · <a href="https://blockspace.media/insight/salesforce-raises-revenue-guidance-agentforce-2027/">Salesforce raises FY27 guide Agentforce $1.2B Blockspace</a> · <a href="https://www.fxleaders.com/news/2026/05/28/crm-drops-33-in-2026-despite-earnings-beat-as-ai-fears-overshadow-1-2b-agentforce-growth/">CRM drops 33% YTD despite earnings beat FX Leaders</a> · <a href="https://www.fool.com/earnings/call-transcripts/2026/05/27/marvell-mrvl-q1-2027-earnings-transcript/">Marvell Q1 FY27 transcript Motley Fool</a> · <a href="https://www.fxleaders.com/news/2026/05/28/mrvl-soars-145-ytd-as-ai-networking-boom-drives-record-revenue-and-explosive-demand/">Marvell soars 145% YTD AI networking record revenue FX Leaders</a> · <a href="https://ng.investing.com/news/earnings/dell-soars-after-hours-on-blowout-results-raised-full-year-revenue-guidance-2534198">Dell soars 22% AH AI server demand Investing.com</a> · <a href="https://letsdatascience.com/news/dell-reports-43b-ai-backlog-guides-50b-ai-revenue-9f6f0c5f">Dell AI backlog $43B → $51B AI revenue $50B → $60B Lets Data Science</a> · <a href="https://www.stocktitan.net/news/COST/costco-wholesale-corporation-reports-third-quarter-and-year-to-date-ya9rfbnhnzg9.html">Costco Q3 2026 net sales +11.6% StockTitan</a> · <a href="https://stockstory.org/us/stocks/nasdaq/cost/news/earnings/costcos-nasdaqcost-q2-cy2026-beats-on-revenue">Costco Q2 CY2026 beats revenue StockStory</a> · <a href="https://www.fool.com/earnings/call-transcripts/2026/05/27/hp-hpq-q2-2026-earnings-call-transcript/">HP HPQ Q2 2026 transcript Motley Fool</a> · <a href="https://www.fool.com/earnings/call-transcripts/2026/05/27/synopsys-snps-q2-2026-earnings-transcript/">Synopsys SNPS Q2 2026 transcript Motley Fool</a> · <a href="https://www.cnn.com/2026/05/28/economy/us-pce-inflation-april">PCE inflation 3.8% three-year high Iran oil shock CNN</a> · <a href="https://www.benzinga.com/markets/macro-economic-events/26/05/52835775/us-pce-inflation-report-april-2026">Fed favorite inflation gauge 3.8% highest since May 2023 Benzinga</a> · <a href="https://www.bloomberg.com/news/articles/2026-05-28/us-jobless-claims-increase-slightly-to-highest-in-over-a-month">Jobless claims 215K highest in over a month Bloomberg</a> · <a href="https://au.investing.com/news/world-news/iran-and-us-agree-plan-for-60day-ceasefire-extension-after-latest-attacks-4460861">Iran US 60-day ceasefire MoU pending Trump approval Reuters</a> · <a href="https://www.cnbc.com/2026/05/28/oil-prices-us-strikes-in-iran-revive-strait-of-hormuz-turmoil-fears.html">Oil prices turn lower US-Iran ceasefire extension Trump approval CNBC</a> · <a href="https://fortune.com/article/current-price-of-silver-5-28-2026/">Silver price Thursday May 28 Fortune</a>
+</footer>
+
+</div></body></html>
