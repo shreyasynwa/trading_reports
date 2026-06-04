@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pre-Market Brief · Day-Trade Edition — Wednesday, May 06, 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: radial-gradient(ellipse at top, #0e1118, #06070b 60%);
+    color: #dfe3ee;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  body { padding: 32px 18px 80px; font-size: 13.5px; min-height: 100vh; }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+  a { color: #7bc4ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  b { color: #f3f5fa; font-weight: 600; }
+  em, i { color: #e2e7f2; font-style: italic; }
+
+  .pos { color: #52e08f; } .neg { color: #ff5574; } .neutral { color: #8892a8; }
+  .flag-red { color: #ff5574; font-weight: 600; }
+  .flag-yel { color: #ffb347; font-weight: 600; }
+  .flag-grn { color: #52e08f; font-weight: 600; }
+  .flag-blue { color: #7bc4ff; font-weight: 600; }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at top right, rgba(88,184,255,0.12), transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(187,119,255,0.10), transparent 55%),
+      linear-gradient(180deg, #0d1220 0%, #080a12 100%);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(88,184,255,0.06) 50%, transparent);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 16px;
+    font-size: 10.5px; letter-spacing: 2.8px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 14px; position: relative;
+  }
+  /* Smaller box-shadow + larger eyebrow gap so the glow doesn't bleed into
+     the start of the text (was 10px shadow + 8px gap → encroached on "P"). */
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #52e08f; box-shadow: 0 0 6px rgba(82,224,143,0.8);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .hero h1 {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.18; color: #ffffff; margin-bottom: 14px;
+  }
+  /* Lede uses full hero width — matches headline width on the right edge.
+     (Was capped at 78ch which left the right side unused on wide screens.) */
+  .hero .lede { font-size: 14px; color: #c5cbdb; line-height: 1.6; }
+  .hero .meta {
+    display: flex; gap: 22px; flex-wrap: wrap; margin-top: 20px;
+    font-size: 11px; color: #8892a8;
+    letter-spacing: 1.3px; text-transform: uppercase;
+  }
+  .hero .meta b { color: #dfe3ee; font-weight: 500; letter-spacing: 0.3px; text-transform: none; }
+  /* Regime pill flows in normal layout (block) so long multi-clause labels
+     wrap cleanly above the headline without overlapping. The next sibling
+     (.eyebrow) is block-level, so the pill sits alone on its row. */
+  .hero .regime-pill {
+    display: inline-block;
+    margin-bottom: 14px;
+    max-width: 100%;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase;
+    font-weight: 600; backdrop-filter: blur(10px);
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .regime-pill.risk-on  { background: rgba(82,224,143,0.12); color: #52e08f; border: 1px solid rgba(82,224,143,0.3); }
+  .regime-pill.risk-off { background: rgba(255,85,116,0.12); color: #ff5574; border: 1px solid rgba(255,85,116,0.3); }
+  .regime-pill.mixed    { background: rgba(255,179,71,0.12); color: #ffb347; border: 1px solid rgba(255,179,71,0.3); }
+
+  /* ── NAV ──────────────────────────────────── */
+  .nav {
+    display: flex; flex-wrap: wrap; gap: 6px 4px;
+    padding: 10px 14px; margin-bottom: 20px;
+    background: rgba(255,255,255,0.02); border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 11px;
+  }
+  .nav a {
+    padding: 3px 8px; border-radius: 4px;
+    color: #8892a8; transition: all 0.15s;
+  }
+  .nav a:hover { background: rgba(88,184,255,0.12); color: #7bc4ff; text-decoration: none; }
+
+  /* ── SESSION BAR ──────────────────────────── */
+  .sess {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 22px;
+    background: linear-gradient(90deg, rgba(255,179,71,0.06), rgba(255,179,71,0.02));
+    border: 1px solid rgba(255,179,71,0.2);
+  }
+  .sess .item { font-size: 12px; }
+  .sess .k { font-size: 9.5px; color: #8892a8; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 2px; }
+  .sess .v { color: #f3f5fa; }
+  .sess .v b { color: #ffb347; }
+
+  /* ── KEY METRICS ──────────────────────────── */
+  .km {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(175px,1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .km-cell {
+    position: relative; padding: 14px 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden; transition: all 0.2s;
+  }
+  .km-cell::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px; background: var(--acc, #8892a8);
+    opacity: 0.9;
+  }
+  .km-cell.pos { --acc: #52e08f; }
+  .km-cell.neg { --acc: #ff5574; }
+  .km-cell.warn { --acc: #ffb347; }
+  .km-cell.blue { --acc: #58b8ff; }
+  .km-cell .k { font-size: 10px; letter-spacing: 1.6px; color: #8892a8; text-transform: uppercase; }
+  .km-cell .v { font-size: 22px; font-weight: 700; margin-top: 6px; color: #f3f5fa; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .km-cell .d { font-size: 11px; color: #9aa3b8; margin-top: 3px; }
+
+  /* ── SECTIONS ─────────────────────────────── */
+  h2 {
+    font-size: 17px; font-weight: 700; color: #fff;
+    margin: 34px 0 14px 0; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px;
+  }
+  h2 .marker {
+    width: 8px; height: 18px; border-radius: 2px;
+    background: var(--sec-acc, #6b7ba8);
+  }
+  h2.sec-red    { --sec-acc: #ff5574; }
+  h2.sec-yellow { --sec-acc: #ffb347; }
+  h2.sec-green  { --sec-acc: #52e08f; }
+  h2.sec-blue   { --sec-acc: #58b8ff; }
+  h2.sec-purple { --sec-acc: #bb77ff; }
+  h2.sec-orange { --sec-acc: #ffb347; }
+
+  h3 {
+    font-size: 12.5px; font-weight: 600; color: #b8bfd0;
+    margin: 20px 0 10px 0; letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  p { margin-bottom: 11px; color: #cdd2de; }
+  ul, ol { margin: 10px 0 14px 22px; color: #cdd2de; }
+  ul li, ol li { margin-bottom: 6px; }
+
+  /* ── TABLES ───────────────────────────────── */
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 12px; margin: 10px 0 16px 0;
+    font-variant-numeric: tabular-nums;
+    background: rgba(255,255,255,0.012);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px; overflow: hidden;
+  }
+  th {
+    text-align: left; padding: 10px 12px;
+    font-size: 10px; letter-spacing: 1.3px; color: #8892a8;
+    text-transform: uppercase; font-weight: 600;
+    background: rgba(255,255,255,0.025);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  td {
+    padding: 9px 12px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    color: #cdd2de;
+  }
+  tbody tr:hover { background: rgba(88,184,255,0.04); }
+  td.lbl { color: #e4e7ef; font-weight: 500; }
+  td.tk { font-weight: 600; color: #fff; }
+  td.nm { color: #9aa3b8; font-size: 11px; }
+  td.num { text-align: right; }
+
+  /* ── BAR (sector rotation) ────────────────── */
+  .bars { display: flex; flex-direction: column; gap: 6px; padding: 6px 0; }
+  .bar-row {
+    display: grid; grid-template-columns: 110px 32px 1fr 70px;
+    align-items: center; gap: 10px; font-size: 11.5px;
+  }
+  .bar-row .bname { color: #dfe3ee; font-weight: 500; }
+  .bar-row .betf { color: #7f8699; font-size: 10px; letter-spacing: 0.5px; }
+  .bar-track {
+    position: relative; height: 20px;
+    border-radius: 4px; background: rgba(255,255,255,0.03);
+    overflow: hidden;
+  }
+  .bar-track .midline {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .bar-fill {
+    position: absolute; top: 2px; bottom: 2px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(82,224,143,0.4), rgba(82,224,143,0.85));
+  }
+  .bar-fill.neg { background: linear-gradient(270deg, rgba(255,85,116,0.85), rgba(255,85,116,0.4)); }
+  .bar-row .bpct {
+    text-align: right; font-weight: 600;
+    font-variant-numeric: tabular-nums; font-size: 12px;
+  }
+
+  /* ── RING (breadth / F&G) ─────────────────── */
+  .rings {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px; padding: 4px 0 10px 0;
+  }
+  .ring-cell {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 14px 12px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .ring { position: relative; width: 100px; height: 100px; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .rlabel {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .ring .rlabel .v { font-size: 20px; font-weight: 700; color: #f3f5fa; }
+  .ring .rlabel .sub { font-size: 9.5px; color: #8892a8; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
+  .ring-cell .caption {
+    margin-top: 10px; font-size: 11px; color: #8892a8;
+    letter-spacing: 1.1px; text-transform: uppercase; text-align: center;
+  }
+
+  /* ── F&G Gauge ─────────────────────────────── */
+  .fg-block {
+    display: grid; grid-template-columns: 260px 1fr; gap: 20px;
+    padding: 14px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .fg-gauge { display: flex; flex-direction: column; align-items: center; }
+  .fg-comp-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 8px;
+  }
+  .fg-comp {
+    padding: 8px 10px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.01);
+    font-size: 11px;
+  }
+  .fg-comp .l { color: #9aa3b8; font-size: 10px; letter-spacing: 0.8px; text-transform: uppercase; }
+  .fg-comp .v { color: #f3f5fa; font-weight: 600; margin-top: 3px; }
+
+  /* ── VIX curve ────────────────────────────── */
+  .vix-panel {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .vix-panel .vlabel {
+    display: flex; justify-content: space-around; font-size: 10.5px;
+    color: #8892a8; letter-spacing: 1.2px; text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .vix-panel .vlabel span b { color: #dfe3ee; font-weight: 600; }
+
+  /* ── RSI heat cell ─────────────────────────── */
+  .rsi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 8px;
+    padding: 4px 0;
+  }
+  .rsi-cell {
+    padding: 11px 13px; border-radius: 9px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .rsi-cell .tk { font-weight: 700; color: #fff; font-size: 11px; letter-spacing: 1.4px; }
+  .rsi-cell .sig { font-size: 11px; font-weight: 600; margin-top: 3px; }
+  .rsi-cell .bar {
+    height: 6px; border-radius: 3px; margin-top: 8px;
+    background: rgba(255,255,255,0.05); overflow: hidden;
+  }
+  .rsi-cell .bar > div { height: 100%; border-radius: 3px; }
+  .rsi-cell .sub { font-size: 10px; color: #8892a8; margin-top: 5px; display: flex; justify-content: space-between; }
+  .sig-STRONG-BUY { color: #52e08f; }
+  .sig-BUY { color: #9dd98a; }
+  .sig-NEUTRAL { color: #8892a8; }
+  .sig-SELL { color: #ff9f8a; }
+  .sig-STRONG-SELL { color: #ff5574; }
+
+  /* ── Risk Matrix ──────────────────────────── */
+  .risk {
+    position: relative;
+    padding: 14px 16px 14px 20px; border-radius: 10px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .risk::before {
+    content: ""; position: absolute; left: 0; top: 10px; bottom: 10px;
+    width: 4px; border-radius: 2px; background: var(--risk-acc, #8892a8);
+  }
+  .risk.r-hi { --risk-acc: #ff5574; }
+  .risk.r-med { --risk-acc: #ffb347; }
+  .risk.r-low { --risk-acc: #58b8ff; }
+  .risk .head {
+    display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .risk .t { font-weight: 700; color: #f3f5fa; font-size: 13.5px; }
+  .risk .p {
+    font-size: 9.5px; letter-spacing: 1.3px;
+    padding: 3px 8px; border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    color: var(--risk-acc, #8892a8);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── Scenarios ────────────────────────────── */
+  .scenarios {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 14px;
+    margin: 14px 0 18px 0;
+  }
+  .scn {
+    padding: 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+  }
+  .scn::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--scn-acc, #8892a8);
+  }
+  .scn.bull { --scn-acc: #52e08f; }
+  .scn.base { --scn-acc: #8892a8; }
+  .scn.bear { --scn-acc: #ff5574; }
+  .scn .tag {
+    display: inline-block; padding: 3px 8px; border-radius: 10px;
+    font-size: 9.5px; letter-spacing: 1.3px; text-transform: uppercase;
+    font-weight: 600; color: var(--scn-acc); background: rgba(255,255,255,0.04);
+    margin-bottom: 8px;
+  }
+  .scn .t { font-weight: 700; color: #f3f5fa; font-size: 14px; margin-bottom: 6px; }
+  .scn p { font-size: 12.5px; color: #cdd2de; }
+
+  /* ── Caveat ───────────────────────────────── */
+  .caveat {
+    font-size: 11.5px; color: #c9cfde; font-style: italic;
+    padding: 10px 14px; border-radius: 8px;
+    border-left: 3px solid #8892a8;
+    background: rgba(136,146,168,0.05);
+    margin: 10px 0 14px 0;
+  }
+
+  /* ── Glossary ─────────────────────────────── */
+  .gloss { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 12px; }
+  .gloss dt { font-weight: 600; color: #f3f5fa; font-size: 12.5px; margin-bottom: 3px; }
+  .gloss dd { color: #9aa3b8; font-size: 11.5px; margin-bottom: 0; margin-left: 0; }
+
+  /* ── Footer ───────────────────────────────── */
+  footer { margin-top: 46px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; font-size: 11px; color: #8892a8; letter-spacing: 0.5px; }
+
+  /* ── COMMODITIES section ─────────────────────── */
+  .commodities {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px; margin-bottom: 18px;
+  }
+  .commodity-group {
+    padding: 14px 16px; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  }
+  .commodity-group .grp-title {
+    font-size: 10px; letter-spacing: 2.2px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 10px; font-weight: 600;
+  }
+  .commodity-group .grp-title.energy   { color: #ffb347; }
+  .commodity-group .grp-title.precious { color: #ffd35c; }
+  .commodity-group .grp-title.industrial { color: #58b8ff; }
+  .commodity-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.05);
+    font-size: 12.5px;
+  }
+  .commodity-row:last-child { border-bottom: none; }
+  .commodity-row .nm { color: #c8cfdd; }
+  .commodity-row .px { color: #e5e7eb; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .commodity-row .ch { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 70px; text-align: right; }
+  .commodity-narrative {
+    padding: 16px 20px; border-radius: 12px; margin-bottom: 22px;
+    border-left: 3px solid #ffb347;
+    background: linear-gradient(180deg, rgba(255,179,71,0.06), rgba(255,179,71,0.01));
+    font-size: 13px; line-height: 1.65; color: #c8cfdd;
+  }
+  .commodity-narrative b { color: #f3f5fa; }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .hero, .km-cell, table, .risk, .scn, .caveat, .fg-block, .rsi-cell, .ring-cell, .vix-panel { background: #fafafa; border-color: #ddd; }
+    p, td { color: #222; }
+    b, h1, h2, h3 { color: #000; }
+  }
+</style>
+</head><body><div class="wrap">
+
+
+<div class="hero">
+  <span class="regime-pill neutral">Pre-Market · Neutral, Tech-Heavy · AVGO/CRWD Sell-the-News Sinks Nasdaq Futures (AVGO ~-12% AH despite AI rev doubling to $10.8B + guide beat — Tan held the $100B target) · Dow Futures Up on Rotation · 10Y eases ~4.45% · Oil softer (WTI ~$95) · Claims 8:30 / Daly 12:10 · NFP Fri 6/5</span>
+  <div class="eyebrow"><span class="dot"></span> Pre-Market Brief · Day-Trade Edition · Wednesday, May 06, 2026</div>
+  <h1>AVGO and CrowdStrike sell the news — strong prints, too-high bars sink Nasdaq futures as Dow rotates green into jobless claims</h1>
+  <div class="lede"><b>The overnight tape flipped the EOD's constructive read: AVGO tumbled ~12% AH despite beating on EPS, more than doubling AI revenue to ~$10.8B and guiding Q3 revenue above consensus — the sell-the-news trigger was Hock Tan declining to raise the $100B 2027 AI-chip target.</b> CRWD fell ~10% AH on the same dynamic even with a strong quarter, a 4-for-1 split and a guidance raise. The damage is concentrated in tech: <b>Nasdaq futures are lower while Dow futures rise on a rotation into value</b>, with S&P futures mixed. The cross-currents eased — <b>the 10Y backed down to ~4.45%</b> and <b>oil slipped (WTI ~$95.68)</b> on a 6.8M-barrel crude draw — leaving the AI-cohort book facing a sentiment reset, not a demand break, into <b>Initial Jobless Claims at 8:30 ET</b> and <b>NFP Friday 6/5</b>.</div>
+  <div class="meta">
+    <span>Published · <b>Wednesday, May 06, 2026 09:05 AM</b></span>
+    <span>Build · <b>56.1s</b></span>
+    <span>Sources · <b>yfinance · TradingView · CNN F&amp;G · web</b></span>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#tldr">TL;DR</a> · <a href="#overnight">Overnight</a> · <a href="#tom">Top of Mind</a> · <a href="#idx">Index Playbook</a>
+  · <a href="#vix">Vol structure</a>
+  · <a href="#breadth">Breadth</a> · <a href="#sectors">Sectors</a> · <a href="#rsi">TA ratings</a>
+  · <a href="#fg">F&amp;G</a> · <a href="#risk">Risk matrix</a> · <a href="#cat">Catalysts</a>
+  · <a href="#movers">Movers</a> · <a href="#bl">Bottom line</a> · <a href="#gloss">Glossary</a>
+</div>
+
+<div class="sess">
+  <div class="item"><div class="k">Session</div><div class="v">Pre-open · cash bell in <b>~30 min</b></div></div>
+  <div class="item"><div class="k">Regime</div><div class="v"><b>A tech-concentrated, sentiment-driven pullback morning rather than a broad risk-off — the AVGO/CRWD 'sell the news' is sinking Nasdaq futures while Dow futures rise on a rotation into value/cyclicals and S&P futures sit mixed-to-slightly-softer.</b> Broadcom reported a strong fiscal Q2 (EPS $2.44 vs ~$2.40, AI revenue ~$10.8B more than doubled, Q3 revenue guide ~$29.4B above the ~$28.53B expected) but tumbled ~12% AH/premarket because Hock Tan held the full-year $100B 2027 AI-chip target the +4.1% run had priced; CrowdStrike fell ~10% AH despite +26% revenue growth, a 4-for-1 split, a new Chief AI Officer and a guidance raise — both classic too-high-bar resets, not demand misses. The two macro legs that drove Wednesday's coordinated risk-off EASED: the 10Y backed down to ~4.45% (from ~4.49%) and oil slipped (WTI ~$95.68, Brent ~$96.97, off ~0.86%) on a 6.8M-barrel EIA crude draw with Hormuz traffic picking up. VIX held ~16 in contango. The book read: the cohort (DRAM/APLD/NOK/SKM/ARM 240C) takes a premarket sympathy drag on the AVGO reset, but the structural demand signal is intact — AVGO's AI revenue doubled, the backlog stands, the Anthropic TPU deal stands, and the guide beat — while the rate/oil relief is the offsetting tailwind.</div></div>
+  <div class="item"><div class="k">Key binary</div><div class="v"><b>Into the open — the decider stack (in dealer-book impact order)</b>: (1) <b>Does the AI cohort stabilize after the AVGO/CRWD bar-reset, or does the sympathy drag deepen?</b> AVGO's doubled AI revenue + the standing backlog/Anthropic TPU deal + the Q3 guide beat are the structural case that the demand thesis is intact even as the stock resets — a cohort that holds re-anchors APLD/DRAM/NOK/SKM/ARM 240C; a cascade pressures the marks. (2) <b>The 10Y at ~4.45%</b> — the back-down from ~4.49% relaxes the long-duration discount-rate drag on GOOG/APLD/ARM 240C and pushes the ARM 240C trim level (10Y > 4.55%) further out of reach; a re-acceleration into NFP re-arms it. (3) <b>Initial Jobless Claims 8:30 ET</b> (est ~211k) — the labor cross-check into NFP; a soft/in-line print keeps the rate relief, a hot one revives the back-up. (4) <b>NFP Friday 6/5</b> (consensus ~+100k, U-rate 4.3%) — the week's marquee decider against the hot-JOLTS/ADP/ISM tape. (5) <b>Oil / Iran tape</b> — oil slipped with Hormuz traffic picking up; a fresh escalation re-fires the RDW bid and the oil-inflation impulse, a continued easing drains both. (6) <b>The DXY/real-rate path vs SLV</b> — the dollar that sank metals Wednesday is the live SLV trim trigger if DXY pushes through 100; the 10Y back-down is a marginal reprieve. (7) <b>GOOG 50DMA</b> — Alphabet designs AVGO's TPUs through 2031, so the AVGO reset cuts both ways; the rate relief helps, the tech-tape drag is the watch with ~10 trading days to 6/18.</div></div>
+</div>
+
+<div id="metrics" class="km">
+  <div class="km-cell blue"><div class="k">SPY / SPX est</div><div class="v">$723.77</div><div class="d">SPX ≈ 7,238 · prior +0.80%</div></div>
+  <div class="km-cell pos"><div class="k">ES Futures</div><div class="v">+0.70%</div><div class="d">7,338.25 · NQ +1.11% · YM +0.86%</div></div>
+  <div class="km-cell warn"><div class="k">VIX / VIX9D</div><div class="v">16.72 / 14.64</div><div class="d">VIX -3.80% · VIX9D <b style="color:#ffb347;">-11.81%</b></div></div>
+  <div class="km-cell blue"><div class="k">VIX curve</div><div class="v">Contango</div><div class="d">3M − spot <b>+4.10</b> · normal</div></div>
+  <div class="km-cell pos"><div class="k">Breadth &gt; 20MA</div><div class="v">62.5%</div><div class="d">&gt; 50MA 70.5% · adv 67.0%</div></div>
+  <div class="km-cell warn"><div class="k">CNN F&amp;G</div><div class="v">52 Neutral</div><div class="d">prev 55 · 1w 60 · 1m 52</div></div>
+</div>
+
+<h2 id="tldr" class="sec-red"><span class="marker"></span>TL;DR — What You Need To Know</h2>
+<div style="padding:6px 4px; margin-bottom:18px;"><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>The overnight tape flipped the EOD's constructive AH read: AVGO and CRWD both reported strong quarters but SOLD OFF hard on 'buy the rumor, sell the news.'</b> AVGO tumbled ~12% AH despite an EPS beat ($2.44 vs ~$2.40), AI revenue more than doubling to ~$10.8B and a Q3 revenue guide above consensus (~$29.4B vs ~$28.53B) — the trigger was Hock Tan declining to raise the $100B 2027 AI-chip target. CRWD fell ~10% AH even with +26% revenue growth, a 4-for-1 split and a guidance raise.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>The damage is tech-concentrated, not a broad risk-off: Nasdaq futures are lower while Dow futures RISE on a rotation into value/cyclicals, S&P futures mixed.</b> The gamma frame sits with SPY near ~$754 — $756 the bull pivot, $750 the bear pivot, $746 the trapdoor; VIX held ~16 in contango.</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>The two macro legs that drove Wednesday's double hit EASED overnight: the 10Y backed DOWN to ~4.45% (from ~4.49%) and oil SLIPPED (WTI ~$95.68, Brent ~$96.97, off ~0.86%) on a 6.8M-barrel crude draw with Hormuz traffic picking up.</b> The rate/oil relief is the offsetting tailwind to the AVGO/CRWD sentiment drag and pushes the ARM 240C 10Y-trim level (>4.55%) further out of reach. Today: Initial Jobless Claims 8:30 ET (est ~211k), Daly 12:10 ET; NFP May the marquee decider FRIDAY 6/5 (not 6/6 — June 6 is a Saturday).</div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>Book read: the AVGO/CRWD sell-the-news is a SENTIMENT reset on the AI-cohort book, NOT a demand-thesis break — AVGO's AI revenue doubled, the backlog and Anthropic TPU deal stand, and the guide beat.</b> <span class="flag-grn">HOLD APLD/DRAM/NOK/SKM/ARM 240C</span> full size through the sympathy drag; <span class="flag-grn">GOOG HOLD</span> (Alphabet's TPUs run through AVGO to 2031), watch the 50DMA into the tech tape with rate relief helping; <span class="flag-grn">RDW HOLD</span>, defense tail structural with the Iran tape calmer; <span class="flag-red">SLV CONFLICTED</span> — oil/rate relief is marginal, the dollar is the swing, trim live if DXY>100, ~10 trading days to the Jun 80C; <span class="flag-red">ARM 300C LET EXPIRE Fri 6/5</span>. Trim triggers are combination triggers — none armed pre-open.</div></div></div>
+
+<h2 id="overnight" class="sec-orange"><span class="marker"></span>Overnight Developments</h2>
+<p style="color:#cdd2de; font-size:13.5px; line-height:1.65; margin:0 0 14px 0;">What changed since Wednesday's close: AVGO and CrowdStrike reported strong quarters but both sold off hard on too-high bars, dragging Nasdaq futures lower while Dow futures rose on rotation; the 10Y and oil both eased, relaxing two of Wednesday's risk-off legs into jobless claims and NFP Friday.</p>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">1. AVGO sold the news — strong Q2 (EPS $2.44, AI revenue doubled to ~$10.8B, Q3 guide beat) but ~-12% AH because Tan held the $100B 2027 AI-chip target</b> Broadcom's fiscal Q2 was the most-watched print of the week and operationally strong: EPS $2.44 versus ~$2.40 consensus, net income up 88% Y/Y to $9.31B, AI revenue more than doubling to ~$10.8B, and Q3 revenue guided to ~$29.4B against ~$28.53B expected — a guide beat. Revenue was a slight miss ($22.19B vs ~$22.27B). Yet the stock tumbled roughly 12% in after-hours and premarket on a textbook 'buy the rumor, sell the news': the shares had run +4.1% into the print to a 52-week high, and CEO Hock Tan declined to RAISE the full-year $100B 2027 AI-chip-sales target the rally had priced. The reaction is a high-bar reset on a strong quarter, not a demand miss — the AI demand signal (revenue doubling, the $73B backlog, the Anthropic TPU capacity deal, Google TPU design through 2031) is intact.</div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">2. CRWD also sold the news — strong fiscal Q1 (+26% revenue), a 4-for-1 split, a new Chief AI Officer and a guidance raise, but ~-10% AH</b> CrowdStrike's fiscal Q1 was strong — revenue up ~26% Y/Y, a guidance raise, the announcement of a 4-for-1 stock split and a newly appointed Chief AI Officer — but the stock still fell roughly 10% after hours on the same elevated-expectations dynamic that hit AVGO. The cyber/AI-software cohort had priced a clean beat-and-raise plus fireworks; a good-but-not-blowout print triggered a profit-taking reset. Combined with AVGO, the read is that the AI/tech complex is resetting too-high bars after the record run, not repricing the underlying demand.</div></div>
+<div style="margin-top:18px; padding:14px 16px; border-left:3px solid #ffb347; background:rgba(255,179,71,0.05); border-radius:0 8px 8px 0;"><div style="font-size:13px; line-height:1.6; color:#cdd2de;"><b>Framework read</b>: This is a tech-concentrated, sentiment-driven open — not a repeat of Wednesday's broad coordinated risk-off. Both bearish legs from yesterday (the rate back-up and the oil/geopolitics spike) eased overnight; what is dragging futures is the AVGO/CRWD bar-reset, which is contained in tech (Nasdaq futures lower, Dow futures higher on rotation). For the book that is the constructive distinction: the AI-cohort marks take a sympathy hit, but the demand thesis the whole cohort rides was confirmed, not broken — AVGO's AI revenue doubled, the backlog and Anthropic TPU deal stand, and the guide beat. The two-sided path into the session: the bull case is the cohort stabilizing once the high bar is reset + soft/in-line jobless claims + the rate relief holding, which lets SPY hold $750-$756 and the cohort re-anchor; the bear case is the sympathy drag deepening into a hot jobless-claims/NFP-Friday combo that re-arms the rate leg, dragging SPY through $750 toward the $746 trapdoor and the long-duration book another leg lower — with RDW's defense bid softer on the eased oil and SLV still hostage to the dollar.</div></div>
+
+<h2 id="tom" class="sec-blue"><span class="marker"></span>Day-Trade Top of Mind — Three Setups for the Open</h2>
+<p style="color:#94a3b8; font-size:13px; margin-top:-6px;">The three highest-conviction setups for the first hour, with explicit triggers. Premarket fetched live; levels are pre-committed entry/invalidation points.</p>
+
+<div class="scenarios">
+  <div class="scn bull">
+    <span class="tag">Long setup</span>
+    <div class="t">No qualifying gainer</div>
+    <p>Premarket window not yet active or no clean gappers in the seed pool. Re-check at 9:25 AM.</p>
+  </div>
+  <div class="scn base">
+    <span class="tag">Index play</span>
+    <div class="t">SPY · $723.77 pre-market</div>
+    <p><b>SPY</b> sits at <b>$723.77</b> pre-open vs prior close <b>$723.77</b>. The two pivots that matter most: <b>$725</b> bull magnet, <b>$720</b> bear pivot. <b>Trigger long:</b> 5-min close above <b>$725</b> with breadth confirming (TICK > +500). <b>Trigger short:</b> 5-min close below <b>$720</b> on volume. <b>Invalidate either:</b> reversal back through the level within 10 min — that's a failed breakout, fade in the opposite direction.</p>
+  </div>
+  <div class="scn bear">
+    <span class="tag">Short setup</span>
+    <div class="t">No qualifying loser</div>
+    <p>Premarket window not yet active or no clean down-gappers in the seed pool. Re-check at 9:25 AM.</p>
+  </div>
+</div>
+
+<h2 id="idx" class="sec-blue"><span class="marker"></span>Index Day-Trade Playbook — SPY/QQQ Mechanics</h2>
+<p>The index playbook below is the macro frame that informs whether single-name long setups carry through the day or get faded. The Strike Map and Opening Drive sections that follow give you the specific SPY levels that define each regime.</p>
+
+<h2 id="vix" class="sec-blue"><span class="marker"></span>Volatility Structure</h2>
+<div style="display:grid; grid-template-columns: 1.3fr 1fr; gap: 14px;">
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">VIX Term Curve</h3>
+    <svg width="100%" height="160" viewBox="0 0 420 160" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="vx-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#58b8ff" stop-opacity="0.35"/><stop offset="100%" stop-color="#58b8ff" stop-opacity="0"/></linearGradient></defs><polygon points="32.0,100.6 150.7,85.3 269.3,55.0 388.0,39.4 388.0,128 32.0,128" fill="url(#vx-grad)"/><polyline points="32.0,100.6 150.7,85.3 269.3,55.0 388.0,39.4" stroke="#58b8ff" stroke-width="2.5" fill="none" stroke-linejoin="round"/><circle cx="32.0" cy="100.6" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="150.7" cy="85.3" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="269.3" cy="55.0" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="388.0" cy="39.4" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><text x="32.0" y="88.6" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">14.64</text><text x="32.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX9D</text><text x="150.7" y="73.3" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">16.72</text><text x="150.7" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX</text><text x="269.3" y="43.0" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">20.82</text><text x="269.3" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX3M</text><text x="388.0" y="27.4" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">22.94</text><text x="388.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX6M</text></svg>
+    <div class="vlabel">
+      <span>Slope (3M−spot): <b>+4.10</b></span>
+      <span>State: <b>contango (normal)</b></span>
+    </div>
+  </div>
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">Cross-Asset Vol</h3>
+    <table style="margin: 0; border: none; background: transparent;">
+      <tr><td class="lbl">VIX (30d SPX)</td><td class="num">16.72</td><td class="num neg">-3.80%</td></tr>
+      <tr><td class="lbl">VIX9D (9d SPX)</td><td class="num">14.64</td><td class="num flag-yel">-11.81%</td></tr>
+      <tr><td class="lbl">VXN (NDX IV)</td><td class="num">22.46</td><td class="num flag-yel">-2.52%</td></tr>
+      <tr><td class="lbl">OVX (Oil IV)</td><td class="num">74.73</td><td class="num flag-yel">-4.96%</td></tr>
+      <tr><td class="lbl">MOVE (Bond vol)</td><td class="num">76.78</td><td class="num flag-yel">-1.39%</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2 id="breadth" class="sec-green"><span class="marker"></span>Breadth — Universe Internals</h2>
+<div class="rings"><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#58b8ff" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="94.34" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">67.0%</div></div></div><div class="caption">% Advancing</div></div><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#52e08f" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="107.21" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">62.5%</div></div></div><div class="caption">> 20-day MA</div></div><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#52e08f" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="84.34" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">70.5%</div></div></div><div class="caption">> 50-day MA</div></div><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#ffb347" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="90.34" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">+0.92%</div></div></div><div class="caption">Avg Day %</div></div></div>
+<p><b>Premarket breadth is split by style rather than uniformly weak — Nasdaq futures lower on the AVGO/CRWD bar-reset while Dow futures rise on a rotation into value/cyclicals, so the AI-server cohort is the locus of the drag, not the broad tape.</b> The structural read: this is a tech-concentrated sentiment pullback, not the all-board negative breadth of Wednesday's coordinated risk-off; whether the cohort stabilizes once AVGO's high bar resets re-broadens breadth or the drag spreads through the claims/NFP window is the tell into the session.</p>
+
+<h2 id="sectors" class="sec-green"><span class="marker"></span>Sector Rotation — Prior Session</h2>
+<div class="bars"><div class="bar-row"><div><span class="bname">Technology</span></div><div class="betf">XLK</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:48.0%;"></div></div><div class="bpct pos">+2.21%</div></div>
+<div class="bar-row"><div><span class="bname">Materials</span></div><div class="betf">XLB</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:37.74929854738017%;"></div></div><div class="bpct pos">+1.74%</div></div>
+<div class="bar-row"><div><span class="bname">Industrials</span></div><div class="betf">XLI</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:18.171893273380523%;"></div></div><div class="bpct pos">+0.84%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Staples</span></div><div class="betf">XLP</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:13.52424707903636%;"></div></div><div class="bpct pos">+0.62%</div></div>
+<div class="bar-row"><div><span class="bname">Health Care</span></div><div class="betf">XLV</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:8.557145548556838%;"></div></div><div class="bpct pos">+0.39%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Disc.</span></div><div class="betf">XLY</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:6.459857311518814%;"></div></div><div class="bpct pos">+0.30%</div></div>
+<div class="bar-row"><div><span class="bname">Real Estate</span></div><div class="betf">XLRE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:4.435987011372383%;"></div></div><div class="bpct pos">+0.20%</div></div>
+<div class="bar-row"><div><span class="bname">Energy</span></div><div class="betf">XLE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:2.1951029925427754%;"></div></div><div class="bpct pos">+0.10%</div></div>
+<div class="bar-row"><div><span class="bname">Financials</span></div><div class="betf">XLF</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:0.42116548974385537%;"></div></div><div class="bpct pos">+0.02%</div></div>
+<div class="bar-row"><div><span class="bname">Utilities</span></div><div class="betf">XLU</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:0.0%;"></div></div><div class="bpct pos">+0.00%</div></div>
+<div class="bar-row"><div><span class="bname">Communications</span></div><div class="betf">XLC</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:41.20423122486205%; width:8.795768775137951%;"></div></div><div class="bpct neg">-0.40%</div></div></div>
+<p><b>The premarket sector lean is rotational — semis/AI-hardware and cyber/AI-software heavy on the AVGO/CRWD sell-the-news, value/cyclicals and the Dow bid on the rotation, energy softer with oil off ~0.86%, and rate-sensitives marginally relieved on the 10Y back-down to ~4.45%.</b> Position-book read: the chip-cohort legs (DRAM/APLD/NOK/SKM) + ARM 240C take the AVGO-driven sympathy drag but ride the confirmed demand signal; GOOG trades the tech tape with the rate relief cushioning; RDW's defense bid is lighter on the eased oil; SLV stays conflicted as the dollar — not oil or the nominal 10Y — remains the swing.</p>
+
+<h2 id="commodities" class="sec-orange"><span class="marker"></span>Commodity Complex — Energy, Metals, Industrial</h2>
+<div class="commodities"><div class="commodity-group"><div class="grp-title energy">ENERGY</div><div class="commodity-row"><span class="nm">Crude Oil (WTI)</span><span class="px">$95.01</span><span class="ch neg">-7.10%</span></div>
+<div class="commodity-row"><span class="nm">Brent Crude</span><span class="px">$102.90</span><span class="ch neg">-6.34%</span></div>
+<div class="commodity-row"><span class="nm">Natural Gas</span><span class="px">$2.762</span><span class="ch neg">-0.93%</span></div></div> <div class="commodity-group"><div class="grp-title precious">PRECIOUS METALS</div><div class="commodity-row"><span class="nm">Gold</span><span class="px">$4,691.40</span><span class="ch pos">+2.98%</span></div>
+<div class="commodity-row"><span class="nm">Silver</span><span class="px">$77.38</span><span class="ch pos">+5.84%</span></div>
+<div class="commodity-row"><span class="nm">Platinum</span><span class="px">$2,038.70</span><span class="ch pos">+3.98%</span></div></div> <div class="commodity-group"><div class="grp-title industrial">INDUSTRIAL</div><div class="commodity-row"><span class="nm">Copper</span><span class="px">$6.193</span><span class="ch pos">+4.20%</span></div></div></div><div class="commodity-narrative"><p><b>Crude</b> is falling (WTI -7.10%, Brent -6.34%) — under pressure on demand concerns; weighs on <b>XLE</b>. <b>Gold</b> bid (+2.98%) with yields easing — classic risk-off/real-rate trade; pairs with <b>GLD</b>, <b>GDX</b> strength. <b>Silver</b> outperforming gold (+5.84% vs +2.98%) — speculative/industrial bid leaking through. <b>Platinum</b> +3.98% — auto-catalyst and PGM demand proxy, secondary signal. <b>Copper</b> higher (+4.20%) — global-growth read is constructive; supports <b>XLB</b>, <b>FCX</b>. <b>DXY</b> weakening (-0.57%) — mechanical tailwind/headwind for the entire commodity complex.</p></div>
+
+<h2 id="rsi" class="sec-purple"><span class="marker"></span>TradingView Ratings — Indexes &amp; Sectors</h2>
+<h3>Index ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">SPY</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:71%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 71.3</span></div></div>
+<div class="rsi-cell"><div class="tk">QQQ</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:76%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 76.4</span></div></div>
+<div class="rsi-cell"><div class="tk">IWM</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:69%; background:#ffb347;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 69.2</span></div></div>
+<div class="rsi-cell"><div class="tk">DIA</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:59%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 58.5</span></div></div></div>
+<h3>Sector ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">Financials</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:52%; background:#9dd98a;"></div></div><div class="sub"><span>MA SELL</span><span>RSI 52.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Energy</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:60%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 59.7</span></div></div>
+<div class="rsi-cell"><div class="tk">Technology</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:77%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 77.3</span></div></div>
+<div class="rsi-cell"><div class="tk">Health Care</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:46%; background:#8892a8;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 45.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Disc.</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:57%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 57.3</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Staples</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:56%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 56.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Materials</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:53%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 53.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Industrials</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:54%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 53.8</span></div></div>
+<div class="rsi-cell"><div class="tk">Real Estate</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:60%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 59.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Communications</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:50%; background:#9dd98a;"></div></div><div class="sub"><span>MA NEUTRAL</span><span>RSI 50.1</span></div></div>
+<div class="rsi-cell"><div class="tk">Utilities</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:52%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 52.5</span></div></div></div>
+<p><b>Technical structure stays in the post-break posture — Wednesday's record-run unwind plus this morning's AVGO-led tech drag keep the cohort book's RSI ratings off the prior extension highs, with SPY working the $750-$756 range below Tuesday's record.</b> The structural read: cohort stabilization + soft claims + 10Y holding ~4.45% re-anchors structure back toward the highs; a cohort cascade + a hot claims/NFP compresses it toward $744-747. ARM 240C strike-reach holds with ~10 trading days to 6/18 — the eased 10Y (~4.45%, well below the 4.55% trim level) is the marginal support, the AVGO sympathy drag the headwind.</p>
+
+<h2 id="fg" class="sec-yellow"><span class="marker"></span>CNN Fear &amp; Greed — Current Reading</h2>
+<div class="caveat">Values from narrative.fg_override (research step)</div>
+<div class="fg-block">
+  <div class="fg-gauge">
+    <svg width="220" height="150.0" viewBox="0 0 220 150.0"><path d="M 25.0 130.0 A 85 85 0 0 1 195.0 130.0" stroke="rgba(255,255,255,0.06)" stroke-width="14" fill="none" stroke-linecap="round"/><path d="M 25.0 130.0 A 85 85 0 0 1 195.0 130.0" stroke="#8892a8" stroke-width="14" fill="none" stroke-dasharray="267.04" stroke-dashoffset="128.18" stroke-linecap="round"/><line x1="110.0" y1="130.0" x2="114.0" y2="67.1" stroke="#f3f5fa" stroke-width="3" stroke-linecap="round"/><circle cx="110.0" cy="130.0" r="6" fill="#f3f5fa"/><text x="110.0" y="136.0" text-anchor="middle" fill="#f3f5fa" font-size="30" font-weight="700">52</text><text x="110.0" y="158.0" text-anchor="middle" fill="#8892a8" font-size="11" letter-spacing="1.5" font-weight="600">NEUTRAL</text></svg>
+    <div style="margin-top:8px; font-size:10px; color:#8892a8; letter-spacing:1.3px; text-transform:uppercase;">Prev close 55 · 1w 60 · 1m 52</div>
+  </div>
+  <div><div class="fg-comp-grid"><div class="fg-comp"><div class="l">Market Momentum (S&P 500)</div><div class="v">62 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div>
+<div class="fg-comp"><div class="l">Stock Price Strength</div><div class="v">58 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div>
+<div class="fg-comp"><div class="l">Stock Price Breadth</div><div class="v">45 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">NEUTRAL</span></div></div>
+<div class="fg-comp"><div class="l">Put/Call Options</div><div class="v">48 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">NEUTRAL</span></div></div>
+<div class="fg-comp"><div class="l">Market Volatility (VIX)</div><div class="v">58 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div>
+<div class="fg-comp"><div class="l">Safe Haven Demand</div><div class="v">47 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">NEUTRAL</span></div></div>
+<div class="fg-comp"><div class="l">Junk Bond Demand</div><div class="v">56 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div></div></div>
+</div>
+<p><b>F&G eased toward the Greed/Neutral border (~52) as the record-run break plus the AVGO/CRWD bar-reset cooled sentiment, partly cushioned by the overnight rate/oil relief and the intra-equity rotation that lifted the Dow.</b> The structural read: cohort stabilization + soft claims + a cold NFP pushes F&G back toward 60; a cohort cascade + a hot NFP + an oil re-spike compresses it toward 45-50. Note: the CNN live endpoint returns HTTP 418 from the sandbox, so the in-report gauge uses press-reconciled fallback values pinned to the tech-pullback open + the eased-macro setup.</p>
+
+<h2 id="risk" class="sec-red"><span class="marker"></span>Risk Matrix — Into the Open &amp; Through the Session</h2>
+
+<div class="risk r-hi">  <div class="head"><div class="t">1. <b>The AVGO/CRWD sell-the-news cascades into the AI cohort rather than resetting cleanly — the sympathy drag broadens and the cohort marks compress further</b></div><div class="p">Highest priority · cohort-sentiment risk into the open</div></div>  <div>The dominant near-term risk is that the AVGO/CRWD bar-reset, instead of a one-session profit-take on too-high expectations, broadens into a multi-day AI-cohort de-rating. AVGO ran +4.1% into a 52-week high and still fell ~12% on a strong quarter; if the tape reads 'even doubling AI revenue and beating the guide wasn't enough,' the cohort-cousin book (DRAM/APLD/NOK/SKM/ARM 240C) takes a sentiment leg lower even with theses intact. Position-book translation: the cohort trim triggers are structural (closing-basis base breaks), not single-name AH sentiment, so they do NOT fire on the AVGO reset alone — but the marks compress and the dated-call premium bleeds if the drag persists into NFP. Counter-read (the base case): the demand signal was confirmed, not broken — AVGO's AI revenue doubled, the backlog and Anthropic TPU deal stand, the guide beat — so the cohort stabilizes once the high bar resets.</div></div>
+<div class="risk r-hi">  <div class="head"><div class="t">2. <b>A hot Jobless Claims / NFP Friday re-arms the 10Y back-up toward 4.55%, layering a rate leg back onto the tech-pullback tape</b></div><div class="p">High priority · rate leg into NFP</div></div>  <div>The 10Y backed down to ~4.45% overnight, relaxing the long-duration drag — but the relief is fragile against the week's hot-JOLTS/ADP/ISM tape. A hot Initial Jobless Claims print (8:30 ET) or a hot NFP Friday would revive the higher-for-longer repricing, push the 10Y back toward 4.55%, and re-arm the ARM 240C trim leg (closing-basis recent-base break + 10Y above 4.55% same session) on top of the AVGO-driven cohort sympathy drag — the two-headed combination that would press SPY through $750 toward the $746 trapdoor. Position-book translation: GOOG trim arms on a 50DMA close; APLD/DRAM/NOK trim does NOT fire on the rate tape alone. Counter-read: a soft/in-line claims + a cold NFP confirm the overnight rate relief and re-support the legs.</div></div>
+<div class="risk r-hi">  <div class="head"><div class="t">3. <b>SLV stays conflicted — the rate/oil relief is marginal and the dollar remains the swing; the dual-condition trim is live into the Jun 80C expiry</b></div><div class="p">High priority · position-level cross-current</div></div>  <div>The overnight 10Y back-down and the eased oil are only a marginal reprieve for SLV: the position fell with metals on Wednesday because the strong dollar / rising real yields overpowered the safe-haven bid, and the dollar — not oil or the nominal 10Y alone — is the swing. With ~10 trading days to the Jun 80C expiry and the position ~-20%, the dual-condition trim (DXY above 100 + real rates higher) stays LIVE; if the dollar bid pushes DXY through 100, the trim engages. The eased oil also softens the geopolitical safe-haven leg at the margin. Counter-read: a continued 10Y/real-rate back-down that drags the dollar lower would finally let the safe-haven/industrial bid express in the metals into expiry.</div></div>
+<div class="risk r-med">  <div class="head"><div class="t">4. <b>The Iran-Gulf tape re-escalates and re-spikes oil — a fresh inflation impulse that reverses the overnight relief</b></div><div class="p">Medium priority · geopolitical cross-asset</div></div>  <div>Oil slipped overnight with Hormuz traffic picking up, but the Strait remains far below pre-conflict throughput and the conflict is unresolved. A fresh escalation headline over the session would re-spike oil, reverse the overnight relief, and re-layer the inflation impulse onto the rate complex — re-firing the RDW defense bid (favorable for the position) while pressuring the broad tape. Position-book translation: RDW's tail re-skews favorably on exactly this path; the long-duration cohort takes the oil-inflation drag. Counter-read: continued de-escalation/normalizing Hormuz traffic drains the oil premium and keeps the rate relief intact.</div></div>
+<div class="risk r-low">  <div class="head"><div class="t">5. <b>ARM 300C terminal into Friday 6/5 expiry — $300 strike unreachable; let expire, no harvest window</b></div><div class="p">Low priority · position-level terminal decay</div></div>  <div>ARM 300C (exp 2026-06-05) sits at $0.80 (-87.71%) with ~1 trading day to expiry. ARM ATH ~$259.44 leaves the $300 strike ~16% out of reach; reaching it would require a single-session +18% gap on a fresh binary the remaining session cannot deliver — and the AVGO-led tech-pullback tape pushes spot the wrong way. Let it expire Friday 6/5; no harvest window remains. Lesson banked: deep-OTM pre-print IV-lotteries require the spot-rally + IV-ramp combo, not a catalyst that lands after post-print IV compression.</div></div>
+
+<p style="margin-top:14px;">The overnight tape reset the AI cohort's bar rather than breaking its thesis — AVGO sold the news ~-12% despite doubling AI revenue to ~$10.8B, beating EPS and raising the Q3 revenue guide, the trigger being only that Tan held the $100B 2027 target the +4.1% run had priced; CRWD fell ~10% on a strong quarter plus a split and a raise. The skew still favors holding the cohort book (APLD/DRAM/NOK/SKM/ARM 240C) full size — the demand signal was confirmed (backlog and Anthropic TPU deal standing, guide beat), so the premarket sympathy drag is sentiment, not demand. The offsetting tailwind is real: both of Wednesday's bearish legs eased overnight, with the 10Y backing down to ~4.45% (pushing the ARM 240C 10Y-trim level further out of reach) and oil slipping (cooling the inflation impulse). The two-sided deciders into Friday are whether the cohort stabilizes once the high bar resets or cascades, and whether Initial Jobless Claims / NFP May print soft (confirming the rate relief) or hot (re-arming the 10Y toward 4.55%). RDW's defense bid is lighter on the eased oil but its contract catalysts are intact; SLV stays conflicted with the dollar the swing (trim live if DXY>100); GOOG carries its 50DMA watch (Alphabet's TPUs run through AVGO to 2031, so the reset cuts both ways) and ARM 300C is terminal into Friday's expiry. The key change vs Wednesday: the macro legs eased, so the whole decision rests on cohort stabilization and the labor prints, not a coordinated risk-off.</p>
+
+<h2 id="setup" class="sec-blue"><span class="marker"></span>Opening Setup — Three Paths Into Cash</h2>
+<div class="scenarios">  <div class="scn bull"><span class="tag">Bull path</span>    <div class="t">Cohort stabilizes once the AVGO/CRWD bar resets + soft jobless claims + rate relief holds = SPY reclaims $756 toward $762, the cohort book re-anchors</div>    <p>Bull path: the AVGO/CRWD sell-the-news proves a one-session bar-reset rather than a de-rating — the market re-reads AVGO's doubled AI revenue, the $73B backlog, the Anthropic TPU deal and the Q3 guide beat as confirmation the demand thesis is intact, and the cohort stabilizes; Initial Jobless Claims prints soft/in-line, keeping the overnight 10Y back-down (~4.45%) intact; and oil stays contained. The rotation that lifted Dow futures broadens back to tech. APLD recovers on the AI-Factory validation, DRAM on the memory read, NOK on AVGO's networking strength, SKM on the Korea/HBM halo, ARM 240C on the relaxed rate leg, GOOG on the rate relief plus the TPU-through-2031 read. SPY reclaims $756 and the magnets open to $759-762; VIX compresses toward 14-15. Position-book translation: the cohort legs recover the premarket sympathy drag, GOOG stabilizes off the 50DMA, and the record-run pullback finds its footing into NFP.</p></div>  <div class="scn base"><span class="tag">Base case</span>    <div class="t">Tech stays heavy on the bar-reset while Dow rotates green + claims in-line + 10Y chops ~4.45-4.50% = SPY chops $750-$756, book holds full size</div>    <p>Base case: the AVGO/CRWD reset keeps Nasdaq futures and the AI cohort heavy through the morning while Dow/value holds the rotation bid, jobless claims print near consensus, and the 10Y chops the 4.45-4.50% zone. SPY chops the $750-$756 gamma-pin range below Tuesday's record; VIX holds 16-18 contango. The cohort marks stay soft on the sympathy drag but the theses hold; RDW carries a lighter defense bid on the eased oil; SLV stays conflicted (dollar the swing); GOOG trades the tech tape around the 50DMA with the rate relief cushioning. Position-book translation: hold the full book; no trim triggers fire; AVGO's confirmed demand signal holds the structural-compounder bid (APLD/DRAM/NOK/SKM) while the bar-reset keeps the index range-bound below the highs. The discrete tells are whether the cohort stabilizes intraday, the claims print, and NFP Friday.</p></div>  <div class="scn bear"><span class="tag">Bear path</span>    <div class="t">AVGO/CRWD drag cascades + hot claims/NFP re-arms the 10Y toward 4.55% + oil re-spikes = SPY breaks $750, trapdoor to $746, long-duration book gives back 2-4% (RDW offsets)</div>    <p>Bear path: the AVGO/CRWD sell-the-news broadens into an AI-cohort de-rating ('even a doubling wasn't enough'), Initial Jobless Claims or NFP Friday print hot and re-arm the 10Y back-up toward 4.55%, and the Iran tape re-escalates to re-spike oil — the sympathy drag, the rate leg and the inflation impulse re-compounding. The long-duration discount-rate drag returns, the cohort halo fades despite AVGO's intact backlog, GOOG presses the 50DMA on the tech tape + rate drag, and ARM 240C closes below recent base as the 10Y break fires the trim combo. SPY breaks the $750 bear pivot and the $746 trapdoor opens; VIX bids toward 19-20. The diversifier read: RDW catches a clean defense bid on the re-escalation, while SLV stays muddied by the dollar (trim engages if DXY breaks 100). Position-book translation: ARM 240C trim fires on the recent-base-break + 10Y-above-4.55% combo; GOOG trim fires on a 50DMA close; APLD/DRAM/NOK trim does NOT fire on the sentiment/macro alone; the long-duration book gives back 2-4% with RDW partly cushioning.</p></div></div>
+
+<h2 id="cat" class="sec-blue"><span class="marker"></span>Catalyst Watch — Next 72 Hours</h2>
+<table>
+<thead><tr><th>When (ET)</th><th>Event</th><th>Read &amp; Implication</th></tr></thead>
+<tbody>
+<tr><td class="flag-yel">Thu 6/4 — 8:30 AM ET</td><td class="flag-yel">Initial Jobless Claims (est ~211k, prior 215k) + Continuing Claims (~1,780k)</td><td class="flag-yel">The labor cross-check into NFP Friday against the week's hot-JOLTS/ADP/ISM tape. A soft/in-line print keeps the overnight 10Y back-down (~4.45%) and the rate relief for the long-duration cohort legs; a hot print revives the back-up and re-pressures the dated-call book on top of the AVGO-led cohort drag.</td></tr>
+<tr><td class="flag-red">Thu 6/4 — into the open + intraday</td><td class="flag-red">AVGO/CRWD premarket reaction follow-through + AI-cohort stabilization watch</td><td class="flag-red">Whether the AI cohort stabilizes once the AVGO/CRWD high-bar reset clears or the sympathy drag deepens is the session's dominant tell for DRAM/APLD/NOK/SKM/ARM 240C. A cohort that holds re-anchors the book; a cascade compresses the marks even with theses intact.</td></tr>
+<tr><td class="flag-yel">Thu 6/4 — 12:10 PM ET</td><td class="flag-yel">Fed's Daly speaks + Ciena (CIEN) earnings BMO + Netflix/Walmart annual meetings</td><td class="flag-yel">Daly's remarks are the Fed-path color into Friday's NFP; CIEN is the AI-networking cohort read alongside NOK. A hawkish Daly tilt re-pressures the rate-relief baseline; a balanced tone keeps it intact.</td></tr>
+<tr><td class="flag-red">Fri 6/5 — 8:30 AM ET</td><td class="flag-red">Nonfarm Payrolls May (consensus ~+100k, unemployment 4.3%) — the week's marquee decider; ARM 300C expiry same day</td><td class="flag-red">The structural decider for Fed-path pricing against the hot-JOLTS/ADP/ISM tape. A hot print compounds higher-for-longer, pushes the 10Y back toward 4.55% and arms the ARM 240C trim leg; a cold/in-line print confirms the overnight rate relief and supports the cohort halo. ARM 300C expires the same day — let expire.</td></tr>
+<tr><td class="flag-yel">Next 48 hours — ongoing</td><td class="flag-yel">Iran-Gulf headline cycle + the DXY/real-rate path</td><td class="flag-yel">The RDW/SLV swing factor. Oil slipped with Hormuz traffic picking up; a fresh escalation re-spikes oil and re-fires the RDW defense bid, a continued easing drains it. Whether SLV's safe-haven leg expresses hinges on the dollar — a DXY break through 100 engages the SLV trim despite any war bid.</td></tr>
+<tr><td class="flag-yel">Next week — ongoing</td><td class="flag-yel">CPI/PPI May + the Fed-meeting run-up (dates pending)</td><td class="flag-yel">After the hot labor/services week, the next inflation prints are the confirm-or-deny on the higher-for-longer repricing. A hot CPI on top of the ISM Prices 71.3 read re-extends the 10Y back-up; a cooler print relieves the long-duration book.</td></tr>
+</tbody>
+</table>
+
+<h3>Earnings this week (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>Session</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td class="tk">DASH</td><td>DoorDash, Inc. Class A</td><td>Wed May 06</td><td>After close</td><td class="num">0.36</td><td class="num">$72B</td></tr>
+<tr><td class="tk">WBD</td><td>Warner Bros. Discovery, Inc. Series A</td><td>Wed May 06</td><td>After close</td><td class="num">-0.11</td><td class="num">$68B</td></tr>
+<tr><td class="tk">COHR</td><td>Coherent Corp.</td><td>Wed May 06</td><td>After close</td><td class="num">1.40</td><td class="num">$66B</td></tr>
+<tr><td class="tk">APP</td><td>AppLovin Corp. Class A</td><td>Wed May 06</td><td>After close</td><td class="num">3.44</td><td class="num">$161B</td></tr>
+<tr><td class="tk">FTNT</td><td>Fortinet, Inc.</td><td>Wed May 06</td><td>After close</td><td class="num">0.62</td><td class="num">$67B</td></tr>
+<tr><td class="tk">HWM</td><td>Howmet Aerospace Inc.</td><td>Thu May 07</td><td>Before open</td><td class="num">1.11</td><td class="num">$97B</td></tr>
+<tr><td class="tk">MELI</td><td>MercadoLibre, Inc.</td><td>Thu May 07</td><td>During market</td><td class="num">8.52</td><td class="num">$92B</td></tr>
+<tr><td class="tk">MCD</td><td>McDonald's Corporation</td><td>Thu May 07</td><td>Before open</td><td class="num">2.74</td><td class="num">$203B</td></tr>
+<tr><td class="tk">CNQ</td><td>Canadian Natural Resources Limited</td><td>Thu May 07</td><td>Before open</td><td class="num">0.76</td><td class="num">$100B</td></tr>
+<tr><td class="tk">GILD</td><td>Gilead Sciences, Inc.</td><td>Thu May 07</td><td>After close</td><td class="num">1.91</td><td class="num">$166B</td></tr></tbody>
+</table>
+
+<h2 id="movers" class="sec-purple"><span class="marker"></span>Top Movers — Prior Session</h2>
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+<div><h3>Gainers</h3>
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Price</th><th>%</th></tr></thead><tbody><tr><td class="tk">STRL</td><td class="nm">Sterling Infrastructure, Inc.</td><td class="num">$806.00</td><td class="num pos">+52.22%</td></tr>
+<tr><td class="tk">DOCN</td><td class="nm">DigitalOcean Holdings, Inc.</td><td class="num">$152.77</td><td class="num pos">+40.40%</td></tr>
+<tr><td class="tk">VRDN</td><td class="nm">Viridian Therapeutics, Inc.</td><td class="num">$18.75</td><td class="num pos">+33.36%</td></tr>
+<tr><td class="tk">POET</td><td class="nm">POET Technologies Inc.</td><td class="num">$9.21</td><td class="num pos">+29.54%</td></tr>
+<tr><td class="tk">IART</td><td class="nm">Integra LifeSciences Holding…</td><td class="num">$13.22</td><td class="num pos">+24.13%</td></tr>
+<tr><td class="tk">CIFR</td><td class="nm">Cipher Digital Inc.</td><td class="num">$22.10</td><td class="num pos">+23.53%</td></tr></tbody></table></div>
+<div><h3>Losers</h3>
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Price</th><th>%</th></tr></thead><tbody><tr><td class="tk">WGS</td><td class="nm">GeneDx Holdings Corp. Class A</td><td class="num">$34.51</td><td class="num neg">-49.20%</td></tr>
+<tr><td class="tk">BRBR</td><td class="nm">BellRing Brands, Inc.</td><td class="num">$10.64</td><td class="num neg">-38.73%</td></tr>
+<tr><td class="tk">IPGP</td><td class="nm">IPG Photonics Corporation</td><td class="num">$90.84</td><td class="num neg">-25.74%</td></tr>
+<tr><td class="tk">ADEA</td><td class="nm">Adeia Inc.</td><td class="num">$27.82</td><td class="num neg">-17.26%</td></tr>
+<tr><td class="tk">OSIS</td><td class="nm">OSI Systems, Inc.</td><td class="num">$234.74</td><td class="num neg">-17.01%</td></tr>
+<tr><td class="tk">ADTN</td><td class="nm">ADTRAN Holdings, Inc.</td><td class="num">$15.30</td><td class="num neg">-16.58%</td></tr></tbody></table></div>
+</div>
+
+<h2 id="bl" class="sec-red"><span class="marker"></span>Bottom Line — Two Playbooks for the Day</h2>
+
+<p><b>Index playbook (SPY/QQQ structural):</b> Hold the SPY $750-$756 gamma-pin range as the structural frame into Initial Jobless Claims (8:30 ET) and NFP Friday after the record-run break. Reclaim of $756 on AI-cohort stabilization once the AVGO/CRWD high bar resets + soft/in-line claims + the 10Y holding ~4.45% = path opens back to the $759-762 magnets and the pullback finds its footing. Break $750 on a cohort cascade + a hot claims/NFP + an oil re-spike = the $744-747 trapdoor opens and the long-duration book gives back another 2-4%. The deciders are cohort stabilization vs cascade and the labor prints against the hot-JOLTS/ADP/ISM tape — and unlike Wednesday the macro legs eased overnight (10Y ~4.45%, oil softer), so RDW catches a defense offset only on an oil re-spike while SLV's metals offset stays hostage to the dollar.</p>
+
+<p><b>Single-name playbook (intraday options):</b> <b>HOLD APLD/DRAM/NOK/SKM full size</b> through the premarket sympathy drag — AVGO sold the news (~-12%) but its AI revenue doubled to ~$10.8B, the $73B backlog and the Anthropic 3.5GW TPU deal stand, and the Q3 guide beat; the demand thesis the cohort rides was confirmed, not broken, so the trim triggers (structural base breaks) do not fire on a single-name AH reset. <b>HOLD RDW full size</b> — the defense bid is lighter on the eased oil, but the DoD/NASA contract-award + NATO Penguin Mk3 path is intact and structural. <b>SLV HOLD — CONFLICTED</b> — the overnight rate/oil relief is marginal; the dollar remains the swing, and the dual-condition trim (DXY above 100 + real rates higher) is LIVE with ~10 trading days to the Jun 80C expiry. <b>GOOG HOLD but watch the 50DMA</b> — Alphabet designs AVGO's TPUs through 2031, so the AVGO reset cuts both ways; the 10Y back-down to ~4.45% is the marginal tailwind, the tech-tape drag the watch, trim fires only on a close below the 50DMA with ~10 trading days to 6/18. <b>ARM 240C HOLD with the trim leg armed but relaxed</b> — ~10 trading days to 6/18; the eased 10Y (~4.45%, well below the 4.55% trim level) is the support, the AVGO sympathy drag the headwind; trim fires only on (a) closing-basis loss of recent base AND (b) 10Y above 4.55% same session. <b>ARM 300C LET EXPIRE Friday 6/5</b> at $0.80 — $300 strike ~16% out of reach, mechanically unreachable, ~1 trading day left.</p>
+
+<p><b>Tape vs. book:</b> The overnight tape flipped the EOD's constructive AH read: AVGO and CRWD both sold strong prints on too-high bars, dragging Nasdaq futures lower while Dow futures rose on a rotation into value, with the macro legs (10Y ~4.45%, oil ~$95.68) easing as the offset. Position book pre-open (marks carried pending the build's live refresh): DRAM +35.90% / APLD +54.10% / SKM +24.79% / ARM 240C +1.57% (eased 10Y the support, AVGO sympathy drag the headwind) / GOOG +24.41% (50DMA watch, the TPU-through-2031 read cutting both ways) / RDW +23.37% (defense bid lighter on eased oil, catalysts intact) / NOK +10.04% (AVGO networking read, sympathy drag) / SLV -19.96% (CONFLICTED — dollar the swing, trim live if DXY>100) / ARM 300C -87.71% (terminal at $0.80, let expire 6/5). The structural divergence is between the cohort carry (AVGO-demand-confirmed, intact through the bar-reset) and the sentiment drag (the AVGO/CRWD sell-the-news pressuring the marks). The discrete deciders: AI-cohort stabilization vs cascade, Initial Jobless Claims, NFP May, and the oil/dollar tape.</p>
+
+<p><b>Profile going into the open:</b></p>
+<ul>
+  <li><b>AVGO sold the news ~-12% AH</b> — EPS $2.44 beat, AI revenue more than doubled to ~$10.8B, Q3 revenue guide ~$29.4B above the ~$28.53B expected, $73B backlog + the Anthropic 3.5GW TPU deal standing — but Tan held, did not raise, the $100B 2027 AI-chip target the +4.1% run had priced; a high-bar reset, not a demand miss, and the cleanest cohort-cousin confirmation for APLD/DRAM/NOK/SKM stands.</li>
+  <li><b>CRWD also sold the news ~-10% AH</b> — +26% revenue, a guidance raise, a 4-for-1 split and a new Chief AI Officer, yet a profit-take on the priced beat-and-raise-plus-fireworks bar; the cyber-cohort tell that the AI complex is resetting elevated expectations rather than repricing demand.</li>
+  <li><b>The macro legs eased</b> — the 10Y backed down to ~4.45% (from ~4.49%), pushing the ARM 240C 10Y-trim level (>4.55%) further out of reach, and oil slipped (WTI ~$95.68, Brent ~$96.97, off ~0.86%) on a 6.8M-barrel crude draw with Hormuz traffic picking up; the offsetting tailwind to the cohort sympathy drag.</li>
+  <li><b>The damage is tech-concentrated</b> — Nasdaq futures lower on the AVGO/CRWD reset while Dow futures rise on a rotation into value/cyclicals; a sentiment pullback, not the coordinated risk-off of Wednesday. VIX held ~16 in contango.</li>
+  <li><b>Today's tape</b> — Initial Jobless Claims 8:30 ET (est ~211k, prior 215k) + Continuing Claims (~1,780k) as the labor cross-check, Fed's Daly 12:10 ET, Ciena BMO, Netflix/Walmart annual meetings.</li>
+  <li><b>NFP May the marquee decider — Friday 6/5</b> (June 6 is a Saturday; the prior EOD mislabeled the date), consensus ~+100k, unemployment 4.3%, against the hot-JOLTS/ADP/ISM tape; ARM 300C expires the same day.</li>
+</ul>
+
+<p><b>The honest caveat:</b> The cleanest tells into Friday are whether the AI cohort stabilizes once the AVGO/CRWD high bar resets or the sympathy drag cascades, and whether Initial Jobless Claims and NFP May print soft (confirming the overnight rate relief) or hot (re-arming the 10Y toward 4.55%). The day's genuine character is that this is a tech-concentrated, sentiment-driven pullback — both bearish legs from Wednesday (the rate back-up and the oil/geopolitics spike) eased overnight — so the AVGO/CRWD bar-reset is the locus of the drag, and the demand thesis the cohort rides was confirmed (AVGO's AI revenue doubled, the backlog and Anthropic TPU deal stand, the guide beat), not broken. Data caveats: AVGO's and CRWD's exact AH/premarket percentages were still moving at compose time — the ~-12% (AVGO) and ~-10% (CRWD) cited bracket the reported range and the build's data refresh provides the live marks; the structural read (strong print, high-bar reset) is robust regardless of the exact tick. I framed cross-asset levels qualitatively from press (10Y ~4.45%, WTI ~$95.68, Brent ~$96.97, VIX ~16) and the build's refresh provides the live marks; SPY pivots are framed off Wednesday's ~$754 close and the premarket futures split and may differ from the live print the build pulls. ARM 300C is terminal at $0.80 with ~1 trading day — let expire 6/5.</p>
+
+<p><b>Highest-value recognition:</b> The highest-value recognition pre-open is that the AVGO/CRWD sell-the-news reset the AI cohort's BAR rather than broke its THESIS: AVGO ran +4.1% into a 52-week high and fell ~12% on a quarter where AI revenue more than doubled to ~$10.8B, the $73B backlog and Anthropic TPU deal stood, and the Q3 guide beat — the only 'miss' was that Tan held the $100B 2027 target the rally had priced. That is a sentiment reset on elevated expectations, not a demand repricing, and it is the constructive distinction for the whole cohort book (APLD/DRAM/NOK/SKM/ARM 240C). The second recognition is that Wednesday's two bearish legs eased overnight — the 10Y backed down to ~4.45% and oil slipped — so the drag is tech-concentrated (Nasdaq futures lower, Dow futures higher on rotation) rather than a coordinated risk-off. The defining forward signal is whether the cohort stabilizes once the high bar resets, with the Initial Jobless Claims and NFP prints the macro cross-check on the rate relief.</p>
+
+<p><b>Positioning takeaway:</b> Hold the coordinated AI-cohort exposure (DRAM/APLD/NOK/SKM/ARM 240C) full size — AVGO's bar-reset is a sentiment drag, not a demand break; the AI revenue doubling + the standing backlog/Anthropic TPU deal + the guide beat are the structural confirmation the cohort rides, and the overnight rate relief is the offsetting tailwind. <b>HOLD RDW</b> — the defense bid is lighter on the eased oil but the contract-award path is intact. <b>SLV HOLD — CONFLICTED</b> — the rate/oil relief is marginal; the dollar is the swing and the dual-condition trim (DXY>100 + real rates higher) is live into the Jun 80C expiry. <b>GOOG HOLD but watch the 50DMA</b> — trim fires only on a 50DMA close; Alphabet's TPUs run through AVGO to 2031, so the reset cuts both ways, with the rate relief cushioning. <b>ARM 240C HOLD with the trim leg armed but relaxed</b> — the eased 10Y (~4.45%, well below 4.55%) is the support; trim fires only on a closing-basis recent-base break AND 10Y above 4.55% same session. <b>ARM 300C LET EXPIRE Friday 6/5</b> at $0.80 — mechanically unreachable. The single rule into the session: hold the book through the cohort-stabilization watch and the labor prints; trim triggers are combination triggers, not single-event triggers.</p>
+
+<p><b>Historical perspective:</b> The structural pattern coming into today was the dispersion regime the June run repeated — a narrow-but-deep AI-infrastructure cohort halo holding the bid at record highs (Tuesday's S&P 7,609.78), then Wednesday's first real pullback on a coordinated rate + geopolitics risk-off. What is new this morning is the SOURCE of the drag: not a fresh macro shock but a high-bar reset — AVGO and CRWD sold strong prints because the run had priced perfection, the classic late-cycle 'good isn't good enough' reaction at elevated valuations. The constructive counter is that the demand evidence improved even as the stocks fell (AVGO's AI revenue doubled, the backlog and Anthropic TPU deal stand, the guide beat), and the two macro legs from Wednesday eased — so the cohort's structural case is intact while its sentiment resets. The position book's mechanical alignment holds: long-DTE legs (DRAM/APLD/NOK/RDW) absorb the sentiment reversibility, the strike-sensitive legs (ARM 240C cohort-validated and now rate-relieved / ARM 300C terminal) take the discrete decisions on the labor tape, and the diversifier read split — RDW's defense bid lighter on eased oil, SLV still hostage to the dollar. The pullback question stays live into NFP Friday — the cohort needs to stabilize after the bar-reset and the labor prints to confirm the rate relief, or June's first real pullback extends.</p>
+
+<p class="flag-red"><b><b>Into the open + the back half of the week (claims 8:30 Thu / NFP Fri 6/5)</b>: SPY $750 hold with the AI cohort stabilizing once the AVGO/CRWD high bar resets + soft/near-consensus claims + the 10Y holding sub-4.55% + the rotation re-broadening to tech = the record-run pullback finds its footing, ARM 240C strike-reach supported on the eased rate leg. Break $750 with a cohort cascade + a hot claims/NFP re-arming the 10Y toward 4.55% + an oil re-spike on a fresh Iran escalation = bear-combo confirmation, the $746 trapdoor opens, the ARM 240C trim fires on the recent-base-break + 10Y-above-4.55% combo, the GOOG trim arms on a 50DMA close, and coordinated 2-4% long-duration compression extends into the weekend — RDW catches an offsetting defense bid only on the oil re-spike, while SLV's metals offset stays hostage to the dollar (trim engages if DXY breaks 100). The structural decider: AI-cohort stabilization + the labor prints + the oil/dollar tape — that's the stack that decides whether the pullback finds footing or June's first real pullback extends.</b></p>
+
+<h2 id="gloss" class="sec-yellow"><span class="marker"></span>Glossary</h2>
+<dl class="gloss">
+<div><dt>GEX (Gamma Exposure)</dt><dd>Net dealer gamma position. Positive = dealers stabilize (sell rallies, buy dips). Negative = amplify. Read qualitatively here via VIX term structure.</dd></div>
+<div><dt>VIX9D</dt><dd>9-day implied vol on SPX. Captures the event window tighter than spot VIX (30-day). Compression vs spot = market pricing a binary.</dd></div>
+<div><dt>Vanna</dt><dd>Sensitivity of option delta to IV. IV crush on good news forces mechanical dealer buying — "vol crush → mechanical bid."</dd></div>
+<div><dt>Charm</dt><dd>Delta decay over time. Runs 24/7. Bleeds a call-heavy book even in a flat tape.</dd></div>
+<div><dt>Magnet / Accelerator / Trapdoor</dt><dd>Strike vocabulary. Magnet = positive-gamma strike attracting price. Accelerator = negative-gamma strike amplifying. Trapdoor = cluster that cascades.</dd></div>
+<div><dt>Contango / Backwardation</dt><dd>VIX curve shape. Contango (front &lt; back) = normal. Backwardation (front &gt; back) = stress.</dd></div>
+<div><dt>MOVE</dt><dd>Bond-market VIX. Rising MOVE = rates vol expanding, cross-asset hedge pressure.</dd></div>
+<div><dt>OVX</dt><dd>Oil-market VIX. Leading indicator for geopolitical repricing.</dd></div>
+<div><dt>Binary</dt><dd>A known-date catalyst with two discrete outcomes. Requires different positioning than a trend.</dd></div>
+</dl>
+
+<footer>
+  Sources · <a href="https://finance.yahoo.com/economy/live/stock-market-today-dow-futures-rise-nasdaq-futures-sink-after-broadcom-earnings-flop-230054325.html">Stock market today: Dow futures rise, Nasdaq futures sink after Broadcom earnings flop — Yahoo Finance</a> · <a href="https://www.cnbc.com/2026/06/03/broadcom-avgo-earnings-report-q2-2026.html">Broadcom (AVGO) earnings report Q2 2026 — CNBC</a> · <a href="https://www.tradingkey.com/analysis/stocks/us-stocks/261944759-avgo-q2-earnings-broadcom-outlook-investors-ai-stock-after-tradingkey">Broadcom Q2 Net Profit Surges 88% YoY, Shares Slump After Hours in Classic 'Buy the Rumor, Sell the News' — TradingKey</a> · <a href="https://www.benzinga.com/markets/tech/26/06/52984876/broadcoms-ai-revenue-doubled-and-it-may-not-even-be-halfway-done">Broadcom's AI Revenue Doubled — And It May Not Even Be Halfway Done — Benzinga</a> · <a href="https://www.indmoney.com/blog/us-stocks/why-avgo-stock-is-falling-after-broadcom-q2-fy2026-earnings">Why Is AVGO Stock Falling After Broadcom Q2 FY2026 Results — INDmoney</a> · <a href="https://finance.yahoo.com/markets/stocks/articles/us-stock-market-today-p-081318519.html">US Stock Market Today: S&P 500 Futures Slip As Oil And Growth Crosscurrents Build — Yahoo Finance</a> · <a href="https://www.investing.com/news/stock-market-news/initial-jobless-claims-highlight-thursdays-economic-calendar-93CH-4724977">Initial jobless claims highlight Thursday's economic calendar — Investing.com</a> · <a href="https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-06-01/">US Market Outlook: NFP, Broadcom Earnings & AI Rally Test — HeyGoTrade</a> · <a href="https://www.fxstreet.com/economic-calendar/event/9cdf56fd-99e4-4026-aa99-2b6c0ca92811">Nonfarm Payrolls — United States — 2026 Calendar Forecast — FXStreet</a> · <a href="https://tradingeconomics.com/commodity/brent-crude-oil">Brent crude oil — Price — Chart — Historical Data — Trading Economics</a> · <a href="https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis">2026 Strait of Hormuz crisis — Wikipedia</a> · <a href="https://www.cnn.com/markets/fear-and-greed">CNN Fear & Greed Index</a>
+</footer>
+
+</div></body></html>
