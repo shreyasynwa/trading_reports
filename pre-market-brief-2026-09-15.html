@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pre-Market Brief · Day-Trade Edition — Tuesday, Sep 15, 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: radial-gradient(ellipse at top, #0e1118, #06070b 60%);
+    color: #dfe3ee;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  body { padding: 32px 18px 80px; font-size: 13.5px; min-height: 100vh; }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+  a { color: #7bc4ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  b { color: #f3f5fa; font-weight: 600; }
+  em, i { color: #e2e7f2; font-style: italic; }
+
+  .pos { color: #52e08f; } .neg { color: #ff5574; } .neutral { color: #8892a8; }
+  .flag-red { color: #ff5574; font-weight: 600; }
+  .flag-yel { color: #ffb347; font-weight: 600; }
+  .flag-grn { color: #52e08f; font-weight: 600; }
+  .flag-blue { color: #7bc4ff; font-weight: 600; }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at top right, rgba(88,184,255,0.12), transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(187,119,255,0.10), transparent 55%),
+      linear-gradient(180deg, #0d1220 0%, #080a12 100%);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(88,184,255,0.06) 50%, transparent);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 16px;
+    font-size: 10.5px; letter-spacing: 2.8px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 14px; position: relative;
+  }
+  /* Smaller box-shadow + larger eyebrow gap so the glow doesn't bleed into
+     the start of the text (was 10px shadow + 8px gap → encroached on "P"). */
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #52e08f; box-shadow: 0 0 6px rgba(82,224,143,0.8);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .hero h1 {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.18; color: #ffffff; margin-bottom: 14px;
+  }
+  /* Lede uses full hero width — matches headline width on the right edge.
+     (Was capped at 78ch which left the right side unused on wide screens.) */
+  .hero .lede { font-size: 14px; color: #c5cbdb; line-height: 1.6; }
+  .hero .meta {
+    display: flex; gap: 22px; flex-wrap: wrap; margin-top: 20px;
+    font-size: 11px; color: #8892a8;
+    letter-spacing: 1.3px; text-transform: uppercase;
+  }
+  .hero .meta b { color: #dfe3ee; font-weight: 500; letter-spacing: 0.3px; text-transform: none; }
+  /* Regime pill flows in normal layout (block) so long multi-clause labels
+     wrap cleanly above the headline without overlapping. The next sibling
+     (.eyebrow) is block-level, so the pill sits alone on its row. */
+  .hero .regime-pill {
+    display: inline-block;
+    margin-bottom: 14px;
+    max-width: 100%;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase;
+    font-weight: 600; backdrop-filter: blur(10px);
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .regime-pill.risk-on  { background: rgba(82,224,143,0.12); color: #52e08f; border: 1px solid rgba(82,224,143,0.3); }
+  .regime-pill.risk-off { background: rgba(255,85,116,0.12); color: #ff5574; border: 1px solid rgba(255,85,116,0.3); }
+  .regime-pill.mixed    { background: rgba(255,179,71,0.12); color: #ffb347; border: 1px solid rgba(255,179,71,0.3); }
+
+  /* ── NAV ──────────────────────────────────── */
+  .nav {
+    display: flex; flex-wrap: wrap; gap: 6px 4px;
+    padding: 10px 14px; margin-bottom: 20px;
+    background: rgba(255,255,255,0.02); border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 11px;
+  }
+  .nav a {
+    padding: 3px 8px; border-radius: 4px;
+    color: #8892a8; transition: all 0.15s;
+  }
+  .nav a:hover { background: rgba(88,184,255,0.12); color: #7bc4ff; text-decoration: none; }
+
+  /* ── SESSION BAR ──────────────────────────── */
+  .sess {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 22px;
+    background: linear-gradient(90deg, rgba(255,179,71,0.06), rgba(255,179,71,0.02));
+    border: 1px solid rgba(255,179,71,0.2);
+  }
+  .sess .item { font-size: 12px; }
+  .sess .k { font-size: 9.5px; color: #8892a8; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 2px; }
+  .sess .v { color: #f3f5fa; }
+  .sess .v b { color: #ffb347; }
+
+  /* ── KEY METRICS ──────────────────────────── */
+  .km {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(175px,1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .km-cell {
+    position: relative; padding: 14px 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden; transition: all 0.2s;
+  }
+  .km-cell::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px; background: var(--acc, #8892a8);
+    opacity: 0.9;
+  }
+  .km-cell.pos { --acc: #52e08f; }
+  .km-cell.neg { --acc: #ff5574; }
+  .km-cell.warn { --acc: #ffb347; }
+  .km-cell.blue { --acc: #58b8ff; }
+  .km-cell .k { font-size: 10px; letter-spacing: 1.6px; color: #8892a8; text-transform: uppercase; }
+  .km-cell .v { font-size: 22px; font-weight: 700; margin-top: 6px; color: #f3f5fa; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .km-cell .d { font-size: 11px; color: #9aa3b8; margin-top: 3px; }
+
+  /* ── SECTIONS ─────────────────────────────── */
+  h2 {
+    font-size: 17px; font-weight: 700; color: #fff;
+    margin: 34px 0 14px 0; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px;
+  }
+  h2 .marker {
+    width: 8px; height: 18px; border-radius: 2px;
+    background: var(--sec-acc, #6b7ba8);
+  }
+  h2.sec-red    { --sec-acc: #ff5574; }
+  h2.sec-yellow { --sec-acc: #ffb347; }
+  h2.sec-green  { --sec-acc: #52e08f; }
+  h2.sec-blue   { --sec-acc: #58b8ff; }
+  h2.sec-purple { --sec-acc: #bb77ff; }
+  h2.sec-orange { --sec-acc: #ffb347; }
+
+  h3 {
+    font-size: 12.5px; font-weight: 600; color: #b8bfd0;
+    margin: 20px 0 10px 0; letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  p { margin-bottom: 11px; color: #cdd2de; }
+  ul, ol { margin: 10px 0 14px 22px; color: #cdd2de; }
+  ul li, ol li { margin-bottom: 6px; }
+
+  /* ── TABLES ───────────────────────────────── */
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 12px; margin: 10px 0 16px 0;
+    font-variant-numeric: tabular-nums;
+    background: rgba(255,255,255,0.012);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px; overflow: hidden;
+  }
+  th {
+    text-align: left; padding: 10px 12px;
+    font-size: 10px; letter-spacing: 1.3px; color: #8892a8;
+    text-transform: uppercase; font-weight: 600;
+    background: rgba(255,255,255,0.025);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  td {
+    padding: 9px 12px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    color: #cdd2de;
+  }
+  tbody tr:hover { background: rgba(88,184,255,0.04); }
+  td.lbl { color: #e4e7ef; font-weight: 500; }
+  td.tk { font-weight: 600; color: #fff; }
+  td.nm { color: #9aa3b8; font-size: 11px; }
+  td.num { text-align: right; }
+
+  /* ── BAR (sector rotation) ────────────────── */
+  .bars { display: flex; flex-direction: column; gap: 6px; padding: 6px 0; }
+  .bar-row {
+    display: grid; grid-template-columns: 110px 32px 1fr 70px;
+    align-items: center; gap: 10px; font-size: 11.5px;
+  }
+  .bar-row .bname { color: #dfe3ee; font-weight: 500; }
+  .bar-row .betf { color: #7f8699; font-size: 10px; letter-spacing: 0.5px; }
+  .bar-track {
+    position: relative; height: 20px;
+    border-radius: 4px; background: rgba(255,255,255,0.03);
+    overflow: hidden;
+  }
+  .bar-track .midline {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .bar-fill {
+    position: absolute; top: 2px; bottom: 2px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(82,224,143,0.4), rgba(82,224,143,0.85));
+  }
+  .bar-fill.neg { background: linear-gradient(270deg, rgba(255,85,116,0.85), rgba(255,85,116,0.4)); }
+  .bar-row .bpct {
+    text-align: right; font-weight: 600;
+    font-variant-numeric: tabular-nums; font-size: 12px;
+  }
+
+  /* ── RING (breadth / F&G) ─────────────────── */
+  .rings {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px; padding: 4px 0 10px 0;
+  }
+  .ring-cell {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 14px 12px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .ring { position: relative; width: 100px; height: 100px; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .rlabel {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .ring .rlabel .v { font-size: 20px; font-weight: 700; color: #f3f5fa; }
+  .ring .rlabel .sub { font-size: 9.5px; color: #8892a8; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
+  .ring-cell .caption {
+    margin-top: 10px; font-size: 11px; color: #8892a8;
+    letter-spacing: 1.1px; text-transform: uppercase; text-align: center;
+  }
+
+  /* ── F&G Gauge ─────────────────────────────── */
+  .fg-block {
+    display: grid; grid-template-columns: 260px 1fr; gap: 20px;
+    padding: 14px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .fg-gauge { display: flex; flex-direction: column; align-items: center; }
+  .fg-comp-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 8px;
+  }
+  .fg-comp {
+    padding: 8px 10px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.01);
+    font-size: 11px;
+  }
+  .fg-comp .l { color: #9aa3b8; font-size: 10px; letter-spacing: 0.8px; text-transform: uppercase; }
+  .fg-comp .v { color: #f3f5fa; font-weight: 600; margin-top: 3px; }
+
+  /* ── VIX curve ────────────────────────────── */
+  .vix-panel {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .vix-panel .vlabel {
+    display: flex; justify-content: space-around; font-size: 10.5px;
+    color: #8892a8; letter-spacing: 1.2px; text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .vix-panel .vlabel span b { color: #dfe3ee; font-weight: 600; }
+
+  /* ── RSI heat cell ─────────────────────────── */
+  .rsi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 8px;
+    padding: 4px 0;
+  }
+  .rsi-cell {
+    padding: 11px 13px; border-radius: 9px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .rsi-cell .tk { font-weight: 700; color: #fff; font-size: 11px; letter-spacing: 1.4px; }
+  .rsi-cell .sig { font-size: 11px; font-weight: 600; margin-top: 3px; }
+  .rsi-cell .bar {
+    height: 6px; border-radius: 3px; margin-top: 8px;
+    background: rgba(255,255,255,0.05); overflow: hidden;
+  }
+  .rsi-cell .bar > div { height: 100%; border-radius: 3px; }
+  .rsi-cell .sub { font-size: 10px; color: #8892a8; margin-top: 5px; display: flex; justify-content: space-between; }
+  .sig-STRONG-BUY { color: #52e08f; }
+  .sig-BUY { color: #9dd98a; }
+  .sig-NEUTRAL { color: #8892a8; }
+  .sig-SELL { color: #ff9f8a; }
+  .sig-STRONG-SELL { color: #ff5574; }
+
+  /* ── Risk Matrix ──────────────────────────── */
+  .risk {
+    position: relative;
+    padding: 14px 16px 14px 20px; border-radius: 10px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .risk::before {
+    content: ""; position: absolute; left: 0; top: 10px; bottom: 10px;
+    width: 4px; border-radius: 2px; background: var(--risk-acc, #8892a8);
+  }
+  .risk.r-hi { --risk-acc: #ff5574; }
+  .risk.r-med { --risk-acc: #ffb347; }
+  .risk.r-low { --risk-acc: #58b8ff; }
+  .risk .head {
+    display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .risk .t { font-weight: 700; color: #f3f5fa; font-size: 13.5px; }
+  .risk .p {
+    font-size: 9.5px; letter-spacing: 1.3px;
+    padding: 3px 8px; border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    color: var(--risk-acc, #8892a8);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── Scenarios ────────────────────────────── */
+  .scenarios {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 14px;
+    margin: 14px 0 18px 0;
+  }
+  .scn {
+    padding: 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+  }
+  .scn::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--scn-acc, #8892a8);
+  }
+  .scn.bull { --scn-acc: #52e08f; }
+  .scn.base { --scn-acc: #8892a8; }
+  .scn.bear { --scn-acc: #ff5574; }
+  .scn .tag {
+    display: inline-block; padding: 3px 8px; border-radius: 10px;
+    font-size: 9.5px; letter-spacing: 1.3px; text-transform: uppercase;
+    font-weight: 600; color: var(--scn-acc); background: rgba(255,255,255,0.04);
+    margin-bottom: 8px;
+  }
+  .scn .t { font-weight: 700; color: #f3f5fa; font-size: 14px; margin-bottom: 6px; }
+  .scn p { font-size: 12.5px; color: #cdd2de; }
+
+  /* ── Caveat ───────────────────────────────── */
+  .caveat {
+    font-size: 11.5px; color: #c9cfde; font-style: italic;
+    padding: 10px 14px; border-radius: 8px;
+    border-left: 3px solid #8892a8;
+    background: rgba(136,146,168,0.05);
+    margin: 10px 0 14px 0;
+  }
+
+  /* ── Glossary ─────────────────────────────── */
+  .gloss { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 12px; }
+  .gloss dt { font-weight: 600; color: #f3f5fa; font-size: 12.5px; margin-bottom: 3px; }
+  .gloss dd { color: #9aa3b8; font-size: 11.5px; margin-bottom: 0; margin-left: 0; }
+
+  /* ── Footer ───────────────────────────────── */
+  footer { margin-top: 46px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; font-size: 11px; color: #8892a8; letter-spacing: 0.5px; }
+
+  /* ── COMMODITIES section ─────────────────────── */
+  .commodities {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px; margin-bottom: 18px;
+  }
+  .commodity-group {
+    padding: 14px 16px; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  }
+  .commodity-group .grp-title {
+    font-size: 10px; letter-spacing: 2.2px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 10px; font-weight: 600;
+  }
+  .commodity-group .grp-title.energy   { color: #ffb347; }
+  .commodity-group .grp-title.precious { color: #ffd35c; }
+  .commodity-group .grp-title.industrial { color: #58b8ff; }
+  .commodity-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.05);
+    font-size: 12.5px;
+  }
+  .commodity-row:last-child { border-bottom: none; }
+  .commodity-row .nm { color: #c8cfdd; }
+  .commodity-row .px { color: #e5e7eb; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .commodity-row .ch { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 70px; text-align: right; }
+  .commodity-narrative {
+    padding: 16px 20px; border-radius: 12px; margin-bottom: 22px;
+    border-left: 3px solid #ffb347;
+    background: linear-gradient(180deg, rgba(255,179,71,0.06), rgba(255,179,71,0.01));
+    font-size: 13px; line-height: 1.65; color: #c8cfdd;
+  }
+  .commodity-narrative b { color: #f3f5fa; }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .hero, .km-cell, table, .risk, .scn, .caveat, .fg-block, .rsi-cell, .ring-cell, .vix-panel { background: #fafafa; border-color: #ddd; }
+    p, td { color: #222; }
+    b, h1, h2, h3 { color: #000; }
+  }
+</style>
+</head><body><div class="wrap">
+
+
+<div class="hero">
+  <span class="regime-pill bearish">Pre-open · Rates-led · 10Y 5.04%, highest since 2007 · Brent ~$107 · semis stabilising · hike ~92% priced · FOMC tomorrow 2PM</span>
+  <div class="eyebrow"><span class="dot"></span> Pre-Market Brief · Day-Trade Edition · Tuesday, Sep 15, 2026</div>
+  <h1>The 10-year cleared 5% and didn't come back — the constraint replaced the narrative</h1>
+  <div class="lede"><b>Monday's 5% tap reversed; this morning's did not. The 10-year touched 5.041%, its highest since 2007, with Wednesday's hike ~92% priced and Brent +1.6% to ~$107.30 on a Saudi export line that is still shut.</b> <b>Equity futures are almost still by comparison — S&P -0.1/-0.2%, NDX -0.2%, Dow -138 — and semis actually stabilised, NVDA and MU both +0.6% after Monday's ~6% SOX rout.</b> <b>That divergence is the whole setup: the tape has stopped trading the AI headline and started trading the discount rate, 30 hours before the SEP.</b></div>
+  <div class="meta">
+    <span>Published · <b>Tuesday, September 15, 2026 08:00 AM</b></span>
+    <span>Build · <b>22.5s</b></span>
+    <span>Sources · <b>yfinance · TradingView · CNN F&amp;G · web</b></span>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#tldr">TL;DR</a> · <a href="#overnight">Overnight</a> · <a href="#tom">Top of Mind</a>
+  · <a href="#vix">Vol structure</a>
+  · <a href="#breadth">Breadth</a> · <a href="#sectors">Sectors</a> · <a href="#rsi">TA ratings</a>
+  · <a href="#fg">F&amp;G</a> · <a href="#risk">Risk matrix</a> · <a href="#cat">Catalysts</a>
+  · <a href="#movers">Movers</a> · <a href="#bl">Bottom line</a>
+</div>
+
+<div class="sess">
+  <div class="item"><div class="k">Session</div><div class="v">Pre-open · cash bell in <b>~30 min</b></div></div>
+  <div class="item"><div class="k">Regime</div><div class="v"><b>The character of the tape changed overnight and the price action understates it.</b> <b>Monday was a narrative session: the Amodei/Altman/Musk AI-pacing consensus took SOX down ~6%, NVDA -3%, with INTC, AMD and MRVL off 5-6%.</b> <b>Today is a rates session: the 10-year broke through 5.00% to 5.041%, the highest since 2007 — a different and far more consequential reference than Monday's "highest since October 2023" — and it did not reverse the way it did Monday.</b> <b>Hike odds moved to ~92% from ~86.5%, and Brent is +1.6% to ~$107.30 with the ~1,200-km Saudi East-West line still offline.</b> The equity response is the informative part: <b>S&amp;P futures -0.1/-0.2%, NDX -0.2%, Dow -138/-154 points — and semis bid, NVDA +0.6%, MU +0.6%, SKHY +0.4%.</b> <b>The AI shock is being digested exactly as the rotation predicted: capital moved from the buildout chain to the capex beneficiaries — GOOGL +~2%, MSFT +1.6%, META +1.4% against NVDA -3% — because a hyperscaler that spends less earns more, and top-five hyperscaler capex is still tracking ~$800B in 2026 and ~$1.3T in 2027 with no plan revised.</b> <b>Overseas was heavier than the US: Hang Seng -1%, Kospi -0.85%, ASX -0.88%, Topix -0.52%.</b> <b>USD/JPY backed up to ~154.87 from Monday's 153.7 seven-month low as the dollar firmed into the Fed.</b></div></div>
+  <div class="item"><div class="k">Key binary</div><div class="v"><b>Today's binary is whether 5% on the 10-year is a level the equity market can hold multiples against, or a threshold it re-rates below.</b> The case that it holds: <b>futures are nearly flat on a 19-year yield high, semis are bid rather than extending Monday's rout, the rotation into GOOGL/MSFT/META is capital staying inside risk assets, and at ~92% priced the hike itself carries no repricing power.</b> The case that it doesn't: <b>a 5.04% 10-year is a real-rate move with an oil shock behind it, which is the one configuration in which the Fed cannot sound dovish tomorrow, and the most duration-heavy cohort in the index is the same one that just took a 6% sentiment hit.</b> Confirming instruments, in order: <b>the 10-year back under 4.95% is the cleanest bullish tell available today and it has nothing to do with equities</b>; <b>SPY reclaiming 763 on a closing basis says the anchor held and the yield break was absorbed</b>; <b>SPY through 755 with the 10-year above 5.05% is the combination that turns a rangebound FOMC eve into a de-risking</b>; <b>Brent above $110 removes the last dovish option from the SEP.</b> <span class="flag-red">Do not initiate direction on FOMC eve with the hike 92% priced. Everything today is positioning for a 2:00 PM tomorrow that resolves on dots, not on the decision.</span></div></div>
+</div>
+
+<div id="metrics" class="km">
+  <div class="km-cell blue"><div class="k">SPY / SPX est</div><div class="v">$760.88</div><div class="d">SPX ≈ 7,609 · prior -0.45%</div></div>
+  <div class="km-cell pos"><div class="k">ES Futures</div><div class="v">+0.72%</div><div class="d">7,679.75 · NQ +0.90% · YM +0.52%</div></div>
+  <div class="km-cell warn"><div class="k">VIX / VIX9D</div><div class="v">17.10 / 16.85</div><div class="d">VIX +0.00% · VIX9D <b style="color:#ffb347;">+20.53%</b></div></div>
+  <div class="km-cell blue"><div class="k">VIX curve</div><div class="v">Contango</div><div class="d">3M − spot <b>+3.44</b> · normal</div></div>
+  <div class="km-cell pos"><div class="k">Breadth &gt; 20MA</div><div class="v">41.4%</div><div class="d">&gt; 50MA 51.7% · adv 41.4%</div></div>
+  <div class="km-cell warn"><div class="k">CNN F&amp;G</div><div class="v">30 FEAR</div><div class="d">prev 27 · 1w 38 · 1m 50</div></div>
+</div>
+
+<h2 id="tldr" class="sec-red"><span class="marker"></span>TL;DR — What You Need To Know</h2>
+<div style="padding:6px 4px; margin-bottom:18px;"><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>THE 10-YEAR BROKE 5% AND STAYED THERE — 5.041%, HIGHEST SINCE 2007.</b> <b>Monday's tap reversed; this one has not. Hike odds ~92% for Wednesday, up from ~86.5%. Brent +1.6% to ~$107.30 with the Saudi East-West line still shut; WTI above $102.</b> <span class="flag-red">"Highest since 2007" is a different sentence from "highest since 2023." The reference point moved 16 years overnight and equities have not marked it.</span></div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>FUTURES ARE ALMOST FLAT AND SEMIS ARE BID — THE AI SHOCK IS BEING DIGESTED, NOT EXTENDED.</b> <b>S&amp;P futures -0.1/-0.2%, NDX -0.2%, Dow -138/-154. NVDA +0.6%, MU +0.6%, SKHY +0.4% premarket after Monday's SOX -6%.</b> <b>Monday's close: SPX 7,619.98 (-0.56%), Comp 26,186.41 (-0.56%), SPY anchor ~759.8.</b> <span class="flag-yel">A one-day sentiment shock with no scheduled follow-on and no capex revision behind it decays. This one is decaying on schedule.</span></div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>THE ROTATION IS BUILDOUT-CHAIN OUT, CAPEX-BENEFICIARY IN — AND THAT IS A COHERENT TRADE, NOT A PANIC.</b> <b>GOOGL +~2%, MSFT +1.6%, META +1.4% against NVDA -3%, INTC/AMD/MRVL -5 to -6%.</b> <b>Top-five hyperscaler capex still tracks ~$800B in 2026 and ~$1.3T in 2027, with Meta at $130-145B and Microsoft ~$175B, and not one plan revised.</b> <span class="flag-grn">The market is repricing who captures AI economics if spending moderates. That is analysis, not de-risking — and it is why the index is flat while the dispersion is violent.</span></div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>FOMC EVE WITH NOTHING LEFT TO PRICE.</b> <b>Decision and SEP Wednesday 2:00 PM ET, ~92% priced for 25bp to 3.75-4.00%; August retail sales 8:30 AM the same morning. BoE Thursday, BoJ Friday at consensus 25bp to 1.25% — the highest since April 1995 — and quad witching the same Friday. USD/JPY ~154.9, backed off Monday's 153.7 low. F&amp;G 30.</b> <span class="flag-red">Work SPY closing-basis: 763 bull pivot, 755 bear pivot, 752 trapdoor off the 759.8 anchor. Own convexity into 2:00 PM tomorrow. Sell nothing that expires Friday.</span></div></div></div>
+
+<h2 id="overnight" class="sec-orange"><span class="marker"></span>Overnight Developments</h2>
+<p style="color:#cdd2de; font-size:13.5px; line-height:1.65; margin:0 0 14px 0;">The three things that changed between Monday's close and this morning's bell.</p>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">1. THE 10-YEAR CLEARED 5% AND HELD — 5.041%, A 19-YEAR HIGH</b> <b>The benchmark 10-year Treasury yield rose to 5.041% this morning, its highest level since 2007.</b> <b>Monday's move was a tap-and-reverse — the yield briefly crossed 5.00%, described then as the highest since October 2023, and pulled back.</b> <b>This one has not reversed, and it has moved the reference period back sixteen years.</b> <b>Fed funds futures now imply roughly a 92% probability of a 25bp hike Wednesday from the current 3.50-3.75% target, up from ~86.5% Monday morning and 69.4% Friday.</b> <b>The driver is the same as Friday's hot core CPI print: inflation expectations, with the oil shock feeding directly into the rates story rather than through it.</b> <b>Global equities marked it more honestly than US futures did — Hang Seng -1% to 24,667, Kospi -0.85% to 6,627, ASX 200 -0.88% to 8,672, Topix -0.52%, Nikkei roughly flat at 63,484.</b> <span class="flag-red">A 5%-handle 10-year that does not reverse is the single most important input on the screen, and US equity futures at -0.15% have not priced it. That gap closes one way or the other tomorrow afternoon.</span></div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">2. SEMIS STABILISED — THE AI-PACING SHOCK HAD NO SECOND DAY</b> <b>After Monday took the Philadelphia Semiconductor Index down almost 6% — NVDA -3%, with INTC, AMD and MRVL between -5% and -6% — chips are bid premarket: NVDA +0.6%, MU +0.6%, SKHY +0.4%.</b> <b>The reason is the one flagged yesterday: no major hyperscaler has revised AI capital-spending plans in response to the Amodei essay of September 12 or the Altman and Musk endorsements that followed.</b> <b>Top-five hyperscaler capex is still tracking toward roughly $800B in 2026 and $1.3T in 2027, with Meta guiding $130-145B and Microsoft around $175B.</b> <b>Deutsche Bank's Jim Reid said moderation in the AI investment cycle "seems unlikely" for now.</b> <b>What did persist is the rotation, and it is more precise than Monday's software bid suggested: capital moved out of the buildout chain and into the companies that would profit from spending less — GOOGL +~2%, MSFT +1.6%, META +1.4%.</b> <span class="flag-yel">Active managers cutting semis and adding hyperscalers is a considered relative-value view on who captures AI economics, not a flight. Treat the semi complex as a range until a capex number actually changes.</span></div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">3. CRUDE KEPT GRINDING AND THE YEN GAVE BACK ITS BID</b> <b>Brent climbed 1.6% to ~$107.30 and WTI rose ~1% to above $102, with Saudi Arabia's ~1,200-km East-West pipeline still offline after the September 10 drone strikes from Iraqi territory — infrastructure that routes up to 7 mb/d toward Red Sea ports and serves as the alternative to Gulf shipping under the Iranian blockade.</b> <b>GCC diplomats were expected to meet their Iranian counterpart on a temporary Strait of Hormuz shipping arrangement after Oman's postponement; Houthi forces have advanced to Perim Island.</b> <b>Brent is off Monday's ~$109.13 high but has not given back the shock.</b> <b>In FX, the yen weakened for a second session: USD/JPY rose to ~154.87 from Monday's 153.69 seven-month low as the dollar firmed into the Fed, even with a BoJ hike to 1.25% — the highest policy rate since April 1995 — fully priced for Friday.</b> <span class="flag-yel">The yen backing up before a hiking BoJ is dollar strength, not a yen view. It relieves carry pressure into tomorrow and re-arms it for Friday — a two-sided setup, not a resolved one.</span></div></div>
+
+<h2 id="tom" class="sec-blue"><span class="marker"></span>Day-Trade Top of Mind — Three Setups for the Open</h2>
+<p style="color:#94a3b8; font-size:13px; margin-top:-6px;">The three highest-conviction setups for the first hour, with explicit triggers. Premarket fetched live; levels are pre-committed entry/invalidation points.</p>
+
+<div class="scenarios">
+  <div class="scn bull">
+    <span class="tag">Long setup</span>
+    <div class="t">No qualifying gainer</div>
+    <p>Premarket window not yet active or no clean gappers in the seed pool. Re-check at 9:25 AM.</p>
+  </div>
+  <div class="scn base">
+    <span class="tag">Index play</span>
+    <div class="t">SPY · $760.88 pre-market</div>
+    <p><b>SPY</b> sits at <b>$760.88</b> pre-open vs prior close <b>$760.88</b>. The two pivots that matter most: <b>$760</b> bull magnet, <b>$755</b> bear pivot. <b>Trigger long:</b> 5-min close above <b>$760</b> with breadth confirming (TICK > +500). <b>Trigger short:</b> 5-min close below <b>$755</b> on volume. <b>Invalidate either:</b> reversal back through the level within 10 min — that's a failed breakout, fade in the opposite direction.</p>
+  </div>
+  <div class="scn bear">
+    <span class="tag">Short setup</span>
+    <div class="t">No qualifying loser</div>
+    <p>Premarket window not yet active or no clean down-gappers in the seed pool. Re-check at 9:25 AM.</p>
+  </div>
+</div>
+
+<h2 id="vix" class="sec-blue"><span class="marker"></span>Volatility Structure</h2>
+<div style="display:grid; grid-template-columns: 1.3fr 1fr; gap: 14px;">
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">VIX Term Curve</h3>
+    <svg width="100%" height="160" viewBox="0 0 420 160" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="vx-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#58b8ff" stop-opacity="0.35"/><stop offset="100%" stop-color="#58b8ff" stop-opacity="0"/></linearGradient></defs><polygon points="32.0,97.8 150.7,95.2 269.3,60.0 388.0,42.2 388.0,128 32.0,128" fill="url(#vx-grad)"/><polyline points="32.0,97.8 150.7,95.2 269.3,60.0 388.0,42.2" stroke="#58b8ff" stroke-width="2.5" fill="none" stroke-linejoin="round"/><circle cx="32.0" cy="97.8" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="150.7" cy="95.2" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="269.3" cy="60.0" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="388.0" cy="42.2" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><text x="32.0" y="85.8" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">16.85</text><text x="32.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX9D</text><text x="150.7" y="83.2" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">17.10</text><text x="150.7" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX</text><text x="269.3" y="48.0" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">20.54</text><text x="269.3" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX3M</text><text x="388.0" y="30.2" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">22.28</text><text x="388.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX6M</text></svg>
+    <div class="vlabel">
+      <span>Slope (3M−spot): <b>+3.44</b></span>
+      <span>State: <b>contango (normal)</b></span>
+    </div>
+  </div>
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">Cross-Asset Vol</h3>
+    <table style="margin: 0; border: none; background: transparent;">
+      <tr><td class="lbl">VIX (30d SPX)</td><td class="num">17.10</td><td class="num pos">+0.00%</td></tr>
+      <tr><td class="lbl">VIX9D (9d SPX)</td><td class="num">16.85</td><td class="num flag-yel">+20.53%</td></tr>
+      <tr><td class="lbl">VXN (NDX IV)</td><td class="num">22.05</td><td class="num flag-yel">+4.90%</td></tr>
+      <tr><td class="lbl">OVX (Oil IV)</td><td class="num">59.46</td><td class="num flag-yel">+0.92%</td></tr>
+      <tr><td class="lbl">MOVE (Bond vol)</td><td class="num">83.90</td><td class="num flag-yel">+2.06%</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2 id="breadth" class="sec-green"><span class="marker"></span>Breadth — Universe Internals</h2>
+<div class="rings"><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#58b8ff" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="167.53" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">41.4%</div></div></div><div class="caption">% Advancing</div></div><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#52e08f" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="167.53" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">41.4%</div></div></div><div class="caption">> 20-day MA</div></div><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#52e08f" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="138.08" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">51.7%</div></div></div><div class="caption">> 50-day MA</div></div><div class="ring-cell"><div class="ring"><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50.0" cy="50.0" r="45.5" stroke="rgba(255,255,255,0.07)" stroke-width="9" fill="none"/><circle cx="50.0" cy="50.0" r="45.5" stroke="#ffb347" stroke-width="9" fill="none" stroke-dasharray="285.88" stroke-dashoffset="164.10" stroke-linecap="round"/></svg><div class="rlabel"><div class="v">-0.37%</div></div></div><div class="caption">Avg Day %</div></div></div>
+<p><b>Breadth is the quiet argument against panic and it has improved since Monday.</b> <b>The single-name tape has stopped sorting by AI exposure and started sorting by capex position: NVDA +0.6% and MU +0.6% recovering alongside GOOGL, MSFT and META holding Monday's gains means both sides of the AI complex are bid this morning, which is not what a broadening de-risking looks like.</b> <b>Monday's tell — a green Russell 2000 against a -1.17% Nasdaq Composite — resolved correctly, and the semi stabilisation is the confirmation.</b> The qualifier is that today's flat index print is itself a breadth statement of the least useful kind: <b>a pinned tape on FOMC eve suppresses dispersion signal, so participation readings today carry less information than on any other session this week.</b> <span class="flag-red">The instrument that matters for breadth this week is credit, not equity participation. Investment-grade spreads have stayed historically tight through the entire yield move — if they widen alongside a 5%-handle 10-year, the category changes and equity breadth will confirm it late.</span></p>
+
+<h2 id="sectors" class="sec-green"><span class="marker"></span>Sector Rotation — Prior Session</h2>
+<div class="bars"><div class="bar-row"><div><span class="bname">Communications</span></div><div class="betf">XLC</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:48.0%;"></div></div><div class="bpct pos">+2.19%</div></div>
+<div class="bar-row"><div><span class="bname">Health Care</span></div><div class="betf">XLV</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:31.626401419065495%;"></div></div><div class="bpct pos">+1.45%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Staples</span></div><div class="betf">XLP</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:27.29319004483272%;"></div></div><div class="bpct pos">+1.25%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Disc.</span></div><div class="betf">XLY</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:47.86915004929616%; width:2.1308499507038383%;"></div></div><div class="bpct neg">-0.10%</div></div>
+<div class="bar-row"><div><span class="bname">Financials</span></div><div class="betf">XLF</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:41.591238131680335%; width:8.408761868319663%;"></div></div><div class="bpct neg">-0.38%</div></div>
+<div class="bar-row"><div><span class="bname">Real Estate</span></div><div class="betf">XLRE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:34.881357295961735%; width:15.118642704038267%;"></div></div><div class="bpct neg">-0.69%</div></div>
+<div class="bar-row"><div><span class="bname">Materials</span></div><div class="betf">XLB</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:30.24417244717062%; width:19.75582755282938%;"></div></div><div class="bpct neg">-0.90%</div></div>
+<div class="bar-row"><div><span class="bname">Energy</span></div><div class="betf">XLE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:29.508914119196778%; width:20.491085880803222%;"></div></div><div class="bpct neg">-0.94%</div></div>
+<div class="bar-row"><div><span class="bname">Utilities</span></div><div class="betf">XLU</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:20.57654505004806%; width:29.42345494995194%;"></div></div><div class="bpct neg">-1.34%</div></div>
+<div class="bar-row"><div><span class="bname">Industrials</span></div><div class="betf">XLI</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:19.025019212623647%; width:30.974980787376353%;"></div></div><div class="bpct neg">-1.42%</div></div>
+<div class="bar-row"><div><span class="bname">Technology</span></div><div class="betf">XLK</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:10.473603362758496%; width:39.526396637241504%;"></div></div><div class="bpct neg">-1.81%</div></div></div>
+<p><b>Sector leadership has reorganised around a single axis and it is no longer AI-versus-not — it is capex-spender versus capex-beneficiary.</b> <b>The buildout chain took the hit Monday (SOX -6%, NVDA -3%, INTC/AMD/MRVL -5 to -6%) and is recovering this morning (NVDA +0.6%, MU +0.6%, SKHY +0.4%), while the hyperscalers that would profit from spending less held their gains — GOOGL +~2%, MSFT +1.6%, META +1.4%.</b> <b>Energy remains bid with Brent at ~$107.30 and the Saudi export line shut.</b> <b>Rate-sensitives are the cohort with the genuine unpriced problem: a 10-year at 5.041%, the highest since 2007, and no equity sector has marked that reference-period shift.</b> <span class="flag-yel">Read sector rotation against the 10-year rather than against the index today — the index is pinned and tells you nothing. Semis carry the most duration in their multiple, so the 5.04% print compounds Monday's sentiment hit rather than offsetting the recovery, and refiners and integrated names remain the energy expression that survives a de-escalation headline.</span></p>
+
+<h2 id="commodities" class="sec-orange"><span class="marker"></span>Commodity Complex — Energy, Metals, Industrial</h2>
+<div class="commodities"><div class="commodity-group"><div class="grp-title energy">ENERGY</div><div class="commodity-row"><span class="nm">Crude Oil (WTI)</span><span class="px">$102.31</span><span class="ch pos">+0.91%</span></div>
+<div class="commodity-row"><span class="nm">Brent Crude</span><span class="px">$101.15</span><span class="ch neg">-4.29%</span></div>
+<div class="commodity-row"><span class="nm">Natural Gas</span><span class="px">$2.894</span><span class="ch neg">-0.07%</span></div></div> <div class="commodity-group"><div class="grp-title precious">PRECIOUS METALS</div><div class="commodity-row"><span class="nm">Gold</span><span class="px">$4,323.60</span><span class="ch neg">-0.65%</span></div>
+<div class="commodity-row"><span class="nm">Silver</span><span class="px">$63.76</span><span class="ch pos">+0.38%</span></div>
+<div class="commodity-row"><span class="nm">Platinum</span><span class="px">$1,769.50</span><span class="ch neg">-0.36%</span></div></div> <div class="commodity-group"><div class="grp-title industrial">INDUSTRIAL</div><div class="commodity-row"><span class="nm">Copper</span><span class="px">$6.408</span><span class="ch pos">+1.23%</span></div></div></div><div class="commodity-narrative"><p><b>Crude</b> is rising (WTI +0.91%, Brent -4.29%) — bid on supply risk; supports <b>XLE</b>. WTI/Brent spread widened — regional supply dislocation, watch refiner margins. <b>Gold</b> under pressure (-0.65%) on dollar strength — unwind of safe-haven bid. <b>Copper</b> higher (+1.23%) — global-growth read is constructive; supports <b>XLB</b>, <b>FCX</b>.</p></div>
+
+<h2 id="rsi" class="sec-purple"><span class="marker"></span>TradingView Ratings — Indexes &amp; Sectors</h2>
+<h3>Index ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">SPY</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:47%; background:#8892a8;"></div></div><div class="sub"><span>MA NEUTRAL</span><span>RSI 47.3</span></div></div>
+<div class="rsi-cell"><div class="tk">QQQ</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:47%; background:#8892a8;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 46.9</span></div></div>
+<div class="rsi-cell"><div class="tk">IWM</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:37%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 37.4</span></div></div>
+<div class="rsi-cell"><div class="tk">DIA</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:44%; background:#8892a8;"></div></div><div class="sub"><span>MA SELL</span><span>RSI 43.8</span></div></div></div>
+<h3>Sector ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">Financials</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:46%; background:#8892a8;"></div></div><div class="sub"><span>MA SELL</span><span>RSI 46.3</span></div></div>
+<div class="rsi-cell"><div class="tk">Energy</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:61%; background:#ffb347;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 61.0</span></div></div>
+<div class="rsi-cell"><div class="tk">Technology</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:49%; background:#8892a8;"></div></div><div class="sub"><span>MA SELL</span><span>RSI 48.8</span></div></div>
+<div class="rsi-cell"><div class="tk">Health Care</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:48%; background:#8892a8;"></div></div><div class="sub"><span>MA NEUTRAL</span><span>RSI 47.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Disc.</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:41%; background:#8892a8;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 40.5</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Staples</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:47%; background:#8892a8;"></div></div><div class="sub"><span>MA SELL</span><span>RSI 47.5</span></div></div>
+<div class="rsi-cell"><div class="tk">Materials</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:36%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 36.2</span></div></div>
+<div class="rsi-cell"><div class="tk">Industrials</div><div class="sig sig-STRONG-SELL">STRONG SELL</div><div class="bar"><div style="width:32%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 32.2</span></div></div>
+<div class="rsi-cell"><div class="tk">Real Estate</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:35%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 35.2</span></div></div>
+<div class="rsi-cell"><div class="tk">Communications</div><div class="sig sig-STRONG-BUY">STRONG BUY</div><div class="bar"><div style="width:61%; background:#ffb347;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 61.3</span></div></div>
+<div class="rsi-cell"><div class="tk">Utilities</div><div class="sig sig-STRONG-SELL">STRONG SELL</div><div class="bar"><div style="width:33%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 33.5</span></div></div></div>
+<p><b>The technical picture is a two-session decline into a pinned FOMC-eve open, which is the configuration in which price-based indicators produce the least reliable output of the week.</b> <b>Monday's -0.56% on both SPX and the Composite came on a headline with no price precedent, and this morning's near-flat futures reflect an event wait rather than a trend.</b> Ratings screens will read weak on the growth complex and constructive on energy, and both are correct for the wrong reason — <b>momentum indicators built on price will lag a week whose entire information content is a bond yield and a set of dots.</b> <span class="flag-yel">Treat ratings as confirmation only, and only after Wednesday 2:00 PM. A closing reclaim of 763 is the first genuine technical confirmation available; anything before that is FOMC-eve pinning, and nothing in today's calendar can deliver a trend.</span></p>
+
+<h2 id="fg" class="sec-yellow"><span class="marker"></span>CNN Fear &amp; Greed — Current Reading</h2>
+<div class="caveat">Values from narrative.fg_override (research step)</div>
+<div class="fg-block">
+  <div class="fg-gauge">
+    <svg width="220" height="150.0" viewBox="0 0 220 150.0"><path d="M 25.0 130.0 A 85 85 0 0 1 195.0 130.0" stroke="rgba(255,255,255,0.06)" stroke-width="14" fill="none" stroke-linecap="round"/><path d="M 25.0 130.0 A 85 85 0 0 1 195.0 130.0" stroke="#ff9f8a" stroke-width="14" fill="none" stroke-dasharray="267.04" stroke-dashoffset="186.92" stroke-linecap="round"/><line x1="110.0" y1="130.0" x2="73.0" y2="79.0" stroke="#f3f5fa" stroke-width="3" stroke-linecap="round"/><circle cx="110.0" cy="130.0" r="6" fill="#f3f5fa"/><text x="110.0" y="136.0" text-anchor="middle" fill="#f3f5fa" font-size="30" font-weight="700">30</text><text x="110.0" y="158.0" text-anchor="middle" fill="#ff9f8a" font-size="11" letter-spacing="1.5" font-weight="600">FEAR</text></svg>
+    <div style="margin-top:8px; font-size:10px; color:#8892a8; letter-spacing:1.3px; text-transform:uppercase;">Prev close 27 · 1w 38 · 1m 50</div>
+  </div>
+  <div><div class="fg-comp-grid"><div class="fg-comp"><div class="l">Market Momentum (S&P 500)</div><div class="v">24 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">FEAR</span></div></div>
+<div class="fg-comp"><div class="l">Stock Price Strength</div><div class="v">36 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">FEAR</span></div></div>
+<div class="fg-comp"><div class="l">Stock Price Breadth</div><div class="v">34 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">FEAR</span></div></div>
+<div class="fg-comp"><div class="l">Put/Call Options</div><div class="v">27 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">FEAR</span></div></div>
+<div class="fg-comp"><div class="l">Market Volatility (VIX)</div><div class="v">31 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">FEAR</span></div></div>
+<div class="fg-comp"><div class="l">Safe Haven Demand</div><div class="v">55 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">NEUTRAL</span></div></div>
+<div class="fg-comp"><div class="l">Junk Bond Demand</div><div class="v">63 <span style="font-size:10px; color:#8892a8; letter-spacing:1.2px;">GREED</span></div></div></div></div>
+</div>
+<p><b>Sentiment sits at 30 — Fear — having deteriorated through last week on momentum, breadth and volatility while holding up on credit.</b> <b>The composition is the useful part: momentum and breadth are the clear negatives after two down sessions and a semi rout, while junk-bond demand remains the persistent outlier, with investment-grade spreads historically tight through the entire move to a 5%-handle 10-year.</b> <b>Safe-haven demand is the other anomaly and it is not a comfort — Monday's tape had gold and silver falling alongside equities, which only happens when real-rate expectations overwhelm the haven bid, meaning the standard hedge for this configuration is not paying.</b> <b>Component detail here is reconciled from press and observable inputs rather than scraped.</b> <span class="flag-yel">A Fear reading into a 92%-priced decision cuts both ways: positioning is already light, so a hawkish SEP has less fuel to burn than the headline implies — but it also means there is no cushion if credit finally confirms. Trade the 10-year and Brent this week, not the sentiment print.</span></p>
+
+<h2 id="risk" class="sec-red"><span class="marker"></span>Risk Matrix — Into the Open &amp; Through the Session</h2>
+
+<div class="risk r-high">  <div class="head"><div class="t">1. Equity futures are flat on a 19-year yield high and that gap closes downward more often than up</div><div class="p">High</div></div>  <div><b>The 10-year touched 5.041%, its highest since 2007, and did not reverse the way Monday's 5.00% tap did. US equity futures responded with -0.1% to -0.2% on the S&amp;P and -0.2% on the NDX.</b> <b>Overseas markets marked it honestly — Hang Seng -1%, Kospi -0.85%, ASX -0.88% — which suggests the US non-reaction is a function of the FOMC eve rather than a considered view.</b> <b>The reference-period shift matters more than the basis points: a risk-free rate at levels last seen in 2007 revalues the longest-duration index composition in two decades, and does so hardest in the exact cohort that took a 6% hit Monday for unrelated reasons.</b> Instruction: <b>trade the 10-year as today's leading instrument and the index as the follower. Back under 4.95% is the cleanest bullish tell available and it comes from the bond market. Sustained above 5.05% into a hawkish SEP means duration equity is on the wrong side regardless of what semis do — and the resolution of a flat-futures/5%-yield divergence is historically equities marking to bonds, not bonds marking to equities.</b></div></div>
+<div class="risk r-high">  <div class="head"><div class="t">2. Crude closes the Fed's dovish option one day before the dots</div><div class="p">High</div></div>  <div><b>Brent is +1.6% to ~$107.30 and WTI above $102, with Saudi Arabia's ~1,200-km East-West pipeline — up to 7 mb/d toward Red Sea ports, the designed bypass for Gulf shipping under the Iranian blockade — still offline since the September 10 drone strikes.</b> <b>Yanbu's reported five-to-seven-day storage cover is now largely elapsed, which is why the price has not mean-reverted despite sitting below Monday's $109.13 high.</b> <b>The GCC-Iran Hormuz meeting remains unresolved after Oman's postponement, and Houthi forces have advanced to Perim Island.</b> <b>Friday's core CPI already ran a tenth hot on fuel — the transmission is proven, not hypothetical.</b> Instruction: <b>treat Brent as a rates instrument this week, not an energy one. $110 is the level at which any dovish read on Wednesday's SEP is off the table and the correct response is to cut index gross rather than rotate. Express energy through refiners and integrated names rather than flat-price crude — a rescheduled-talks headline destroys a long-crude position and leaves the equity expression intact.</b></div></div>
+<div class="risk r-med">  <div class="head"><div class="t">3. The AI rotation is a crowded two-sided trade and one capex line re-prices both legs</div><div class="p">Med</div></div>  <div><b>The market has built a clean long/short expression of AI moderation: short the buildout chain, long the beneficiaries — GOOGL +~2%, MSFT +1.6%, META +1.4% against NVDA -3% and INTC/AMD/MRVL -5 to -6% on Monday.</b> <b>Semis stabilised this morning, NVDA and MU both +0.6%, because top-five hyperscaler capex still tracks ~$800B in 2026 and ~$1.3T in 2027 with Meta at $130-145B, Microsoft ~$175B, and not one plan revised.</b> <b>The vulnerability is that both legs rest on the same unconfirmed premise.</b> <b>A hyperscaler that actually cuts capex validates the short leg and the long leg simultaneously — until the market asks why demand moderated, at which point the beneficiaries re-rate too. A hyperscaler that raises capex unwinds both at once.</b> Instruction: <b>do not hedge an AI view with index options — the index is flat while the dispersion is violent, so index hedges pay nothing for this risk. Size the pair, not the direction, and recognise there is no scheduled catalyst until Q3 earnings, which makes this a positioning risk rather than an event risk.</b></div></div>
+<div class="risk r-med">  <div class="head"><div class="t">4. Wednesday carries two inputs six hours apart and Friday removes the inventory they build</div><div class="p">Med</div></div>  <div><b>August retail sales at 8:30 AM Wednesday and the SEP at 2:00 PM the same day is an unusual configuration: a growth input and a policy input on one session, capable of pointing opposite ways.</b> <b>A weak retail print is the only plausible path to a dovish framing with Brent at $107 — but it arrives as a growth scare, which is not a configuration equities enjoy either.</b> <b>Then the BoJ hikes Friday to 1.25%, the highest since April 1995, and September quarterly expiration lands the same day, removing whatever dealer inventory the FOMC decision built 48 hours earlier.</b> <b>USD/JPY at ~154.87, backed up from the 153.69 seven-month low, means carry positioning paused rather than unwound — the pressure is deferred to Friday, not released.</b> Instruction: <b>expect an intraday reversal Wednesday and do not chase the 8:30 move into the 2:00 decision. Carry no leverage across Wednesday-to-Friday, run no short gamma into the expiration, and treat the post-expiration tape as a separate regime rather than a continuation.</b></div></div>
+<div class="risk r-low">  <div class="head"><div class="t">5. Sentiment is in Fear and there is no working haven</div><div class="p">Low</div></div>  <div><b>CNN Fear &amp; Greed sits at 30 — Fear — after a week in which the index deteriorated on momentum, breadth and volatility.</b> <b>The problem is that the standard responses to a Fear reading do not function in this configuration: duration is the source of the stress rather than the offset with the 10-year at 5.041%, and Monday's tape already showed gold and silver falling alongside equities because real-rate expectations are overwhelming the haven bid.</b> <b>Credit remains the outlier that has not confirmed any of it — investment-grade spreads have stayed historically tight, which is the single strongest argument that this is a valuation adjustment rather than a solvency or growth event.</b> <b>A low sentiment reading into a 92%-priced decision is also a contrarian positive of limited use: it means positioning is already light, so a hawkish SEP has less fuel to burn than the headline would suggest.</b> Instruction: <b>hedge with index convexity rather than cross-asset substitutes, and watch IG spreads as the confirming instrument — if credit widens alongside the yield move, the category changes from repricing to de-risking and every level in this report becomes less reliable.</b></div></div>
+
+<p style="margin-top:14px;"><b>The asymmetry today is unusually clean because the equity market has not priced the one thing that changed.</b> <b>The 10-year broke to 5.041%, its highest since 2007, and did not reverse — while S&amp;P futures sit at -0.15% and Asia marked it properly at -0.85% to -1%.</b> On the upside, the repair is straightforward but requires the bond market's cooperation rather than equities' own: <b>a 10-year failing back under 4.95%, semis holding this morning's stabilisation, and crude easing off $107 — and nothing scheduled today can deliver any of it.</b> On the downside, a single input extends the move: <b>a 10-year sustained above 5.05% into a hawkish SEP, Brent through $110 closing the dovish door, a hiking BoJ Friday with USD/JPY already backed up to 154.9 rather than de-risked, and quad witching pulling dealer inventory 48 hours after the FOMC builds it.</b> <b>And the standard offsets are not working — duration is the source of the problem, and Monday showed metals falling with equities.</b> <span class="flag-red">A flat-futures / 5%-yield divergence is an unstable equilibrium that resolves by equities marking to bonds far more often than the reverse. Own convexity through 2:00 PM Wednesday, size direction small, take levels on a closing basis, and let the 10-year lead.</span></p>
+
+<h2 id="setup" class="sec-blue"><span class="marker"></span>Opening Setup — Three Paths Into Cash</h2>
+<div class="scenarios">  <div class="scn bull"><span class="tag">Bull path</span>    <div class="t">The 10-year fails back under 4.95%, the semi stabilisation holds, and SPY reclaims 763</div>    <p>The constructive path today runs through the bond market, not the equity market. It requires <b>the 10-year to fail back under 4.95% — treating 5.041% as an FOMC-eve overshoot on a 92%-priced outcome rather than a new regime</b> — and it is supported by what equities are already doing: <b>futures nearly flat, NVDA +0.6% and MU +0.6% reversing Monday's rout, and capital rotating within risk assets into GOOGL, MSFT and META rather than out of them.</b> <b>A cooperative crude leg helps: Brent is already below Monday's $109.13 high, and a rescheduled GCC-Iran meeting or a pipeline repair timeline takes the premium out faster than it went in.</b> <b>Confirmation sequence: 10Y under 4.95%, then SPY reclaiming the 759.8 anchor, then a close above 763 opening 765 and 768.</b> Expression: <b>add duration-sensitive exposure only after the yield confirms, not alongside it — the equity market is the follower today.</b></p></div>  <div class="scn base"><span class="tag">Base case</span>    <div class="t">A 755-763 grind around the 759.8 anchor while desks refuse to size into the SEP</div>    <p>Base case and clearly the most likely. <b>The hike is ~92% priced and today carries no scheduled catalyst</b> — the only session this week that doesn't — so expect an opening range that holds while desks decline to commit ahead of an SEP, a BoE, a BoJ and a quarterly expiration inside four sessions. Working parameters: <b>SPY 755-763 around the ~759.8 anchor, the 10Y 4.95-5.08%, Brent $104-110 with headline risk skewed higher, and front-tenor vol bid into tomorrow rather than spiking.</b> Dispersion remains the dominant feature: <b>the buildout-chain-short, hyperscaler-long expression can run hard while the index prints unchanged.</b> Posture: <b>small in direction, long convexity through 2:00 PM Wednesday, closing-basis levels only, no short gamma into Friday's expiration.</b></p></div>  <div class="scn bear"><span class="tag">Bear path</span>    <div class="t">5.05% holds on the 10-year, 755 goes, and a hawkish SEP meets quad witching</div>    <p>The bear path does not need an equity catalyst — it needs the yield to stay where it is. <b>A 10-year sustained above 5.05% into a hawkish SEP is a real-rate repricing of the most duration-heavy index composition in two decades</b>, and the cohort that absorbs it first is the same AI complex that took a 6% hit Monday on an unrelated story. <b>The energy leg compounds it: Brent above $110 with the Saudi line still shut past the Yanbu window forces the dots higher and removes the Fed's ability to frame tomorrow as insurance.</b> <b>The mechanical leg finishes it: a hiking BoJ Friday with USD/JPY having already backed up to 154.9 rather than de-risked, and quad witching pulling dealer inventory 48 hours after the FOMC builds it.</b> <b>Through 755 the tape sees 752 and then 748 with nothing structural between.</b> <b>The tell that this branch is live is the divergence closing downward — flat futures on a 19-year yield high is an unstable equilibrium, and it resolves by equities marking to bonds far more often than the reverse.</b></p></div></div>
+
+<h2 id="cat" class="sec-blue"><span class="marker"></span>Catalyst Watch — Next 72 Hours</h2>
+<table>
+<thead><tr><th>When (ET)</th><th>Event</th><th>Read &amp; Implication</th></tr></thead>
+<tbody>
+<tr><td class="flag-yel">Tue 9/15 — all day</td><td class="flag-yel">FOMC meeting day one; no scheduled US data release</td><td class="flag-yel"><b>The only session this week without a catalyst, which is why futures are flat on a 19-year yield high.</b> <span class="flag-yel">Treat today as a positioning session. The opening range is more informative than the close, and nothing that happens today survives 2:00 PM tomorrow.</span></td></tr>
+<tr><td class="flag-yel">Wed 9/16 — 8:30 AM ET</td><td class="flag-yel">August advance retail sales — the growth input, six hours ahead of the SEP</td><td class="flag-yel"><b>A strong print hands the hawkish SEP its justification; a weak one creates the only plausible path to a dovish framing with Brent at $107.</b> <span class="flag-yel">The unusual feature of Wednesday is two inputs on the same day pointing potentially opposite ways. Elevated odds of an intraday reversal.</span></td></tr>
+<tr><td class="flag-red">Wed 9/16 — 2:00 PM ET</td><td class="flag-red">FOMC decision plus Summary of Economic Projections — ~92% priced for 25bp to 3.75-4.00%, Warsh's first move</td><td class="flag-red"><b>At ~92% the decision has no repricing power; the dots and the statement carry all of it.</b> <b>Brent near $107 with a 7 mb/d export route offline has already closed the dovish option.</b> <span class="flag-red">Own convexity through 2:00 PM rather than direction. Do not finance it by selling anything expiring Friday.</span></td></tr>
+<tr><td class="flag-red">Ongoing — Saudi East-West line, Yanbu window largely elapsed</td><td class="flag-red">Pipeline repair timeline; rescheduled GCC-Iran talks on the Hormuz shipping arrangement</td><td class="flag-red"><b>The ~1,200-km line routes up to 7 mb/d toward Red Sea ports and has been shut since September 10; the five-to-seven-day storage cover is now behind us.</b> <span class="flag-red">The two headlines that can resolve the crude premium in either direction. Brent $110 is the level at which any dovish SEP read is off the table.</span></td></tr>
+<tr><td class="flag-yel">Ongoing — the AI capex tape</td><td class="flag-yel">Any hyperscaler revision to AI capital-spending plans</td><td class="flag-yel"><b>Semis stabilised precisely because none has come — NVDA +0.6%, MU +0.6% this morning against ~$800B of 2026 hyperscaler capex still on plan.</b> <span class="flag-yel">The first revision re-prices both sides of the rotation, not just semis, because GOOGL, MSFT and META are bid on the same thesis. No scheduled trigger until Q3 earnings.</span></td></tr>
+<tr><td class="flag-red">Fri 9/18 — Tokyo overnight, then the cash close</td><td class="flag-red">Bank of Japan 25bp to 1.25% fully priced — highest since April 1995 — landing the same day as September quad witching</td><td class="flag-red"><b>USD/JPY at ~154.87 has backed up from the 153.69 low, which means carry positioning paused rather than de-risked.</b> A hiking Fed Wednesday and a hiking BoJ Friday compress carry from both ends. <span class="flag-red">Carry no leverage across the sequence and run no short gamma into the expiration. If the yen accelerates post-BoJ, reduce gross rather than hedging delta.</span></td></tr>
+</tbody>
+</table>
+
+<h3>Earnings this week (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>Session</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td class="tk">LEN</td><td>Lennar Corporation Class A</td><td>Wed Sep 16</td><td>After close</td><td class="num">1.28</td><td class="num">$19B</td></tr>
+<tr><td class="tk">LEN.B</td><td>Lennar Corporation Class B</td><td>Wed Sep 16</td><td>After close</td><td class="num">1.28</td><td class="num">$19B</td></tr>
+<tr><td class="tk">CCL</td><td>Carnival Corporation Ltd.</td><td>Thu Sep 17</td><td>During market</td><td class="num">1.36</td><td class="num">$31B</td></tr>
+<tr><td class="tk">VFS</td><td>VinFast Auto Ltd.</td><td>Fri Sep 18</td><td>During market</td><td class="num">-0.33</td><td class="num">$7B</td></tr>
+<tr><td class="tk">AZO</td><td>AutoZone, Inc.</td><td>Tue Sep 22</td><td>Before open</td><td class="num">54.42</td><td class="num">$48B</td></tr></tbody>
+</table>
+
+<h2 id="movers" class="sec-purple"><span class="marker"></span>Top Movers — Prior Session</h2>
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+<div><h3>Gainers</h3>
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Price</th><th>%</th></tr></thead><tbody><tr><td class="tk">ZS</td><td class="nm">Zscaler, Inc.</td><td class="num">$191.73</td><td class="num pos">+16.52%</td></tr>
+<tr><td class="tk">TENB</td><td class="nm">Tenable Holdings, Inc.</td><td class="num">$35.08</td><td class="num pos">+16.51%</td></tr>
+<tr><td class="tk">NTSK</td><td class="nm">Netskope, Inc. Class A</td><td class="num">$17.00</td><td class="num pos">+15.65%</td></tr>
+<tr><td class="tk">RBRK</td><td class="nm">Rubrik, Inc. Class A</td><td class="num">$100.20</td><td class="num pos">+15.64%</td></tr>
+<tr><td class="tk">SAIL</td><td class="nm">SailPoint, Inc.</td><td class="num">$19.88</td><td class="num pos">+15.31%</td></tr>
+<tr><td class="tk">QLYS</td><td class="nm">Qualys, Inc.</td><td class="num">$172.91</td><td class="num pos">+15.06%</td></tr></tbody></table></div>
+<div><h3>Losers</h3>
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Price</th><th>%</th></tr></thead><tbody><tr><td class="tk">INIO</td><td class="nm">INNIO N.V.</td><td class="num">$17.45</td><td class="num neg">-14.25%</td></tr>
+<tr><td class="tk">BAND</td><td class="nm">Bandwidth Inc. Class A</td><td class="num">$48.97</td><td class="num neg">-13.89%</td></tr>
+<tr><td class="tk">GLW</td><td class="nm">Corning Inc</td><td class="num">$143.60</td><td class="num neg">-13.70%</td></tr>
+<tr><td class="tk">TER</td><td class="nm">Teradyne, Inc.</td><td class="num">$329.20</td><td class="num neg">-13.30%</td></tr>
+<tr><td class="tk">MXL</td><td class="nm">MaxLinear, Inc.</td><td class="num">$64.79</td><td class="num neg">-13.12%</td></tr>
+<tr><td class="tk">MTSI</td><td class="nm">MACOM Technology Solutions H…</td><td class="num">$239.62</td><td class="num neg">-12.83%</td></tr></tbody></table></div>
+</div>
+
+<h2 id="bl" class="sec-red"><span class="marker"></span>Bottom Line</h2>
+
+<p><b>Index playbook (SPY/QQQ structural):</b> <b>Work SPY on a closing basis off the 759.8 anchor: 763 bull pivot with 765 and 768 above, 755 bear pivot, 752 trapdoor, 748 deep accelerator — and expect false breaks in both directions on a pinned FOMC-eve tape.</b> <b>The leading instrument today is not an equity index, it is the 10-year: back under 4.95% is the cleanest bullish tell available, sustained above 5.05% is the signal that equities have to mark to bonds.</b> <b>QQQ is less useful than usual because the AI event has resolved into a pair trade that leaves the index flat while dispersion runs — index hedges pay nothing for an AI view right now.</b> <b>Do not sell vol: front-tenor premium now spans retail sales, the SEP, the BoJ and quarterly expiration, which makes it event premium rather than fear premium and the correct thing to own.</b> <b>Size direction small, own optionality through 2:00 PM Wednesday, and finance it with anything other than Friday expiries.</b></p>
+
+<p><b>Single-name playbook (intraday options):</b> <b>The dispersion is the trade and the axis has changed — it is capex-spender versus capex-beneficiary, not AI versus not.</b> <b>Long side: the semi stabilisation is tradeable but only as a range, not a trend — NVDA +0.6% and MU +0.6% confirm the fade was right, and with no scheduled catalyst until Q3 earnings there is nothing to carry it higher. Energy remains the cleaner long, expressed through refiners and integrated names rather than flat-price crude, because those survive a rescheduled-Hormuz-talks headline that long crude does not.</b> <b>Caution on the crowded side: GOOGL, MSFT and META are bid on the same unconfirmed premise that is shorting the chain — one real capex revision re-prices both legs, and it does not have to re-price them in opposite directions.</b> <b>Avoid: adding duration-heavy single names into a 5.041% 10-year that no equity sector has marked.</b> <b>Keep single-name risk intraday through Wednesday and take profits into strength — overnight gap risk across a two-input Wednesday and a BoJ-plus-expiration Friday is not compensated.</b></p>
+
+<p class="flag-red"><b><b>Into the open:</b> <b>a 10-year at 5.041%, the highest since 2007, that did not reverse — against S&amp;P futures at -0.15% that have not marked it, while Asia closed down 0.85% to 1%.</b> <b>Monday's AI shock is resolved: semis bid, no capex plan changed, rotation intact into the beneficiaries.</b> <span class="flag-red">Let the 10-year lead — under 4.95% bullish, above 5.05% into a hawkish SEP means equities mark to bonds. Brent $110 closes the Fed's dovish door. Work SPY closing-basis at 763 / 755 / 752 off the 759.8 anchor, own convexity through 2:00 PM Wednesday without selling anything that expires Friday, and carry no leverage across the FOMC-to-BoJ-to-expiration sequence.</span></b></p>
+
+<footer>
+  Sources · <a href="https://www.cnbc.com/2026/09/14/stock-market-today-live-updates.html">CNBC — Stock market today: live updates, Sept. 15, 2026</a> · <a href="https://www.cnbc.com/2026/09/15/treasury-yields-stocks-investors.html">CNBC — Treasury yields are above 5%. Here's what it means for stocks</a> · <a href="https://www.cnbc.com/2026/09/14/10-year-us-treasury-is-closing-in-on-5percent.html">CNBC — 10-year Treasury yield hits 5% before reversing as traders await Fed</a> · <a href="https://www.bloomberg.com/news/articles/2026-09-14/asian-stocks-to-fall-on-ai-key-us-yield-tops-5-markets-wrap">Bloomberg — Stock Market Today: Dow, S&P Live Updates for September 15</a> · <a href="https://www.cnbc.com/2026/09/14/tuesdays-big-stock-stories-whats-likely-to-move-the-market.html">CNBC — Tuesday's big stock stories</a> · <a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-14-2026">TheStreet — Stock Market Today, Sept. 14, 2026</a> · <a href="https://fortune.com/2026/09/14/ai-slowdown-stocks-nvidia-meta/">Fortune — Wall Street's AI doomsday trade: chipmakers sink while hyperscalers gain</a> · <a href="https://finance.yahoo.com/technology/ai/articles/investors-rotate-within-ai-trade-102131863.html">Yahoo Finance — Investors rotate within AI trade as hyperscaler spending concerns build</a> · <a href="https://finance.yahoo.com/technology/ai/articles/meta-alphabet-microsoft-rise-while-142444084.html">Yahoo Finance — Meta, Alphabet, Microsoft rise while Nvidia falls after AI pacing calls</a> · <a href="https://www.vantagemarkets.com/market-analysis/ai-slowdown-chip-stocks-nvda-mu-amd/">Vantage — AI slowdown chip stocks: why NVDA, MU and AMD barely blinked</a> · <a href="https://www.tickmill.com/blog/daily-market-outlook-september-15-2026">Tickmill — Daily Market Outlook, September 15, 2026</a> · <a href="https://www.fxstreet.com/analysis/usd-jpy-rises-as-markets-brace-for-the-bank-of-japan-meeting-202609150711">FXStreet — USD/JPY rises as markets brace for the Bank of Japan meeting</a> · <a href="https://www.kiplinger.com/investing/economy/this-weeks-economic-calendar">Kiplinger — Economic calendar, week of September 14-18</a> · <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm">Federal Reserve — FOMC meeting calendar</a> · <a href="https://www.cnn.com/markets/fear-and-greed">CNN — Fear & Greed Index</a> · <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html">CME — FedWatch Tool</a> · <a href="https://www.cboe.com/tradable-products/vix/term-structure/">Cboe — VIX term structure</a> · <a href="https://finance.yahoo.com">yfinance</a>
+</footer>
+
+</div></body></html>
