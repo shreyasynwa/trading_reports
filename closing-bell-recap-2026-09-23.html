@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Closing Bell Recap — Wednesday, Sep 23, 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: radial-gradient(ellipse at top, #0e1118, #06070b 60%);
+    color: #dfe3ee;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  body { padding: 32px 18px 80px; font-size: 13.5px; min-height: 100vh; }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+  a { color: #7bc4ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  b { color: #f3f5fa; font-weight: 600; }
+  em, i { color: #e2e7f2; font-style: italic; }
+
+  .pos { color: #52e08f; } .neg { color: #ff5574; } .neutral { color: #8892a8; }
+  .flag-red { color: #ff5574; font-weight: 600; }
+  .flag-yel { color: #ffb347; font-weight: 600; }
+  .flag-grn { color: #52e08f; font-weight: 600; }
+  .flag-blue { color: #7bc4ff; font-weight: 600; }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at top right, rgba(88,184,255,0.12), transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(187,119,255,0.10), transparent 55%),
+      linear-gradient(180deg, #0d1220 0%, #080a12 100%);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(88,184,255,0.06) 50%, transparent);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 16px;
+    font-size: 10.5px; letter-spacing: 2.8px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 14px; position: relative;
+  }
+  /* Smaller box-shadow + larger eyebrow gap so the glow doesn't bleed into
+     the start of the text (was 10px shadow + 8px gap → encroached on "P"). */
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #52e08f; box-shadow: 0 0 6px rgba(82,224,143,0.8);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .hero h1 {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.18; color: #ffffff; margin-bottom: 14px;
+  }
+  /* Lede uses full hero width — matches headline width on the right edge.
+     (Was capped at 78ch which left the right side unused on wide screens.) */
+  .hero .lede { font-size: 14px; color: #c5cbdb; line-height: 1.6; }
+  .hero .meta {
+    display: flex; gap: 22px; flex-wrap: wrap; margin-top: 20px;
+    font-size: 11px; color: #8892a8;
+    letter-spacing: 1.3px; text-transform: uppercase;
+  }
+  .hero .meta b { color: #dfe3ee; font-weight: 500; letter-spacing: 0.3px; text-transform: none; }
+  /* Regime pill flows in normal layout (block) so long multi-clause labels
+     wrap cleanly above the headline without overlapping. The next sibling
+     (.eyebrow) is block-level, so the pill sits alone on its row. */
+  .hero .regime-pill {
+    display: inline-block;
+    margin-bottom: 14px;
+    max-width: 100%;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase;
+    font-weight: 600; backdrop-filter: blur(10px);
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .regime-pill.risk-on  { background: rgba(82,224,143,0.12); color: #52e08f; border: 1px solid rgba(82,224,143,0.3); }
+  .regime-pill.risk-off { background: rgba(255,85,116,0.12); color: #ff5574; border: 1px solid rgba(255,85,116,0.3); }
+  .regime-pill.mixed    { background: rgba(255,179,71,0.12); color: #ffb347; border: 1px solid rgba(255,179,71,0.3); }
+
+  /* ── NAV ──────────────────────────────────── */
+  .nav {
+    display: flex; flex-wrap: wrap; gap: 6px 4px;
+    padding: 10px 14px; margin-bottom: 20px;
+    background: rgba(255,255,255,0.02); border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 11px;
+  }
+  .nav a {
+    padding: 3px 8px; border-radius: 4px;
+    color: #8892a8; transition: all 0.15s;
+  }
+  .nav a:hover { background: rgba(88,184,255,0.12); color: #7bc4ff; text-decoration: none; }
+
+  /* ── SESSION BAR ──────────────────────────── */
+  .sess {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 22px;
+    background: linear-gradient(90deg, rgba(255,179,71,0.06), rgba(255,179,71,0.02));
+    border: 1px solid rgba(255,179,71,0.2);
+  }
+  .sess .item { font-size: 12px; }
+  .sess .k { font-size: 9.5px; color: #8892a8; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 2px; }
+  .sess .v { color: #f3f5fa; }
+  .sess .v b { color: #ffb347; }
+
+  /* ── KEY METRICS ──────────────────────────── */
+  .km {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(175px,1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .km-cell {
+    position: relative; padding: 14px 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden; transition: all 0.2s;
+  }
+  .km-cell::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px; background: var(--acc, #8892a8);
+    opacity: 0.9;
+  }
+  .km-cell.pos { --acc: #52e08f; }
+  .km-cell.neg { --acc: #ff5574; }
+  .km-cell.warn { --acc: #ffb347; }
+  .km-cell.blue { --acc: #58b8ff; }
+  .km-cell .k { font-size: 10px; letter-spacing: 1.6px; color: #8892a8; text-transform: uppercase; }
+  .km-cell .v { font-size: 22px; font-weight: 700; margin-top: 6px; color: #f3f5fa; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .km-cell .d { font-size: 11px; color: #9aa3b8; margin-top: 3px; }
+
+  /* ── SECTIONS ─────────────────────────────── */
+  h2 {
+    font-size: 17px; font-weight: 700; color: #fff;
+    margin: 34px 0 14px 0; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px;
+  }
+  h2 .marker {
+    width: 8px; height: 18px; border-radius: 2px;
+    background: var(--sec-acc, #6b7ba8);
+  }
+  h2.sec-red    { --sec-acc: #ff5574; }
+  h2.sec-yellow { --sec-acc: #ffb347; }
+  h2.sec-green  { --sec-acc: #52e08f; }
+  h2.sec-blue   { --sec-acc: #58b8ff; }
+  h2.sec-purple { --sec-acc: #bb77ff; }
+  h2.sec-orange { --sec-acc: #ffb347; }
+
+  h3 {
+    font-size: 12.5px; font-weight: 600; color: #b8bfd0;
+    margin: 20px 0 10px 0; letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  p { margin-bottom: 11px; color: #cdd2de; }
+  ul, ol { margin: 10px 0 14px 22px; color: #cdd2de; }
+  ul li, ol li { margin-bottom: 6px; }
+
+  /* ── TABLES ───────────────────────────────── */
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 12px; margin: 10px 0 16px 0;
+    font-variant-numeric: tabular-nums;
+    background: rgba(255,255,255,0.012);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px; overflow: hidden;
+  }
+  th {
+    text-align: left; padding: 10px 12px;
+    font-size: 10px; letter-spacing: 1.3px; color: #8892a8;
+    text-transform: uppercase; font-weight: 600;
+    background: rgba(255,255,255,0.025);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  td {
+    padding: 9px 12px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    color: #cdd2de;
+  }
+  tbody tr:hover { background: rgba(88,184,255,0.04); }
+  td.lbl { color: #e4e7ef; font-weight: 500; }
+  td.tk { font-weight: 600; color: #fff; }
+  td.nm { color: #9aa3b8; font-size: 11px; }
+  td.num { text-align: right; }
+
+  /* ── BAR (sector rotation) ────────────────── */
+  .bars { display: flex; flex-direction: column; gap: 6px; padding: 6px 0; }
+  .bar-row {
+    display: grid; grid-template-columns: 110px 32px 1fr 70px;
+    align-items: center; gap: 10px; font-size: 11.5px;
+  }
+  .bar-row .bname { color: #dfe3ee; font-weight: 500; }
+  .bar-row .betf { color: #7f8699; font-size: 10px; letter-spacing: 0.5px; }
+  .bar-track {
+    position: relative; height: 20px;
+    border-radius: 4px; background: rgba(255,255,255,0.03);
+    overflow: hidden;
+  }
+  .bar-track .midline {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .bar-fill {
+    position: absolute; top: 2px; bottom: 2px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(82,224,143,0.4), rgba(82,224,143,0.85));
+  }
+  .bar-fill.neg { background: linear-gradient(270deg, rgba(255,85,116,0.85), rgba(255,85,116,0.4)); }
+  .bar-row .bpct {
+    text-align: right; font-weight: 600;
+    font-variant-numeric: tabular-nums; font-size: 12px;
+  }
+
+  /* ── RING (breadth / F&G) ─────────────────── */
+  .rings {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px; padding: 4px 0 10px 0;
+  }
+  .ring-cell {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 14px 12px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .ring { position: relative; width: 100px; height: 100px; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .rlabel {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .ring .rlabel .v { font-size: 20px; font-weight: 700; color: #f3f5fa; }
+  .ring .rlabel .sub { font-size: 9.5px; color: #8892a8; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
+  .ring-cell .caption {
+    margin-top: 10px; font-size: 11px; color: #8892a8;
+    letter-spacing: 1.1px; text-transform: uppercase; text-align: center;
+  }
+
+  /* ── F&G Gauge ─────────────────────────────── */
+  .fg-block {
+    display: grid; grid-template-columns: 260px 1fr; gap: 20px;
+    padding: 14px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .fg-gauge { display: flex; flex-direction: column; align-items: center; }
+  .fg-comp-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 8px;
+  }
+  .fg-comp {
+    padding: 8px 10px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.01);
+    font-size: 11px;
+  }
+  .fg-comp .l { color: #9aa3b8; font-size: 10px; letter-spacing: 0.8px; text-transform: uppercase; }
+  .fg-comp .v { color: #f3f5fa; font-weight: 600; margin-top: 3px; }
+
+  /* ── VIX curve ────────────────────────────── */
+  .vix-panel {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .vix-panel .vlabel {
+    display: flex; justify-content: space-around; font-size: 10.5px;
+    color: #8892a8; letter-spacing: 1.2px; text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .vix-panel .vlabel span b { color: #dfe3ee; font-weight: 600; }
+
+  /* ── RSI heat cell ─────────────────────────── */
+  .rsi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 8px;
+    padding: 4px 0;
+  }
+  .rsi-cell {
+    padding: 11px 13px; border-radius: 9px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .rsi-cell .tk { font-weight: 700; color: #fff; font-size: 11px; letter-spacing: 1.4px; }
+  .rsi-cell .sig { font-size: 11px; font-weight: 600; margin-top: 3px; }
+  .rsi-cell .bar {
+    height: 6px; border-radius: 3px; margin-top: 8px;
+    background: rgba(255,255,255,0.05); overflow: hidden;
+  }
+  .rsi-cell .bar > div { height: 100%; border-radius: 3px; }
+  .rsi-cell .sub { font-size: 10px; color: #8892a8; margin-top: 5px; display: flex; justify-content: space-between; }
+  .sig-STRONG-BUY { color: #52e08f; }
+  .sig-BUY { color: #9dd98a; }
+  .sig-NEUTRAL { color: #8892a8; }
+  .sig-SELL { color: #ff9f8a; }
+  .sig-STRONG-SELL { color: #ff5574; }
+
+  /* ── Risk Matrix ──────────────────────────── */
+  .risk {
+    position: relative;
+    padding: 14px 16px 14px 20px; border-radius: 10px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .risk::before {
+    content: ""; position: absolute; left: 0; top: 10px; bottom: 10px;
+    width: 4px; border-radius: 2px; background: var(--risk-acc, #8892a8);
+  }
+  .risk.r-hi { --risk-acc: #ff5574; }
+  .risk.r-med { --risk-acc: #ffb347; }
+  .risk.r-low { --risk-acc: #58b8ff; }
+  .risk .head {
+    display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .risk .t { font-weight: 700; color: #f3f5fa; font-size: 13.5px; }
+  .risk .p {
+    font-size: 9.5px; letter-spacing: 1.3px;
+    padding: 3px 8px; border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    color: var(--risk-acc, #8892a8);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── Scenarios ────────────────────────────── */
+  .scenarios {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 14px;
+    margin: 14px 0 18px 0;
+  }
+  .scn {
+    padding: 16px 18px; border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+  }
+  .scn::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--scn-acc, #8892a8);
+  }
+  .scn.bull { --scn-acc: #52e08f; }
+  .scn.base { --scn-acc: #8892a8; }
+  .scn.bear { --scn-acc: #ff5574; }
+  .scn .tag {
+    display: inline-block; padding: 3px 8px; border-radius: 10px;
+    font-size: 9.5px; letter-spacing: 1.3px; text-transform: uppercase;
+    font-weight: 600; color: var(--scn-acc); background: rgba(255,255,255,0.04);
+    margin-bottom: 8px;
+  }
+  .scn .t { font-weight: 700; color: #f3f5fa; font-size: 14px; margin-bottom: 6px; }
+  .scn p { font-size: 12.5px; color: #cdd2de; }
+
+  /* ── Caveat ───────────────────────────────── */
+  .caveat {
+    font-size: 11.5px; color: #c9cfde; font-style: italic;
+    padding: 10px 14px; border-radius: 8px;
+    border-left: 3px solid #8892a8;
+    background: rgba(136,146,168,0.05);
+    margin: 10px 0 14px 0;
+  }
+
+  /* ── Glossary ─────────────────────────────── */
+  .gloss { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 12px; }
+  .gloss dt { font-weight: 600; color: #f3f5fa; font-size: 12.5px; margin-bottom: 3px; }
+  .gloss dd { color: #9aa3b8; font-size: 11.5px; margin-bottom: 0; margin-left: 0; }
+
+  /* ── Footer ───────────────────────────────── */
+  footer { margin-top: 46px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; font-size: 11px; color: #8892a8; letter-spacing: 0.5px; }
+
+  /* ── COMMODITIES section ─────────────────────── */
+  .commodities {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px; margin-bottom: 18px;
+  }
+  .commodity-group {
+    padding: 14px 16px; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  }
+  .commodity-group .grp-title {
+    font-size: 10px; letter-spacing: 2.2px; text-transform: uppercase;
+    color: #8892a8; margin-bottom: 10px; font-weight: 600;
+  }
+  .commodity-group .grp-title.energy   { color: #ffb347; }
+  .commodity-group .grp-title.precious { color: #ffd35c; }
+  .commodity-group .grp-title.industrial { color: #58b8ff; }
+  .commodity-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.05);
+    font-size: 12.5px;
+  }
+  .commodity-row:last-child { border-bottom: none; }
+  .commodity-row .nm { color: #c8cfdd; }
+  .commodity-row .px { color: #e5e7eb; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .commodity-row .ch { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 70px; text-align: right; }
+  .commodity-narrative {
+    padding: 16px 20px; border-radius: 12px; margin-bottom: 22px;
+    border-left: 3px solid #ffb347;
+    background: linear-gradient(180deg, rgba(255,179,71,0.06), rgba(255,179,71,0.01));
+    font-size: 13px; line-height: 1.65; color: #c8cfdd;
+  }
+  .commodity-narrative b { color: #f3f5fa; }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .hero, .km-cell, table, .risk, .scn, .caveat, .fg-block, .rsi-cell, .ring-cell, .vix-panel { background: #fafafa; border-color: #ddd; }
+    p, td { color: #222; }
+    b, h1, h2, h3 { color: #000; }
+  }
+</style>
+</head><body><div class="wrap">
+
+
+<div class="hero">
+  <span class="regime-pill bear">Close · Risk-Off · SPY 768.63 (-0.66%), IWM -1.45% worst · 10Y 5.083% (+12bp, 19-year high) · Oct hike odds ~70% · WTI $92.57 (+2.3%), Brent ~$98 · VIX 14.81 (+4.2%), VIX9D 13.03 · XLE +1.6% only green · F&amp;G 30 · BTC $84.3K</span>
+  <div class="eyebrow"><span class="dot"></span> Closing Bell Recap · Wednesday, Sep 23, 2026 · 7 PM Evening Wrap</div>
+  <h1>Hot flash PMIs put the 10-year at 5.083%, a 19-year high, and the oil-relief trade is finished</h1>
+  <div class="lede"><b>Services PMI 58.7 and manufacturing 56.7 — five- and four-year highs — drove the 10-year to 5.083% and October hike odds from 57.6% to roughly 70%.</b> <b>Crude kept its bid at the same time, WTI +2.26% to $92.57.</b> <b>IWM -1.45% finished last of the four indices: the front end is back in charge going into tomorrow's summit.</b></div>
+  <div class="meta">
+    <span>Published · <b>Wednesday, September 23, 2026 12:29 PM</b></span>
+    <span>Build · <b>16.2s</b></span>
+    <span>Sources · <b>yfinance · TradingView · web</b></span>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#tldr">TL;DR</a> · <a href="#session">What Happened</a> · <a href="#metrics">Key metrics</a>
+  · <a href="#ahmovers">AH movers</a> · <a href="#ah">After-hours</a> · <a href="#blocks">Block tape</a>
+  · <a href="#sectors">Sector rotation</a> · <a href="#vix">Vol structure</a> · <a href="#commodities">Commodities</a>
+  · <a href="#rsi">TA ratings</a> · <a href="#tomorrow">Tomorrow's setup</a> · <a href="#cat">Catalysts</a>
+  · <a href="#bl">Bottom line</a>
+</div>
+
+<div class="sess">
+  <div class="item"><div class="k">Session</div><div class="v">Cash closed · evening wrap · <b>~14h to next open</b></div></div>
+  <div class="item"><div class="k">Regime</div><div class="v"><b>Mixed Close · Rotation Day</b></div></div>
+  <div class="item"><div class="k">Overnight focus</div><div class="v">After-hours earnings drift, Globex futures, overnight macro headlines</div></div>
+</div>
+
+<div id="metrics" class="km">
+  <div class="km-cell neg"><div class="k">SPY / SPX close</div><div class="v">$768.38</div><div class="d">-0.66% · SPX ≈ 7,684</div></div>
+  <div class="km-cell warn"><div class="k">VIX / VIX9D</div><div class="v">14.80 / 13.01</div><div class="d">VIX -0.47% · VIX9D -0.99%</div></div>
+  <div class="km-cell blue"><div class="k">Net GEX (qualitative)</div><div class="v">Strongly positive</div><div class="d">Term slope +3.11 · Contango</div></div>
+  <div class="km-cell neg"><div class="k">Block tape (top mover)</div><div class="v">ALKT</div><div class="d">-18.68%</div></div>
+</div>
+
+<h2 id="tldr" class="sec-red"><span class="marker"></span>TL;DR — What You Need To Know</h2>
+<div style="padding:6px 4px; margin-bottom:18px;"><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>THE DATA DID IT, ON SCHEDULE.</b> <b>S&amp;P Global flash September: services 58.7 (est. 56.0, near five-year high), manufacturing 56.7 (est. 53.6, four-year high). The 10-year closed 5.083%, +12bp and the highest since July 2007; 5Y 4.96%; TLT -1.47%. October hike odds went from 57.6% this morning to roughly 70%, and Governor Barr said more tightening is likely necessary.</b> <span class="flag-red">This is the single fact that governs tomorrow. Everything else on this page is downstream of a front end that will not let the market have a discount-rate story.</span></div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>CRUDE KEPT ITS BID AND THE DISINFLATION TRADE LOST ITS FUNDING.</b> <b>WTI settled $92.57 (+2.26%); Brent traded above $101 after Trump's UNGA remarks before easing to ~$98.11 — still miles above Tuesday's sub-$89 lows.</b> <b>An armed group cut Libya's El Sharara field from ~340K to ~127K bpd, and Iran's foreign ministry denied dropping its preconditions (end of the naval siege and economic war) for reopening Hormuz.</b> <b>XLE +1.62% was the only sector meaningfully green; COP +2.55%, OXY +2.65%. Airlines paid: UAL -2.40%, LUV -2.12%, DAL -1.82%.</b> <span class="flag-red">This morning's brief put the stop on crude rather than the index. That stop stayed triggered all session.</span></div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>THE SMALL-CAP ROTATION IS OFFICIALLY DEAD.</b> <b>IWM closed -1.45%, the worst of the four indices, against QQQ -0.93%, SPY -0.66%, DIA -0.66%. Utilities -1.65% and real estate -0.95% led the downside with discretionary -1.36% (HD -1.83%, LOW -1.67%). Ten of eleven sectors finished red.</b> <b>Megacaps split: GOOGL -3.08%, AMZN -1.94%, NVDA -1.78%, AAPL -0.90% against META +2.26% and MSFT +0.08%. SMH -1.52%, with SNDK -3.02% and MU -1.85% giving back Tuesday's memory surge.</b> <span class="flag-yel">Small caps are financed by the front end. The front end moved 12bp against them on one survey. That is the entire explanation and it is not a complicated one.</span></div></div><div style="display:flex; gap:14px; align-items:baseline; padding:10px 0;">  <span style="flex-shrink:0; width:6px; height:6px; border-radius:50%; background:#ffb347; margin-top:8px;"></span>  <div style="flex:1; font-size:14px; line-height:1.65; color:#dfe3ee;"><b>VOL FIRMED WITHOUT BREAKING — AND THE NEXT 48 HOURS ARE THE DENSEST OF THE WEEK.</b> <b>VIX 14.81 (+4.22%), VIX9D 13.03 (+7.43%), VIX3M 17.92 (+1.76%), contango intact; credit barely flinched with HYG -0.58%.</b> <b>Tomorrow: Xi at the White House with a state dinner, jobless claims (207K est. vs 196K), August new home sales (615K est.), Costco after the close. Friday: PCE, durable goods and final UMich.</b> <span class="flag-red">Work SPY off the 768.63 anchor: 773 bull pivot, 766 bear pivot, 762 trapdoor. A 13-handle on VIX9D into a state summit and an inflation print is the cheapest asymmetry on the board.</span></div></div></div>
+
+<h2 id="session" class="sec-orange"><span class="marker"></span>What Happened Today</h2>
+<p style="color:#cdd2de; font-size:13.5px; line-height:1.65; margin:0 0 14px 0;">How the day actually resolved — and what it hands to tomorrow's open.</p>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">1. FLASH PMIs CAME IN HOT AND THE 10-YEAR WENT TO A 19-YEAR HIGH</b> <b>S&amp;P Global's September flash readings blew past consensus at 9:45 AM: services 58.7 against 56.0 expected and 56.5 prior — its best in nearly five years — and manufacturing 56.7 against 53.6 expected and 53.9 prior, a four-year high.</b> <b>The bond response was immediate and parallel rather than steepening: 10Y closed 5.083% (+~12bp), 5Y 4.96% (+12bp), TLT -1.47%, leaving 2s10s roughly where it started near twenty basis points.</b> <b>CME FedWatch moved October hike odds from 57.6% this morning to roughly 70%, on top of the unanimous September 16 move to 3.75-4.00%.</b> <b>Fed Governor Michael Barr said further increases are likely necessary because &ldquo;risks to achieving our inflation target have increased.&rdquo;</b> <span class="flag-red">This is the cleanest possible refutation of the disinflation trade: activity is running hotter, not cooling, and the relief the market priced out of cheaper crude never had a demand story underneath it. A parallel shift is a policy-path repricing — it hits long-duration equity and small caps at the same time and cannot be hedged by rotating between them.</span></div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">2. CRUDE HELD ITS BID AND IRAN RESTATED THE CONDITION THE MARKET HAD PRICED AWAY</b> <b>WTI settled $92.57 (+2.26%) and Brent eased to roughly $98.11 after trading above $101 overnight — both far above the sub-$89 and sub-$99 prints of Tuesday morning.</b> <b>Two things sustained it. An armed group shut a valve on the pipeline out of Libya's El Sharara field, cutting output from roughly 340,000 bpd to about 127,000 bpd — around a third of Libyan production. And Iran's foreign ministry spokesman Esmail Baghaei confirmed Tuesday's three-hour Qatari-mediated talks with Witkoff and Kushner but explicitly denied that Tehran had dropped its preconditions, restating that its terms remain an end to the war, the naval siege and the economic war plus release of Iranian assets.</b> <b>Trump called the talks &ldquo;very productive&rdquo; with another scheduled, while telling the UNGA he faced a decision between a deal and annihilating the Islamic Republic.</b> <span class="flag-red">Nine dollars came out of crude on a conditional offer; a chunk came back the moment the condition was restated in public. The barrel is a headline instrument in both directions and it is now trading against the equity market rather than for it.</span></div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">3. THE ROTATION THE MARKET WAS TESTING FAILED THE TEST TWICE</b> <b>IWM closed -1.45%, the worst of the four indices, after leading Monday's pre-market and then leading the downside in Wednesday's futures at -0.61%. QQQ -0.93%, SPY -0.66%, DIA -0.66%.</b> <b>Rate-sensitives took the brunt: utilities -1.65%, real estate -0.95%, consumer discretionary -1.36% with HD -1.83% and LOW -1.67%. Airlines were hit from the other side as fuel held: UAL -2.40%, LUV -2.12%, DAL -1.82%.</b> <b>Energy was the only meaningful bid — XLE +1.62%, OXY +2.65%, COP +2.55%, CVX +1.97%, XOM +1.55%, USO +3.17%. Ten of eleven sectors finished lower.</b> <span class="flag-yel">Tuesday's report said to require IWM to hold its relative lead through the close before calling it a rotation, and said the fade would itself be the useful information. The fade was the information: the down-cap bid was a crude headline, not a breadth repair, and it has now been rejected on consecutive sessions.</span></div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">4. MEGACAP DISPERSION WIDENED AGAIN, THIS TIME TO THE DOWNSIDE</b> <b>GOOGL -3.08% was the largest megacap decliner, with AMZN -1.94%, NVDA -1.78%, AAPL -0.90%, AMD -1.38% and INTC -2.83%. META +2.26% extended the Muse move and MSFT +0.08% held flat.</b> <b>Semis gave back: SMH -1.52%, with SNDK -3.02% and MU -1.85% unwinding Tuesday's roughly +7% and +5%.</b> <b>Pockets of software and security went the other way — CRWD +4.56%, PLTR +3.46%, PANW +2.98% — and IONQ closed +4.39% after announcing a real-time quantum error-correction decoder running on a single standard CPU, having gapped about 11% pre-market. On the downside, APP -5.69% after Edgewater's Joe Wittine flagged that its share expansion has stalled.</b> <span class="flag-yel">The Nasdaq lost 1% off a record and the composition of that loss was not uniform. Dispersion cuts both ways and the index level is still the least informative number on the screen. An 11% gap that closes up 4% is distribution, not accumulation.</span></div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">5. THE DOLLAR, GOLD AND CRYPTO ALL READ THE SAME RATE SIGNAL — CREDIT DID NOT</b> <b>DXY closed 101.07 (+0.47%), near a two-month high, with USDJPY at 158.30 as the yen weakened 0.62%.</b> <b>Gold fell 1.33% to $4,318 and silver 2.24% to $65.04 — a real-rate response, not a haven bid, which is the tell that today was about the discount rate rather than about risk.</b> <b>Copper -1.05%. Bitcoin -2.41% to $84,347, its clearest down day of the week.</b> <b>Credit was the outlier: HYG fell only 0.58%.</b> <span class="flag-yel">Four asset classes priced the same twelve basis points and credit declined to participate. That divergence is the strongest remaining argument that this is a rate problem and not a growth problem — and it is the first thing to watch if the 10-year goes through 5.10%.</span></div></div>
+<div style="margin-bottom:16px;"><div style="font-size:14px; line-height:1.65; color:#dfe3ee;"><b style="color:#f3f5fa;">6. EARNINGS WERE A CONSUMER SPLIT, AND THE AFTER-HOURS DOCKET IS EMPTY</b> <b>Cracker Barrel closed +5.61% on a fiscal Q4 beat — adjusted EPS $0.99 against consensus near $0.26 on revenue of $849.3M (-2.2% y/y, above the ~$845M bar), adjusted EBITDA $62.1M versus $55.7M — guiding FY27 comps +3-5% with no new store openings and roughly 3.0% commodity inflation.</b> <b>Paychex closed -6.73%: adjusted EPS $1.34 beat the $1.32 bar and revenue of $1.63B landed in line, but total expenses ran above plan, adjusted EBITDA missed, and management reaffirmed rather than raised FY guidance.</b> <b>Cintas -0.84% on a one-cent Q1 beat ($1.36 vs $1.35) and revenue of $3.01B (+10.9% y/y) with FY27 guidance of $5.45-5.54 straddling consensus. General Mills -0.54%: net sales $4.4B (-3%), organic flat, adjusted EPS $0.75 (-13% cc), FY27 adjusted EPS guidance of $3.00-3.20 reaffirmed.</b> <b>No S&amp;P 100 name reported after the bell tonight; the next major print is Costco tomorrow after the close.</b> <span class="flag-yel">The consumer read is bifurcated — a beaten-down restaurant chain clears a low bar while a payroll processor gets punished for reaffirming. In a 5%-10Y tape, in-line is a sell. Paychex is also a soft small-business employment signal arriving on the same day a services PMI printed 58.7, and those two do not obviously agree.</span></div></div>
+
+<h2 id="ahmovers" class="sec-red"><span class="marker"></span>Post-Market Movers — Winners &amp; Losers (AH Earnings Reactions)</h2>
+<p style="color:#8892a8; font-size:13px; margin-bottom:14px;">Single-name moves &gt;3% in after-hours, sourced from the post-close research step. Winners are bid (revenue beat / segment accel / clean guide); losers are hit (capex shock / guide cut / segment miss). Treat the split as the cleanest real-time read on whichever sector thesis was on the line tonight.</p>
+<div style="display:flex; gap:14px; flex-wrap:wrap;"><div style="flex:1;"><div style="font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#52e08f; margin-bottom:8px;">▲ Winners (2)</div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">CBRL</b>    <b style="font-size:14px; color:rgb(82,224,143);">+5.6%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;"><b>Regular session, post-earnings.</b> Fiscal Q4 adjusted EPS $0.99 versus consensus near $0.26, revenue $849.3M (-2.2% y/y) above the ~$845M bar, adjusted EBITDA $62.1M against $55.7M. FY27 guide: comps +3-5%, no new store openings, adjusted EBITDA $180-200M, ~3.0% commodity inflation, 2.5-3.0% wage inflation.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> The low-end consumer still shows up when the bar is low enough. The zero-openings guide says management is managing decline, not growth.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(82,224,143,0.08); border-left:3px solid rgb(82,224,143); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(82,224,143);">IONQ</b>    <b style="font-size:14px; color:rgb(82,224,143);">+4.4%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;"><b>Regular session.</b> Announced development and testing of a real-time quantum error-correction decoder designed to run on a single standard CPU; the stock gapped about 11% pre-market and held roughly 4% into the close.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Speculative bid is alive but fading intraday. An 11% gap closing at +4% is a useful gauge of how much risk appetite actually survived the rate move.</div></div></div><div style="flex:1;"><div style="font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#ff5574; margin-bottom:8px;">▼ Losers (4)</div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">PAYX</b>    <b style="font-size:14px; color:rgb(255,85,116);">-6.7%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;"><b>Regular session, post-earnings.</b> Fiscal Q1 adjusted EPS $1.34 beat the $1.32 consensus and revenue of $1.63B was in line, but total expenses ran above plan and adjusted EBITDA missed; FY guidance was reaffirmed rather than raised, with upward revisions only in PEO/insurance and interest on funds held for clients.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> A beat sold on an unchanged guide is the mark of a tape with no tolerance for in-line — and a soft small-business employment read against a 58.7 services PMI.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">GOOGL</b>    <b style="font-size:14px; color:rgb(255,85,116);">-3.1%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;"><b>Regular session.</b> The largest megacap decliner with no company-specific catalyst, into a 12bp back-up on the 10-year and roughly 70% October hike odds. AMZN -1.94%, NVDA -1.78%, AAPL -0.90% alongside it; META +2.26% and MSFT +0.08% were the exceptions.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Long-duration megacap is the direct expression of the discount-rate move. GOOGL -3% and META +2% on the same tape is positioning and news flow, not an AI-thesis verdict.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">APP</b>    <b style="font-size:14px; color:rgb(255,85,116);">-5.7%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;"><b>Regular session.</b> Edgewater Research analyst Joe Wittine cautioned that AppLovin's market-share expansion has effectively stalled — flagged pre-market and carried through the close.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> High-multiple ad-tech is the first thing sold when the front end backs up. The cleanest single-name gauge of risk appetite in the momentum cohort.</div></div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,85,116,0.08); border-left:3px solid rgb(255,85,116); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,85,116);">SNDK</b>    <b style="font-size:14px; color:rgb(255,85,116);">-3.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;"><b>Regular session.</b> Gave back most of Tuesday's ~7% memory surge, with MU -1.85% off its ~5% gain and SMH -1.52%.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> Tuesday's memory bid did not survive one adverse rate session. Micron's fiscal Q4 on September 30 now decides whether that move was fundamental.</div></div></div><div style="flex:1;"><div style="font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#ffb347; margin-bottom:8px;">◆ Flat / Mixed (1)</div><div style="padding:10px 12px; margin-bottom:8px; background:rgba(255,179,71,0.08); border-left:3px solid rgb(255,179,71); border-radius:6px;">  <div style="display:flex; gap:14px; align-items:baseline; margin-bottom:4px;">    <b style="font-size:15px; color:rgb(255,179,71);">COST</b>    <b style="font-size:14px; color:rgb(255,179,71);">0.0%</b>  </div>  <div style="font-size:13px; color:#dfe3ee; margin-bottom:4px;"><b>Reports tomorrow after the close.</b> Fiscal Q4 with consensus near $94.85B revenue (+10% y/y) and adjusted EPS near $6.55 (+12% y/y), with a recurring market question about a special dividend. Closed today -0.42% at $895.59.</div>  <div style="font-size:12px; color:#8892a8;"><i>Read:</i> The largest consumer datapoint of the week, landing the same evening as the state summit. The cross-check on whether the household is absorbing higher fuel and a 5% 10-year.</div></div></div></div>
+
+<h2 id="ah" class="sec-red"><span class="marker"></span>After-Hours Developments — 4 PM to Now</h2>
+<p>Three hours of after-hours flow have printed since the cash close. <b>Post-market data not yet populated; refresh after Globex settles at 6 PM.</b>.</p>
+<p><b>No S&amp;P 100 name reported after the bell tonight; the after-hours tape is quiet and the next major print is Costco tomorrow evening. The day's earnings-driven moves are below, followed by the single names that shape tomorrow's open.</b> <b>PAYX -6.73%:</b> fiscal Q1 adjusted EPS $1.34 beat the $1.32 bar and revenue of $1.63B was in line, but total expenses ran above plan, adjusted EBITDA missed, and FY guidance was reaffirmed rather than raised — upward revisions came only in PEO/insurance and interest on funds held for clients. Implication: <b>a beat sold on an unchanged guide, and a soft small-business employment signal arriving the same day a services PMI printed 58.7.</b> <b>CBRL +5.61%:</b> fiscal Q4 adjusted EPS $0.99 against consensus near $0.26, revenue $849.3M (-2.2% y/y) above the ~$845M bar, adjusted EBITDA $62.1M versus $55.7M, FY27 guide of +3-5% comps with no new store openings. Implication: <b>the low-end consumer clears a washed-out bar; the zero-openings guide says managed decline, not growth.</b> <b>CTAS -0.84%:</b> Q1 EPS $1.36 versus $1.35, revenue $3.01B (+10.9% y/y), FY27 guidance $5.45-5.54 straddling consensus. <b>GIS -0.54%:</b> net sales $4.4B (-3%), organic flat, adjusted EPS $0.75 (-13% cc), FY27 $3.00-3.20 reaffirmed. Implication: <b>in a 5%-10Y tape, in-line is a sell.</b> <b>GOOGL -3.08%</b> was the largest megacap decliner with no company catalyst, against <b>META +2.26%</b> and <b>MSFT +0.08%</b> — the long-duration split expressed directly. <b>APP -5.69%</b> on Edgewater flagging stalled share expansion; <b>SNDK -3.02%</b> and <b>MU -1.85%</b> unwinding Tuesday's memory surge; <b>IONQ +4.39%</b> after gapping about 11% pre-market on a real-time quantum error-correction decoder running on a single standard CPU — an 11% gap closing at +4% is distribution. <span class="flag-yel">The pattern across the whole tape is that yesterday's winners gave back and only energy and a narrow security/software pocket (CRWD +4.56%, PLTR +3.46%, PANW +2.98%) held a bid. Costco tomorrow after the close is the honest arbiter of the consumer read.</span></p>
+
+<h3>Earnings released this afternoon (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td colspan="5" style="color:#8892a8;">No major reports scheduled in this window.</td></tr></tbody>
+</table>
+
+<h2 id="blocks" class="sec-purple"><span class="marker"></span>Block Tape — Top Movers (Session)</h2>
+<h3>Leaders</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Close</th><th>Change</th><th>Read</th></tr></thead>
+<tbody><tr><td class="tk">SECZ</td><td class="nm">Securitize Corp.</td><td class="num">$14.49</td><td class="num pos">+11.46%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">QMCO</td><td class="nm">Quantum Corporation</td><td class="num">$27.62</td><td class="num pos">+7.68%</td><td>Strong momentum bid; gauge tomorrow's open for continuation.</td></tr>
+<tr><td class="tk">CBRL</td><td class="nm">Cracker Barrel Old Country…</td><td class="num">$48.20</td><td class="num pos">+5.99%</td><td>Strong momentum bid; gauge tomorrow's open for continuation.</td></tr>
+<tr><td class="tk">VG</td><td class="nm">Venture Global, Inc. Class A</td><td class="num">$13.63</td><td class="num pos">+5.62%</td><td>Strong momentum bid; gauge tomorrow's open for continuation.</td></tr>
+<tr><td class="tk">AR</td><td class="nm">Antero Resources Corporation</td><td class="num">$36.27</td><td class="num pos">+5.37%</td><td>Strong momentum bid; gauge tomorrow's open for continuation.</td></tr>
+<tr><td class="tk">HUBS</td><td class="nm">HubSpot, Inc.</td><td class="num">$229.34</td><td class="num pos">+5.26%</td><td>Strong momentum bid; gauge tomorrow's open for continuation.</td></tr>
+<tr><td class="tk">KVYO</td><td class="nm">Klaviyo, Inc. Class A</td><td class="num">$16.62</td><td class="num pos">+4.76%</td><td>Constructive bid in line with sector rotation.</td></tr>
+<tr><td class="tk">IONQ</td><td class="nm">IonQ, Inc.</td><td class="num">$42.67</td><td class="num pos">+4.74%</td><td>Constructive bid in line with sector rotation.</td></tr></tbody>
+</table>
+
+<h3>Laggards</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Close</th><th>Change</th><th>Read</th></tr></thead>
+<tbody><tr><td class="tk">ALKT</td><td class="nm">Alkami Technology Inc</td><td class="num">$14.71</td><td class="num neg">-18.68%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">VOYG</td><td class="nm">Voyager Technologies, Inc.…</td><td class="num">$31.76</td><td class="num neg">-15.37%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">INNV</td><td class="nm">InnovAge Holding Corp.</td><td class="num">$9.10</td><td class="num neg">-14.64%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">EXK</td><td class="nm">Endeavour Silver Corp.</td><td class="num">$9.15</td><td class="num neg">-12.89%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">PGY</td><td class="nm">Pagaya Technologies Ltd Cl…</td><td class="num">$18.52</td><td class="num neg">-10.83%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">CGEM</td><td class="nm">Cullinan Therapeutics, Inc.</td><td class="num">$19.32</td><td class="num neg">-10.82%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">BOBS</td><td class="nm">Bob's Discount Furniture, …</td><td class="num">$13.75</td><td class="num neg">-10.07%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr>
+<tr><td class="tk">EWTX</td><td class="nm">Edgewise Therapeutics, Inc.</td><td class="num">$40.21</td><td class="num neg">-9.66%</td><td>Outsized move — likely earnings/news catalyst; check tomorrow's tape for follow-through or reversal.</td></tr></tbody>
+</table>
+<p style="color:#8892a8; font-size:12px;"><em>Block-flow narrative is approximated here from end-of-day price action, not paid institutional flow data.</em></p>
+
+<h2 id="sectors" class="sec-green"><span class="marker"></span>Sector Rotation — Final Result + Reads</h2>
+<div class="bars"><div class="bar-row"><div><span class="bname">Materials</span></div><div class="betf">XLB</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:34.57506595434205%;"></div></div><div class="bpct pos">+1.40%</div></div>
+<div class="bar-row"><div><span class="bname">Energy</span></div><div class="betf">XLE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:14.451570521514698%;"></div></div><div class="bpct pos">+0.58%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Staples</span></div><div class="betf">XLP</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:12.226043559148682%;"></div></div><div class="bpct pos">+0.49%</div></div>
+<div class="bar-row"><div><span class="bname">Industrials</span></div><div class="betf">XLI</div><div class="bar-track"><div class="midline"></div><div class="bar-fill " style="left:50%; width:8.874719064500455%;"></div></div><div class="bpct pos">+0.36%</div></div>
+<div class="bar-row"><div><span class="bname">Technology</span></div><div class="betf">XLK</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:49.11148408069245%; width:0.8885159193075538%;"></div></div><div class="bpct neg">-0.04%</div></div>
+<div class="bar-row"><div><span class="bname">Health Care</span></div><div class="betf">XLV</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:45.391043037555015%; width:4.608956962444985%;"></div></div><div class="bpct neg">-0.19%</div></div>
+<div class="bar-row"><div><span class="bname">Real Estate</span></div><div class="betf">XLRE</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:19.51578032997353%; width:30.48421967002647%;"></div></div><div class="bpct neg">-1.23%</div></div>
+<div class="bar-row"><div><span class="bname">Consumer Disc.</span></div><div class="betf">XLY</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:19.48146895274396%; width:30.51853104725604%;"></div></div><div class="bpct neg">-1.23%</div></div>
+<div class="bar-row"><div><span class="bname">Communications</span></div><div class="betf">XLC</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:17.3500949866623%; width:32.6499050133377%;"></div></div><div class="bpct neg">-1.32%</div></div>
+<div class="bar-row"><div><span class="bname">Utilities</span></div><div class="betf">XLU</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:4.384120870327784%; width:45.615879129672216%;"></div></div><div class="bpct neg">-1.84%</div></div>
+<div class="bar-row"><div><span class="bname">Financials</span></div><div class="betf">XLF</div><div class="bar-track"><div class="midline"></div><div class="bar-fill neg" style="left:2.0%; width:48.0%;"></div></div><div class="bpct neg">-1.94%</div></div></div>
+<table style="margin-top:18px;">
+<thead><tr><th>Ticker</th><th>Sector</th><th>Day</th><th>Read</th></tr></thead>
+<tbody>
+<tr><td class="tk">XLB</td><td>Materials</td><td class="num pos">+1.40%</td><td>Strong leadership — cyclical / risk-on bid confirms positioning.</td></tr>
+<tr><td class="tk">XLE</td><td>Energy</td><td class="num pos">+0.58%</td><td>Constructive — energy (commodity-linked) participating.</td></tr>
+<tr><td class="tk">XLP</td><td>Consumer Staples</td><td class="num pos">+0.49%</td><td>Constructive — defensive / risk-off participating.</td></tr>
+<tr><td class="tk">XLI</td><td>Industrials</td><td class="num pos">+0.36%</td><td>Constructive — cyclical / risk-on participating.</td></tr>
+<tr><td class="tk">XLK</td><td>Technology</td><td class="num neg">-0.04%</td><td>Quiet — cyclical / risk-on flat to the tape.</td></tr>
+<tr><td class="tk">XLV</td><td>Health Care</td><td class="num neg">-0.19%</td><td>Quiet — defensive / risk-off flat to the tape.</td></tr>
+<tr><td class="tk">XLRE</td><td>Real Estate</td><td class="num neg">-1.23%</td><td>Heavy distribution — cyclical / risk-on weak.</td></tr>
+<tr><td class="tk">XLY</td><td>Consumer Disc.</td><td class="num neg">-1.23%</td><td>Heavy distribution — cyclical / risk-on weak.</td></tr>
+<tr><td class="tk">XLC</td><td>Communications</td><td class="num neg">-1.32%</td><td>Heavy distribution — cyclical / risk-on weak.</td></tr>
+<tr><td class="tk">XLU</td><td>Utilities</td><td class="num neg">-1.84%</td><td>Heavy distribution — defensive / risk-off weak.</td></tr>
+<tr><td class="tk">XLF</td><td>Financials</td><td class="num neg">-1.94%</td><td>Heavy distribution — cyclical / risk-on weak.</td></tr>
+</tbody>
+</table>
+
+<h2 id="vix" class="sec-blue"><span class="marker"></span>Volatility Structure</h2>
+<div style="display:grid; grid-template-columns: 1.3fr 1fr; gap: 14px;">
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">VIX Term Curve</h3>
+    <svg width="100%" height="160" viewBox="0 0 420 160" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="vx-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#58b8ff" stop-opacity="0.35"/><stop offset="100%" stop-color="#58b8ff" stop-opacity="0"/></linearGradient></defs><polygon points="32.0,99.5 150.7,84.3 269.3,58.0 388.0,40.5 388.0,128 32.0,128" fill="url(#vx-grad)"/><polyline points="32.0,99.5 150.7,84.3 269.3,58.0 388.0,40.5" stroke="#58b8ff" stroke-width="2.5" fill="none" stroke-linejoin="round"/><circle cx="32.0" cy="99.5" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="150.7" cy="84.3" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="269.3" cy="58.0" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><circle cx="388.0" cy="40.5" r="5" fill="#58b8ff" stroke="#0a0b10" stroke-width="2"/><text x="32.0" y="87.5" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">13.01</text><text x="32.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX9D</text><text x="150.7" y="72.3" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">14.80</text><text x="150.7" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX</text><text x="269.3" y="46.0" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">17.91</text><text x="269.3" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX3M</text><text x="388.0" y="28.5" text-anchor="middle" fill="#f3f5fa" font-size="11" font-weight="600">19.97</text><text x="388.0" y="150" text-anchor="middle" fill="#8892a8" font-size="10" letter-spacing="1">VIX6M</text></svg>
+    <div class="vlabel">
+      <span>Slope (3M−spot): <b>+3.11</b></span>
+      <span>State: <b>contango (normal)</b></span>
+    </div>
+  </div>
+  <div class="vix-panel">
+    <h3 style="margin-top:0;">Cross-Asset Vol Close</h3>
+    <table style="margin: 0; border: none; background: transparent;">
+      <tr><td class="lbl">VIX (30d SPX)</td><td class="num">14.80</td><td class="num neg">-0.47%</td></tr>
+      <tr><td class="lbl">VIX9D (9d SPX)</td><td class="num">13.01</td><td class="num neg">-0.99%</td></tr>
+      <tr><td class="lbl">VXN (NDX IV)</td><td class="num">20.11</td><td class="num neg">-1.37%</td></tr>
+      <tr><td class="lbl">OVX (Oil IV)</td><td class="num">53.23</td><td class="num pos">+5.80%</td></tr>
+      <tr><td class="lbl">MOVE (Bond vol)</td><td class="num">81.20</td><td class="num pos">+0.69%</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2 id="commodities" class="sec-orange"><span class="marker"></span>Commodity Complex — Closing Read</h2>
+<div class="commodities"><div class="commodity-group"><div class="grp-title energy">ENERGY</div><div class="commodity-row"><span class="nm">Crude Oil (WTI)</span><span class="px">$92.47</span><span class="ch neg">-2.24%</span></div>
+<div class="commodity-row"><span class="nm">Brent Crude</span><span class="px">$98.07</span><span class="ch neg">-1.19%</span></div>
+<div class="commodity-row"><span class="nm">Natural Gas</span><span class="px">$3.137</span><span class="ch pos">+5.80%</span></div></div> <div class="commodity-group"><div class="grp-title precious">PRECIOUS METALS</div><div class="commodity-row"><span class="nm">Gold</span><span class="px">$4,319.60</span><span class="ch neg">-1.30%</span></div>
+<div class="commodity-row"><span class="nm">Silver</span><span class="px">$65.06</span><span class="ch neg">-1.32%</span></div>
+<div class="commodity-row"><span class="nm">Platinum</span><span class="px">$1,748.70</span><span class="ch neg">-4.05%</span></div></div> <div class="commodity-group"><div class="grp-title industrial">INDUSTRIAL</div><div class="commodity-row"><span class="nm">Copper</span><span class="px">$6.769</span><span class="ch pos">+0.15%</span></div></div></div><div class="commodity-narrative"><p><b>Crude</b> is falling (WTI -2.24%, Brent -1.19%) — under pressure on demand concerns; weighs on <b>XLE</b>. WTI/Brent spread widened — regional supply dislocation, watch refiner margins. <b>OVX</b> +5.8% — oil vol expanding, expect sharper XLE moves. <b>Natural gas</b> spiking (+5.80%) — watch utilities (<b>XLU</b>) and LNG names. <b>Gold</b> under pressure (-1.30%) on dollar strength — unwind of safe-haven bid. <b>Platinum</b> -4.05% — auto-catalyst and PGM demand proxy, secondary signal. <b>DXY</b> strengthening (+0.62%) — mechanical tailwind/headwind for the entire commodity complex.</p></div>
+
+<h2 id="rsi" class="sec-purple"><span class="marker"></span>TradingView Ratings — Close</h2>
+<h3>Index ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">SPY</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:54%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 53.8</span></div></div>
+<div class="rsi-cell"><div class="tk">QQQ</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:63%; background:#ffb347;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 62.8</span></div></div>
+<div class="rsi-cell"><div class="tk">IWM</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:36%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 35.7</span></div></div>
+<div class="rsi-cell"><div class="tk">DIA</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:38%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 38.2</span></div></div></div>
+<h3>Sector ratings</h3>
+<div class="rsi-grid"><div class="rsi-cell"><div class="tk">Financials</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:30%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 29.7</span></div></div>
+<div class="rsi-cell"><div class="tk">Energy</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:48%; background:#8892a8;"></div></div><div class="sub"><span>MA NEUTRAL</span><span>RSI 48.1</span></div></div>
+<div class="rsi-cell"><div class="tk">Technology</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:64%; background:#ffb347;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 63.7</span></div></div>
+<div class="rsi-cell"><div class="tk">Health Care</div><div class="sig sig-NEUTRAL">NEUTRAL</div><div class="bar"><div style="width:51%; background:#9dd98a;"></div></div><div class="sub"><span>MA BUY</span><span>RSI 50.5</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Disc.</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:39%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 38.9</span></div></div>
+<div class="rsi-cell"><div class="tk">Consumer Staples</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:39%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 39.2</span></div></div>
+<div class="rsi-cell"><div class="tk">Materials</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:41%; background:#8892a8;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 41.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Industrials</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:37%; background:#ff9f8a;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 37.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Real Estate</div><div class="sig sig-SELL">SELL</div><div class="bar"><div style="width:28%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 28.4</span></div></div>
+<div class="rsi-cell"><div class="tk">Communications</div><div class="sig sig-BUY">BUY</div><div class="bar"><div style="width:53%; background:#9dd98a;"></div></div><div class="sub"><span>MA STRONG BUY</span><span>RSI 52.8</span></div></div>
+<div class="rsi-cell"><div class="tk">Utilities</div><div class="sig sig-STRONG-SELL">STRONG SELL</div><div class="bar"><div style="width:24%; background:#ff5574;"></div></div><div class="sub"><span>MA STRONG SELL</span><span>RSI 24.0</span></div></div></div>
+<p>Ratings are an MA-weighted aggregate. The most actionable shift is when a sector flips between BUY and SELL bands at the close — that often telegraphs the next session's leadership rotation before price confirms it.</p>
+
+<h2 id="tomorrow" class="sec-blue"><span class="marker"></span>Tomorrow's Setup — Three Paths Into the Open</h2>
+
+<p><b>Levels that matter:</b> today's close at <b>$768.38</b> is the pivot. Above <b>$773</b> = continuation regime; below <b>$763</b> = reversal regime; chop in between = pin mode.</p>
+
+<div class="scenarios">  <div class="scn bull"><span class="tag">Bull path</span>    <div class="t">The PMI is treated as a survey, the 10-year retreats under 5%, and SPY reclaims 773</div>    <p>The constructive path requires the bond market to second-guess itself. <b>The flash composite is a diffusion survey, not a hard datum, and it sits awkwardly against a Richmond Fed manufacturing print of -2 against +5 expected yesterday and a payroll processor guiding flat with rising expenses today; jobless claims at 207K expected against 196K prior is the first scheduled crosscheck tomorrow morning.</b> <b>Credit is already declining to confirm — HYG down just 0.58% on a 19-year-high yield print — and VIX at 14.81 with VIX9D at 13.03 says the options market treats this as a repricing rather than a rupture.</b> <b>Add a Trump-Xi state visit with a Rose Garden review and state dinner attached, and a crude move that is at least partly Libya-specific and therefore reversible on one pipeline headline.</b> <b>Confirmation: the 10-year back under 5.00%, IWM outperforming QQQ on the same session, and SPY closing above 773 with XLU and XLRE participating.</b> The qualifier: <b>nothing on tomorrow's calendar is designed to produce a dovish surprise, and Costco plus PCE sit on the other side of it.</b></p></div>  <div class="scn base"><span class="tag">Base case</span>    <div class="t">Chop between 766 and 773 while the tape waits out the summit and PCE</div>    <p>Base case, and what a single-catalyst 0.6% down day into a dense 48 hours usually resolves into. <b>Tomorrow's scheduled US data is second-tier — jobless claims at 8:30 AM and August new home sales at 10:00 AM — with the real events being the state summit during the day and Costco after the close.</b> Working parameters: <b>SPY 766-773 off the 768.63 anchor, 10Y 5.03-5.12%, 5Y 4.92-5.00%, WTI $90-95, Brent $96-101, gold $4,290-4,350, VIX 14.0-16.5.</b> <b>Expect energy to keep the only clean bid, rate-sensitives to stay heavy, and megacap dispersion to keep widening — an index that drifts while its composition churns underneath.</b> Posture: <b>the index print will keep understating what is happening in the components. Hold cheap near-dated gamma across the summit and PCE rather than taking a directional view into a two-event window.</b></p></div>  <div class="scn bear"><span class="tag">Bear path</span>    <div class="t">The 10-year goes through 5.10%, credit finally confirms, and 762 opens</div>    <p>The bear path needs only continuation. <b>The 10-year at 5.083% is already the highest since July 2007 and roughly 70% odds of an October hike are now priced, with Barr on record that more is likely necessary. A second hot datum — or a firm core PCE Friday — puts 5.15% in play, and there is no comfortable equity multiple there.</b> <b>Crude is now working against the market rather than for it: Libya's El Sharara is offline, Iran has publicly restated its preconditions, and a failed second round of talks returns the full Hormuz premium in one print.</b> <b>The specific thing to watch is credit. HYG fell only 0.58% today; if spreads start confirming the rate move, the current framing of a rate problem rather than a growth problem collapses and the 1.45% IWM decline stops being a rotation story.</b> <b>A second route is the summit itself: Beijing has already refused to help reopen Hormuz and vetoed the UNSC resolution on strait safety, so an energy-security confrontation on Thursday is a repricing nobody is hedged for.</b> <b>Through 766 the tape sees 762, then 760 and 755.</b></p></div></div>
+
+<h2 id="cat" class="sec-blue"><span class="marker"></span>Catalyst Watch — Next 36 Hours</h2>
+<table>
+<thead><tr><th>When (ET)</th><th>Event</th><th>Read &amp; Implication</th></tr></thead>
+<tbody>
+<tr><td class="flag-red">Thu 9/24 — White House, all day</td><td class="flag-red">Trump-Xi summit: trade, tariffs, AI, rare earths, Taiwan and the Iran war; Rose Garden review and state dinner with Huang, Altman and Pichai</td><td class="flag-red"><b>Xi's first Washington visit in eleven years, with a formal state welcome. Consensus is incremental progress on trade and AI export policy rather than a breakthrough. Unpriced: Beijing refused Washington's request to help reopen Hormuz and vetoed the UNSC resolution on strait safety, which puts energy security on the same table.</b> <span class="flag-red">Two-sided event with one-sided positioning, and the headline flow is unscheduled all day. Carry no short index vol through it.</span></td></tr>
+<tr><td class="flag-yel">Thu 9/24 — 8:30 AM ET</td><td class="flag-yel">Initial jobless claims, week ended Sept. 19 (207K expected vs 196K prior)</td><td class="flag-yel"><b>The first labor crosscheck against a services PMI that printed 58.7 and a payroll processor that just guided flat with rising expenses.</b> <span class="flag-yel">A soft claims print is the only scheduled item tomorrow capable of pulling the 10-year back under 5%. A firm one confirms today's repricing and puts 5.10% in play before the summit even starts.</span></td></tr>
+<tr><td class="flag-yel">Thu 9/24 — 10:00 AM ET</td><td class="flag-yel">August new home sales (615K SAAR expected vs 607K prior)</td><td class="flag-yel"><b>Housing data into a 10-year at 5.083% and a mortgage complex that has received no relief from the front end at all. HD -1.83% and LOW -1.67% today are the equity market's advance read.</b> <span class="flag-yel">A beat here would be genuinely surprising and would argue the rate level is not yet binding on the real economy. A miss confirms that the discretionary and small-cap damage is fundamental rather than positional.</span></td></tr>
+<tr><td class="flag-red">Thu 9/24 — after the close</td><td class="flag-red">Costco fiscal Q4 earnings (consensus ~$94.85B revenue, +10% y/y; adjusted EPS ~$6.55, +12% y/y); Darden reports in the morning</td><td class="flag-red"><b>The week's largest consumer datapoint, landing the same evening as the summit, with a recurring market question on a special dividend. COST closed -0.42% at $895.59.</b> <span class="flag-red">Today's earnings tape punished in-line results twice. Costco carries the same risk at a far larger index weight, and it prints into a session already carrying all-day summit headline risk.</span></td></tr>
+<tr><td class="flag-red">Fri 9/25 — 8:30 AM ET</td><td class="flag-red">PCE price index, durable goods orders (-0.3% expected) and final University of Michigan sentiment</td><td class="flag-red"><b>The first inflation print since the September 16 hike, arriving the morning after the summit and two days after a services PMI at 58.7.</b> <span class="flag-red">It is too early to carry any of this month's crude decline, and today's data argue the risk is to the upside. A firm core reading one day after a summit repricing is the week's worst-case sequencing — and it is now the base case for the calendar, not the tail.</span></td></tr>
+<tr><td class="flag-yel">Wed 9/30 — after the close</td><td class="flag-yel">Micron fiscal Q4 results</td><td class="flag-yel"><b>The event that adjudicates Tuesday's memory surge. MU rallied ~5% and SNDK ~7% on Tuesday and gave back 1.85% and 3.02% today with SMH -1.52%.</b> <span class="flag-yel">The AI-capex thesis has no Mag-7 print to defend it for weeks, which makes Micron the near-term arbiter of whether the semi bid is fundamental or flow.</span></td></tr>
+<tr><td>Tonight 7-11 PM</td><td>Earnings post-print drift settles</td><td>Initial after-hours reactions usually overshoot in first 30 minutes — by 9 PM, the read has matured. If a mega-cap reaction reverses by 9 PM, the original move is not sticking.</td></tr>
+<tr><td>Overnight</td><td>Asia + commodities session</td><td>WTI, Brent, Gold, Copper drift telegraphs US futures. Gold +1% overnight = DXY softening = US tape opens risk-on. Crude spike + gold bid = geopolitical pair, equity futures take it hard.</td></tr>
+<tr><td>06:00 AM-08:30 AM</td><td>US pre-market + macro data</td><td>Jobless claims, PMIs, Fed speak — the window where levels reprice. Data inside today's range usually gets absorbed; data outside the range produces the biggest gap moves.</td></tr>
+<tr><td>09:30 AM</td><td>Cash open</td><td>Opening drive (first 30 min) establishes day-type. Above today's high w/ volume = trend continuation. Below today's low w/ volume = reversal in effect. Inside = default pin.</td></tr>
+<tr><td>03:50 PM tomorrow</td><td>MOC imbalance print</td><td>The single cleanest tell for next-session opening flow. &gt;$1B net imbalance same-side as session = real positioning into close.</td></tr>
+</tbody>
+</table>
+
+<h3>Earnings next 36 hours (cap &gt; $5B)</h3>
+<table>
+<thead><tr><th>Ticker</th><th>Company</th><th>Date</th><th>Session</th><th>EPS est</th><th>Mkt cap</th></tr></thead>
+<tbody><tr><td class="tk">DRI</td><td>Darden Restaurants, Inc.</td><td>Thu Sep 24</td><td>Before open</td><td class="num">2.05</td><td class="num">$24B</td></tr>
+<tr><td class="tk">SNX</td><td>TD SYNNEX Corporation</td><td>Thu Sep 24</td><td>Before open</td><td class="num">4.70</td><td class="num">$23B</td></tr>
+<tr><td class="tk">COST</td><td>Costco Wholesale Corporation</td><td>Thu Sep 24</td><td>After close</td><td class="num">6.54</td><td class="num">$397B</td></tr></tbody>
+</table>
+
+<h2 id="bl" class="sec-red"><span class="marker"></span>Bottom Line</h2>
+
+<p><b>The session story:</b> <b>Wednesday was a single-input session and the input was data, exactly where this morning's brief said the only scheduled repricing event sat.</b> <b>S&amp;P Global's September flash composite came in far above consensus at 9:45 AM — services 58.7 against 56.0 expected and its best in nearly five years, manufacturing 56.7 against 53.6 expected and a four-year high — and the bond market repriced the policy path in one move: 10Y 5.083%, up roughly 12bp and the highest since July 2007; 5Y 4.96%; TLT -1.47%; October hike odds from 57.6% this morning to roughly 70%, on top of the unanimous September 16 hike to 3.75-4.00%, with Governor Barr saying further increases are likely necessary.</b> <b>Close: S&amp;P 500 7,716.25 (-0.62%), Nasdaq Composite 26,970.03 (-1.00%) off Tuesday's record 27,244.28, Dow 51,561.51 (-0.58%). SPY 768.63 against a 773.74 anchor, QQQ 740.49, IWM 283.05 (-1.45%), DIA 514.57.</b> <b>Crude refused to supply the offset: WTI settled $92.57 (+2.26%) and Brent eased to roughly $98.11 after trading above $101 overnight, with an armed group cutting Libya's El Sharara field from ~340K to ~127K bpd and Iran's foreign ministry denying it had dropped its Hormuz preconditions one day after Trump called the Qatari-mediated talks &ldquo;very productive.&rdquo;</b> <b>The cross-section is the whole story: XLE +1.62% was the only meaningful winner while utilities -1.65%, discretionary -1.36%, real estate -0.95% and airlines (UAL -2.40%, LUV -2.12%, DAL -1.82%) absorbed both a higher discount rate and a higher fuel bill. The small-cap rotation this report put on probation two sessions ago failed by finishing last among four indices.</b> <b>Megacaps split again — GOOGL -3.08%, AMZN -1.94%, NVDA -1.78% against META +2.26% — and semis gave back Tuesday's memory surge with SMH -1.52%, SNDK -3.02%, MU -1.85%.</b> <b>Earnings punished in-line: PAYX -6.73% on a beat with an unchanged guide, CTAS -0.84% and GIS -0.54% on reaffirmed outlooks, while CBRL +5.61% cleared a washed-out bar. No S&amp;P 100 name reported after the bell.</b> <b>Cross-asset agreed on the rate read and not on a risk read: gold -1.33%, silver -2.24%, DXY 101.07 (+0.47%), USDJPY 158.30, bitcoin -2.41% — but HYG fell only 0.58%, and credit's refusal to confirm is the strongest remaining argument that this is a discount-rate event rather than a growth event.</b> <b>Vol firmed without breaking: VIX 14.81 (+4.22%), VIX9D 13.03 (+7.43%), VIX3M 17.92, contango intact.</b></p>
+
+<p class="flag-red"><b><span class="flag-red">Into tomorrow's open: the 10-year at 5.083% is the highest since July 2007, October hike odds are ~70%, crude has flipped from support to threat, and the down-cap rotation is dead — into a Trump-Xi state visit that runs all day, Costco after the close and PCE Friday morning. Work SPY 773 / 766 / 762 closing-basis off the 768.63 anchor, but put the hard stop on the 10-year at 5.10% and the confirmation on credit spreads, and own VIX9D at 13.03 across the 48-hour window rather than taking a direction.</span></b></p>
+
+<footer>
+  <p style="font-size:11px; color:#6b7280; margin-bottom:8px;"><em>Disclaimer:</em> This report is for informational and educational purposes only and is not investment advice. Data sourced from public feeds (yfinance, TradingView). Greek and GEX values are qualitative approximations; paid institutional positioning data is not available in this pipeline. Trading and options carry substantial risk. Past patterns do not predict future outcomes.</p>
+  Sources · <a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-23-2026">TheStreet — Stock Market Today, September 23, 2026</a> · <a href="https://www.cnbc.com/2026/09/23/treasury-yields-oil-inflation-fed.html">CNBC — 10-year Treasury yield leaps to fresh 19-year high after hot economic readings</a> · <a href="https://finance.yahoo.com/markets/live/stock-market-today-wednesday-september-23-dow-sp-500-nasdaq-080556640.html">Yahoo Finance — Stock market today: Dow, S&amp;P 500, Nasdaq fall as 10-year yield surges</a> · <a href="https://www.theguardian.com/world/2026/sep/23/iran-denies-dropping-preconditions-very-productive-three-hour-un-talks-new-york">The Guardian — Iran denies dropping preconditions after &ldquo;very productive&rdquo; three-hour UN talks</a> · <a href="https://oilprice.com/Latest-Energy-News/World-News/Libyas-Largest-Oilfield-Hit-by-New-Armed-Group-Blockade.html">OilPrice — Libya's largest oilfield hit by new armed group blockade</a> · <a href="https://www.vantagemarkets.com/market-news/nasdaq-record-close-sp500-flat-dow-lower-september-23-2026/">Vantage — Nasdaq closes at a record as the S&amp;P 500 ends flat and the Dow slips (Sept 22 close)</a> · <a href="https://qz.com/cracker-barrel-earnings-fiscal-fourth-quarter-2026-092326">Quartz — Cracker Barrel fiscal Q4 2026 earnings beat Wall Street estimates</a> · <a href="https://www.streetinsider.com/Earnings/Cintas+Corp.+(CTAS)+Tops+Q1+EPS+by+1c,+Offers+Guidance/27093804.html">StreetInsider — Cintas Corp. tops Q1 EPS by 1c, offers guidance</a> · <a href="https://www.sec.gov/Archives/edgar/data/0000040704/000162828026063141/a20260923ex99.htm">SEC EDGAR — General Mills Form 8-K, fiscal Q1 2027 results</a> · <a href="https://www.investing.com/news/stock-market-news/why-is-paychex-stock-dropping-today-93CH-4913043">Investing.com — Why is Paychex stock dropping today?</a> · <a href="https://www.tipranks.com/news/costco-cost-reports-q4-earnings-on-sept-24-heres-what-analysts-expect">TipRanks — Costco reports Q4 earnings on Sept. 24: what analysts expect</a> · <a href="https://www.cfr.org/articles/when-xi-comes-to-washington">CFR — Ten issues to watch at the Trump-Xi summit in Washington</a> · <a href="https://www.cnn.com/markets/fear-and-greed">CNN — Fear &amp; Greed Index</a> · <a href="https://www.cboe.com/tradable-products/vix/term-structure/">Cboe — VIX term structure</a> · <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html">CME — FedWatch Tool</a> · <a href="https://finance.yahoo.com">yfinance</a>
+</footer>
+
+</div></body></html>
